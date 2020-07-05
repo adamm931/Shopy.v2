@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Shopy.Application.Validation;
 
-namespace Shopy.Application.Identity.Login
+namespace Shopy.Application.Auth.Login
 {
     public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {

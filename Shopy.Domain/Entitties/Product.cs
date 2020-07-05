@@ -6,27 +6,19 @@ using System.Linq;
 
 namespace Shopy.Domain.Entitties
 {
-    public class Product : Entity
+    public class Product : AuditEntity
     {
-        private IEnumerable<Product> _relatedProducts;
-
-        private const int RelatedProductsLimit = 4;
-
         public string Name { get; private set; }
 
         public string Description { get; private set; }
 
         public decimal Price { get; private set; }
 
-        public int BrandId { get; private set; }
-
         public Brand Brand { get; private set; }
 
         public ICollection<ProductSize> ProductSizes { get; private set; }
 
         public ICollection<ProductCategory> ProductCategories { get; private set; }
-
-        public IEnumerable<Product> RelatedProducts => _relatedProducts ??= GetRelatedProducts();
 
         public Product(string name, string description, decimal price)
         {
@@ -85,7 +77,7 @@ namespace Shopy.Domain.Entitties
 
         public void AddSize(Size size)
         {
-            if (ProductSizes.Any(productSize => productSize.ExternalId == size.ExternalId))
+            if (ProductSizes.Any(productSize => productSize.Size.ExternalId == size.ExternalId))
             {
                 return;
             }
@@ -93,8 +85,10 @@ namespace Shopy.Domain.Entitties
             ProductSizes.Add(new ProductSize(this, size));
         }
 
-        private IEnumerable<Product> GetRelatedProducts()
+        public IEnumerable<Product> GetRelatedProducts()
         {
+            const int RelatedProductsLimit = 4;
+
             return ProductCategories
                 .SelectMany(productCategory => productCategory.Category.ProductCategories)
                 .Select(category => category.Product)

@@ -8,13 +8,17 @@ namespace Shopy.Infrastructure.Persistance.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductSize> builder)
         {
+            builder.AddPrimaryKey();
+
             builder
                 .HasOne(model => model.Product)
-                .WithMany(model => model.ProductSizes);
+                .WithMany(model => model.ProductSizes)
+                .HasForeignKey("ProductId");
 
             builder
                 .HasOne(model => model.Size)
-                .WithMany(model => model.ProductSizes);
+                .WithMany(model => model.ProductSizes)
+                .HasForeignKey("SizeId");
         }
     }
 }

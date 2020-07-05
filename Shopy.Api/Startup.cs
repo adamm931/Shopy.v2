@@ -5,9 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Shopy.Api.Authentication;
 using Shopy.Api.Middleware;
-using Shopy.Api.Services;
 using Shopy.Application;
 using Shopy.Application.Interfaces;
 using Shopy.Infrastructure;
@@ -25,16 +23,11 @@ namespace Shopy.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddJwtAuthentication(Configuration);
-
             services.AddControllers();
-
-            services.AddTransient<IProductImageUploader, ProductImageUploader>();
-            services.AddTransient<ITokenProvider, TokenProvider>();
 
             services.AddInfrastructure(Configuration);
             services.AddApplication();
-            services.AddValidatorsFromAssembly(typeof(IProductImageUploader).Assembly);
+            services.AddValidatorsFromAssembly(typeof(IImageUploader).Assembly);
 
             services.AddLogging(builder => builder.AddFile("/Logs/Shopy-{Date}.txt"));
         }

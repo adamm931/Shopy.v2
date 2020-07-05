@@ -4,7 +4,7 @@ using Shopy.Application.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shopy.Application.Identity.Login
+namespace Shopy.Application.Auth.Login
 {
     public class LoginCommandHandler : ShopyRequestHandler<LoginCommand, LoginResponse>
     {

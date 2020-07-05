@@ -2,18 +2,22 @@
 using Microsoft.Extensions.Options;
 using Shopy.Application.Interfaces;
 using Shopy.Domain.Entitties;
-using Shopy.Infrastructure.Persistance.Options;
+using Shopy.Infrastructure.Persistance.EntityAudit;
 using System.Threading.Tasks;
 
 namespace Shopy.Infrastructure.Persistance
 {
     public class ShopyContext : DbContext, IShopyContext
     {
-        private readonly IOptions<ShopyDatabaseOptions> options;
+        private readonly IOptions<ShopyDatabaseOptions> _options;
+        private readonly IEfCoreEntityAudit _entityAudit;
 
-        public ShopyContext(IOptions<ShopyDatabaseOptions> options)
+        public ShopyContext(
+            IOptions<ShopyDatabaseOptions> options,
+            IEfCoreEntityAudit entityAudit)
         {
-            this.options = options;
+            _options = options;
+            _entityAudit = entityAudit;
         }
 
         public DbSet<Product> Products { get; set; }
@@ -26,7 +30,7 @@ namespace Shopy.Infrastructure.Persistance
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(options.Value.ConnectionString);
+            optionsBuilder.UseSqlServer(_options.Value.ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,6 +42,8 @@ namespace Shopy.Infrastructure.Persistance
 
         public async Task Save()
         {
+            _entityAudit.Audit(ChangeTracker);
+
             await SaveChangesAsync();
         }
 

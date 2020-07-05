@@ -1,6 +1,8 @@
-﻿namespace Shopy.Domain.Entitties.Base
+﻿using System;
+
+namespace Shopy.Domain.Entitties.Base
 {
-    public abstract class Entity : Entity<int>
+    public abstract class Entity : Entity<Guid>
     {
     }
 }

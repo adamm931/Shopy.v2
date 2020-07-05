@@ -45,20 +45,18 @@ namespace Shopy.Application.Products.List
             }
 
             //size
-            if (!string.IsNullOrWhiteSpace(query.Sizes))
+            if (query.Sizes != null && query.Sizes.Any())
             {
-                var codes = query.Sizes.Split(',');
-                var sizes = await Context.Sizes.ByCodesAsync(codes);
+                var sizes = await Context.Sizes.ByCodesAsync(query.Sizes);
 
                 products = products
                     .Where(p => sizes.Any(fs => p.ProductSizes.Any(ps => ps.Size.Code == fs.Code)));
             }
 
             //brand
-            if (!string.IsNullOrWhiteSpace(query.Brands))
+            if (query.Brands != null && query.Brands.Any())
             {
-                var codes = query.Sizes.Split(',');
-                var brands = await Context.Brands.ByCodesAsync(codes);
+                var brands = await Context.Brands.ByCodesAsync(query.Brands);
 
                 products = products
                     .Where(p => brands.Any(b => p.Brand.Code == b.Code));
@@ -71,7 +69,7 @@ namespace Shopy.Application.Products.List
                     .Where(p => p.ProductCategories.Any(c => c.Category.ExternalId == query.CategoryExternalId));
             }
 
-            var totalCount = 1;
+            var totalCount = await products.CountAsync();
             var pageIndex = 0;
             var pageSize = totalCount;
 

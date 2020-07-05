@@ -7,9 +7,9 @@ namespace Shopy.Application.Products.UploadImage
 {
     public class UploadProductImageCommandHandler : IRequestHandler<UploadProductImageCommand>
     {
-        private readonly IProductImageUploader _uploader;
+        private readonly IImageUploader _uploader;
 
-        public UploadProductImageCommandHandler(IProductImageUploader uploader)
+        public UploadProductImageCommandHandler(IImageUploader uploader)
         {
             _uploader = uploader;
         }

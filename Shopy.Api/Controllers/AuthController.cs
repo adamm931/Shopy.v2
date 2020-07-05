@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shopy.Application.Identity.Login;
-using Shopy.Application.Identity.Token;
+using Shopy.Application.Auth.Login;
+using Shopy.Application.Auth.Token;
 using System.Threading.Tasks;
 
 namespace Shopy.Api.Controllers
 {
     [AllowAnonymous]
-    public class IdentityController : BaseApiController
+    public class AuthController : BaseApiController
     {
         [HttpPost]
         [Route("login")]

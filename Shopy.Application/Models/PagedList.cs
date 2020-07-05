@@ -1,16 +1,15 @@
 ﻿using Shopy.Application.Mappings;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Shopy.Application.Models
 {
-    public class PagedList<T> : IEnumerable<T>
+    public class PagedList<T>
     {
-        internal IEnumerable<T> Items { get; set; }
+        public IEnumerable<T> Items { get; set; }
 
-        public int PageNumber { get; set; }
+        public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
 
@@ -18,42 +17,30 @@ namespace Shopy.Application.Models
 
         public long TotalCount { get; set; }
 
-        public bool HasNextPage => PageNumber < PageCount;
+        public bool HasNextPage => (PageIndex + 1) < PageCount;
 
-        public PagedList(IQueryable<T> items, int pageNumber, int pageSize, long totalCount)
+        public PagedList(IQueryable<T> items, int pageIndex, int pageSize, long totalCount)
         {
-            // TODO: validate params
-
-            PageNumber = pageNumber;
+            PageIndex = pageIndex;
             PageSize = pageSize;
             PageCount = totalCount == 0 ? 0 : (int)Math.Ceiling(totalCount / (double)pageSize);
 
             TotalCount = totalCount;
 
             Items = items
-                .Skip(pageNumber * pageSize)
-                .Take((pageNumber + 1) * pageSize);
+                .Skip(pageIndex * pageSize)
+                .Take((pageIndex + 1) * pageSize);
         }
 
         internal PagedList()
         {
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
-
         public PagedList<TDst> ToPageList<TDst>()
         {
             return new PagedList<TDst>
             {
-                PageNumber = PageNumber,
+                PageIndex = PageIndex,
                 PageCount = PageCount,
                 PageSize = PageSize,
                 TotalCount = TotalCount,

@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Shopy.Application.Models;
 
-namespace Shopy.Application.Identity.Token
+namespace Shopy.Application.Auth.Login
 {
-    public class TokenCommand : IRequest<TokenResponse>
+    public class LoginCommand : IRequest<LoginResponse>
     {
         public string Username { get; set; }
 

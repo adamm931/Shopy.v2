@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Shopy.Application.Pipelines;
 using Shopy.Application.Products.Add;
+using Shopy.Common;
 
 namespace Shopy.Application
 {
@@ -16,7 +17,7 @@ namespace Shopy.Application
             services.AddMediatR(typeof(AddProductCommand).Assembly);
             services.AddAutoMapper(typeof(AddProductCommand).Assembly);
 
-            ServiceLocator.SetServices(services);
+            ServiceLocator.SetProvider(services.BuildServiceProvider);
         }
     }
 }

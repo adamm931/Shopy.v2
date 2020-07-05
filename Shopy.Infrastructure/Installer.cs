@@ -1,8 +1,18 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Shopy.Application.Interfaces;
+using Shopy.Common;
+using Shopy.Common.Interfaces;
+using Shopy.Infrastructure.Auth;
+using Shopy.Infrastructure.Common;
+using Shopy.Infrastructure.Images;
 using Shopy.Infrastructure.Persistance;
-using Shopy.Infrastructure.Persistance.Options;
+using Shopy.Infrastructure.Persistance.EntityAudit;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace Shopy.Infrastructure
 {
@@ -10,9 +20,36 @@ namespace Shopy.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<ShopyDatabaseOptions>(configuration.GetSection(ShopyDatabaseOptions.Name));
+            services.AddOptions<ShopyDatabaseOptions>(configuration);
+            services.AddOptions<JwtOptions>(configuration);
+
             services.AddTransient<IShopySeeder, ShopySeeder>();
             services.AddTransient<IShopyContext, ShopyContext>();
+            services.AddTransient<IAuthProvider, JwtTokenAuthProvider>();
+            services.AddTransient<IImageUploader, ImageUploader>();
+            services.AddTransient<IDateTime, MachineDateTime>();
+            services.AddHttpContextAccessor();
+            services.AddTransient<IEfCoreEntityAudit, EfCoreEntityAudit>();
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    var jwtOptions = ServiceLocator.Provider.GetService<IOptions<JwtOptions>>().Value;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtOptions.Issuer,
+                        ValidAudience = jwtOptions.Issuer,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key)),
+                    };
+                });
         }
     }
 }

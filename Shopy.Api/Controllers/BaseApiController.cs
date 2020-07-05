@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Shopy.Application;
+using Shopy.Common;
 
 namespace Shopy.Api.Controllers
 {

@@ -15,7 +15,6 @@ namespace Shopy.Api.Controllers
     public class ProductsController : BaseApiController
     {
         [HttpGet]
-
         public async Task<IActionResult> List([FromQuery]ListProductsQuery query)
             => Ok(await Mediator.Send(query));
 

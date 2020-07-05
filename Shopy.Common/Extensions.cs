@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
@@ -14,6 +16,14 @@ namespace Shopy.Common
             foreach (var item in listItems.Where(filter))
             {
                 items.Remove(item);
+            }
+        }
+
+        public static void ForEach<TItem>(this IEnumerable<TItem> items, Action<TItem> action)
+        {
+            foreach (var item in items)
+            {
+                action(item);
             }
         }
 
@@ -35,6 +45,14 @@ namespace Shopy.Common
         public static string FormatLocalizedValue<TEnum>(this TEnum value, params object[] @params) where TEnum : Enum
         {
             return string.Format(value.GetLocalizedValue(), @params);
+        }
+
+        public static void AddOptions<TOptions>(this IServiceCollection services, IConfiguration configuration)
+            where TOptions : class
+        {
+            var optionsName = typeof(TOptions).Name;
+
+            services.Configure<TOptions>(configuration.GetSection(optionsName));
         }
     }
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Shopy.Domain.Entitties
 {
-    public class Category : Entity
+    public class Category : AuditEntity
     {
         public string Name { get; private set; }
 
