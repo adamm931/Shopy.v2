@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Shopy.Application.Models
+﻿namespace Shopy.Application.Models
 {
     public class SizeResponse
     {
-        public Guid ExternalId { get; set; }
+        public string DisplayName { get; set; }
 
         public string Code { get; set; }
     }

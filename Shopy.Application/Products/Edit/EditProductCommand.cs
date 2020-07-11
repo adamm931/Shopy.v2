@@ -8,14 +8,14 @@ namespace Shopy.Application.Products.Edit
     {
         public Guid ExternalId { get; set; }
 
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public string Brand { get; set; }
+        public string BrandCode { get; set; }
 
-        public IEnumerable<string> Sizes { get; set; }
+        public IEnumerable<string> SizeCodes { get; set; }
     }
 }

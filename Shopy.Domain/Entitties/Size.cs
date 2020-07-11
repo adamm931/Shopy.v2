@@ -1,10 +1,8 @@
 ﻿using Shopy.Domain.Entitties.Base;
-using System;
-using System.Collections.Generic;
 
 namespace Shopy.Domain.Entitties
 {
-    public class Size : EnumEntity<Size>
+    public class Size : BaseEnum<Size>
     {
         public static Size XS = new Size(nameof(XS));
 
@@ -16,13 +14,8 @@ namespace Shopy.Domain.Entitties
 
         public static Size XL = new Size(nameof(XL));
 
-        public ICollection<ProductSize> ProductSizes { get; private set; }
-
-        private Size(string name) : base(name)
+        private Size(string code) : base(code)
         {
-            ExternalId = Guid.NewGuid();
-
-            ProductSizes = new List<ProductSize>();
         }
 
         private Size()

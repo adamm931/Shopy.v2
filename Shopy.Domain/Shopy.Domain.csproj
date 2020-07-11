@@ -8,4 +8,19 @@
     <ProjectReference Include="..\Shopy.Common\Shopy.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Entitties\Size.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Size.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Entitties\Size.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Size.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

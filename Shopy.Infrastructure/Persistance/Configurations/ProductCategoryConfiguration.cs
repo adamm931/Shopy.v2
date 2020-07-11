@@ -12,7 +12,7 @@ namespace Shopy.Infrastructure.Persistance.Configurations
 
             builder
                 .HasOne(model => model.Product)
-                .WithMany(model => model.ProductCategories)
+                .WithMany(model => model.Categories)
                 .HasForeignKey("ProductId");
 
             builder

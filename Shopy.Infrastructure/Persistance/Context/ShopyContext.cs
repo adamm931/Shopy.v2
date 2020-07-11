@@ -5,9 +5,9 @@ using Shopy.Domain.Entitties;
 using Shopy.Infrastructure.Persistance.EntityAudit;
 using System.Threading.Tasks;
 
-namespace Shopy.Infrastructure.Persistance
+namespace Shopy.Infrastructure.Persistance.Context
 {
-    public class ShopyContext : DbContext, IShopyContext
+    partial class ShopyContext : DbContext, IShopyContext
     {
         private readonly IOptions<ShopyDatabaseOptions> _options;
         private readonly IEfCoreEntityAudit _entityAudit;

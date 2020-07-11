@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Shopy.Application.Base;
 using Shopy.Application.Interfaces;
+using Shopy.Domain.Entitties;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,15 +17,16 @@ namespace Shopy.Application.Products.Edit
         public override async Task<Unit> Handle(EditProductCommand request, CancellationToken cancellationToken)
         {
             var product = await Context.Products
-                       .Include(p => p.ProductSizes)
+                       .Include(p => p.Sizes)
                            .ThenInclude(s => s.Size)
                        .Include(p => p.Brand)
                        .ByExternalIdAsync(request.ExternalId);
 
-            var brand = await Context.Brands.ByCodeAsync(request.Brand);
-            var sizes = await Context.Sizes.ByCodesAsync(request.Sizes);
-
-            product.Update(request.Name, request.Description, request.Price.Value, brand, sizes);
+            product.UpdateName(request.Name);
+            product.UpdateDescription(request.Description);
+            product.UpdatePrice(request.Price);
+            product.UpdateBrand(Brand.Parse(request.BrandCode));
+            product.AddSizes(Size.Parse(request.SizeCodes));
 
             await Context.Save();
 

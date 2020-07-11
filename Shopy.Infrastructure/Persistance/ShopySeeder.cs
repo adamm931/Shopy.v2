@@ -31,20 +31,6 @@ namespace Shopy.Infrastructure.Persistance
             var shoes = new Category("Shoes", "Shoes");
             var clothes = new Category("Clothes", "Clothes");
 
-            //define brands
-            var active = Brand.Active;
-            var addidas = Brand.Addidas;
-            var rebook = Brand.Rebook;
-            var nike = Brand.Nike;
-            var puma = Brand.Puma;
-
-            //define sizes
-            var xs = Size.XS;
-            var s = Size.S;
-            var m = Size.M;
-            var l = Size.L;
-            var xl = Size.XL;
-
             //products categories
             products[0].AddCategory(footwear);
             products[0].AddCategory(shoes);
@@ -88,73 +74,6 @@ namespace Shopy.Infrastructure.Persistance
             products[13].AddCategory(clothes);
             products[13].AddCategory(tShirts);
 
-            //products sizes
-            products[0].AddSize(xs);
-            products[0].AddSize(s);
-            products[0].AddSize(m);
-
-            products[1].AddSize(m);
-            products[1].AddSize(l);
-            products[1].AddSize(xl);
-
-            products[2].AddSize(s);
-            products[2].AddSize(m);
-
-            products[3].AddSize(xs);
-            products[3].AddSize(l);
-            products[3].AddSize(xl);
-
-            products[4].AddSize(l);
-            products[4].AddSize(xl);
-
-            products[5].AddSize(s);
-            products[5].AddSize(l);
-            products[5].AddSize(xs);
-
-            products[6].AddSize(s);
-            products[6].AddSize(m);
-            products[6].AddSize(xl);
-
-            products[7].AddSize(xl);
-            products[7].AddSize(s);
-
-            products[8].AddSize(s);
-            products[8].AddSize(l);
-
-            products[9].AddSize(s);
-            products[9].AddSize(l);
-            products[9].AddSize(m);
-
-            products[10].AddSize(s);
-            products[10].AddSize(l);
-            products[10].AddSize(xl);
-
-            products[11].AddSize(m);
-            products[11].AddSize(l);
-
-            products[12].AddSize(l);
-            products[12].AddSize(xl);
-
-            products[13].AddSize(s);
-            products[13].AddSize(xl);
-            products[13].AddSize(m);
-
-            //products brands
-            products[0].SetBrand(active);
-            products[1].SetBrand(nike);
-            products[2].SetBrand(rebook);
-            products[3].SetBrand(addidas);
-            products[4].SetBrand(active);
-            products[5].SetBrand(nike);
-            products[6].SetBrand(rebook);
-            products[7].SetBrand(addidas);
-            products[8].SetBrand(active);
-            products[9].SetBrand(puma);
-            products[10].SetBrand(rebook);
-            products[11].SetBrand(addidas);
-            products[12].SetBrand(puma);
-            products[13].SetBrand(nike);
-
             //add products
             context.Products.AddRange(products);
 
@@ -171,98 +90,126 @@ namespace Shopy.Infrastructure.Persistance
                 (
                     "White sneackers addidas",
                     "White sneackers addidas",
-                    100.5m
+                    100.5m,
+                    Brand.Active,
+                    new [] { Size.XS, Size.S, Size.M }
                 ),
                 //1
                 new Product
                 (
                     "T-shirts for boys",
                     "Blue yellow and black shirst",
-                    40m
+                    40m,
+                    Brand.Nike,
+                    new [] { Size.S, Size.L, Size.M }
                 ),
                 //2
                 new Product
                 (
                     "Jackets",
                     "Green jackets for a man",
-                    140.25m
+                    140.25m,
+                    Brand.Rebook,
+                    new [] { Size.S, Size.M }
                     ),
                 //3
                 new Product
                 (
                     "Fancy jackets",
                     "Brown and black fancy jackets",
-                    120.5m
+                    120.5m,
+                    Brand.Puma,
+                    new [] { Size.L, Size.XL }
                 ),
                 //4
                 new Product
                 (
                     "Winter jacket black",
                     "Winter jacket black",
-                    130.5m
+                    130.5m,
+                    Brand.Addidas,
+                    new [] { Size.S, Size.L }
                 ),
                 //5
                 new Product
                 (
                     "Sneakers",
                     "Original white addidas sneakers",
-                    90.5m
+                    90.5m,
+                    Brand.Puma,
+                    new [] { Size.L, Size.XL }
                 ),
                 //6
                 new Product
                 (
                     "T-shirt black jacket kit",
                     "-shirt black jacket kit",
-                    80.5m
+                    80.5m,
+                    Brand.Addidas,
+                    new [] { Size.S, Size.L, Size.XS }
                 ),
                 //7
                 new Product
                 (
                     "Girls sweat rose shirts",
                     "Girls sweat rose shirts",
-                    20.5m
+                    20.5m,
+                    Brand.Rebook,
+                    new [] { Size.S, Size.XL }
                 ),
                 //8
                 new Product
                 (
                     "Thirts white and blue",
                     "Thirts white and blue",
-                    22.5m
+                    22.5m,
+                    Brand.Active,
+                    new [] { Size.S, Size.M, Size.XL }
                 ),
                 //9
                 new Product
                 (
                     "Tshrits rozes for women",
                     "Tshrits rozes for women",
-                    23.5m
+                    23.5m,
+                    Brand.Nike,
+                    new [] { Size.L, Size.XL }
                 ),
                 //10
                 new Product
                 (
                     "Suits",
                     "Nice suits for a real mans",
-                    130.5m
+                    130.5m,
+                    Brand.Addidas,
+                    new [] { Size.S, Size.XL }
                 ),
                 //11
                 new Product
                 (
                     "Brown man shoes",
                     "Elegant shoes for all part of the day",
-                    152.5m
+                    152.5m,
+                    Brand.Nike,
+                    new [] { Size.S, Size.XL }
                 ),
                 //12
                 new Product
                 (
                     "Black man shoes",
                     "Elegant shoes for all part of the day",
-                    150.5m
+                    150.5m,
+                    Brand.Active,
+                    new [] { Size.S, Size.M, Size.XL }
                 ),
                 //13
                 new Product
                 (
                     "Elegant polo shirts",
                     "Elegant polo shirts",
-                    37.5m
+                    37.5m,
+                    Brand.Rebook,
+                    new [] { Size.S, Size.M, Size.L }
                 )
             };
 

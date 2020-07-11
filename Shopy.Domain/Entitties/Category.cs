@@ -24,6 +24,7 @@ namespace Shopy.Domain.Entitties
 
         private Category()
         {
+            ProductCategories = new List<ProductCategory>();
         }
 
         public void Update(string name, string description)

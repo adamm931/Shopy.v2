@@ -6,10 +6,10 @@
 
         public Size Size { get; private set; }
 
-        public ProductSize(Product product, Size sizeType)
+        public ProductSize(Product product, Size size)
         {
             Product = product;
-            Size = sizeType;
+            Size = Size.From(size);
         }
 
         private ProductSize()

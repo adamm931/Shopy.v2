@@ -8,8 +8,8 @@
         EntityNotFound,
 
         /// <summary>
-        /// Code '{0}' is not valid for enum entity '{1}'
+        /// '{0}' with code '{1}' is not found
         /// </summary>
-        EnumEntityInvalidCode
+        EnumEntityNotFound
     }
 }

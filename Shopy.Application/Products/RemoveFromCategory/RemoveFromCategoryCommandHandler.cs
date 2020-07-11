@@ -16,7 +16,7 @@ namespace Shopy.Application.Products.RemoveFromCategory
         public override async Task<Unit> Handle(RemoveProductFromCategoryCommand request, CancellationToken cancellationToken)
         {
             var product = await Context.Products
-                .Include(product => product.ProductCategories)
+                .Include(product => product.Categories)
                     .ThenInclude(productCategories => productCategories.Category)
                 .ByExternalIdAsync(request.ProductExternalId);
 

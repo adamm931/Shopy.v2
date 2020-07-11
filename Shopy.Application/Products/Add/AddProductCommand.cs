@@ -10,10 +10,10 @@ namespace Shopy.Application.Products.Add
 
         public string Description { get; set; }
 
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
-        public string Brand { get; set; }
+        public string BrandCode { get; set; }
 
-        public IEnumerable<string> Sizes { get; set; }
+        public IEnumerable<string> SizeCodes { get; set; }
     }
 }

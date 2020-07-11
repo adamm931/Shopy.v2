@@ -19,9 +19,9 @@ namespace Shopy.Application.Products.List
         {
             var products = Context.Products
                    .Include(p => p.Brand)
-                   .Include(p => p.ProductSizes)
+                   .Include(p => p.Sizes)
                        .ThenInclude(ps => ps.Size)
-                   .Include(p => p.ProductCategories)
+                   .Include(p => p.Categories)
                        .ThenInclude(pc => pc.Category);
 
             var pagedProducts = await FilterProducts(products, request);
@@ -47,26 +47,22 @@ namespace Shopy.Application.Products.List
             //size
             if (query.Sizes != null && query.Sizes.Any())
             {
-                var sizes = await Context.Sizes.ByCodesAsync(query.Sizes);
-
                 products = products
-                    .Where(p => sizes.Any(fs => p.ProductSizes.Any(ps => ps.Size.Code == fs.Code)));
+                    .Where(p => Size.Parse(query.Sizes).Any(fs => p.Sizes.Any(ps => ps.Size.Code == fs.Code)));
             }
 
             //brand
             if (query.Brands != null && query.Brands.Any())
             {
-                var brands = await Context.Brands.ByCodesAsync(query.Brands);
-
                 products = products
-                    .Where(p => brands.Any(b => p.Brand.Code == b.Code));
+                    .Where(p => Brand.Parse(query.Brands).Any(b => p.Brand.Code == b.Code));
             }
 
             //category
             if (query.CategoryExternalId.HasValue)
             {
                 products = products
-                    .Where(p => p.ProductCategories.Any(c => c.Category.ExternalId == query.CategoryExternalId));
+                    .Where(p => p.Categories.Any(c => c.Category.ExternalId == query.CategoryExternalId));
             }
 
             var totalCount = await products.CountAsync();

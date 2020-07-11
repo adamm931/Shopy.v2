@@ -9,10 +9,13 @@ namespace Shopy.Application.Mappings
         public Profiles()
         {
             CreateMap<Size, SizeResponse>();
-            CreateMap<Brand, BrandResponse>();
+
+            CreateMap<Brand, BrandResponse>()
+                .ForMember(dst => dst.DisplayName, opt => opt.MapFrom(src => src.DisplayName))
+                .ForMember(dst => dst.Code, opt => opt.MapFrom(src => src.Code));
 
             CreateMap<ProductSize, SizeResponse>()
-                .ForMember(dst => dst.ExternalId, opt => opt.MapFrom(src => src.Size.ExternalId))
+                .ForMember(dst => dst.DisplayName, opt => opt.MapFrom(src => src.Size.DisplayName))
                 .ForMember(dst => dst.Code, opt => opt.MapFrom(src => src.Size.Code));
 
             CreateMap<ProductCategory, ProductCategoryResponse>()
@@ -21,17 +24,17 @@ namespace Shopy.Application.Mappings
 
             CreateMap<Product, ProductResponse>()
                 .ForMember(dst => dst.Brand, opt => opt.MapFrom(src => src.Brand))
-                .ForMember(dst => dst.Categories, opt => opt.MapFrom(src => src.ProductCategories))
-                .ForMember(dst => dst.Sizes, opt => opt.MapFrom(src => src.ProductSizes));
+                .ForMember(dst => dst.Categories, opt => opt.MapFrom(src => src.Categories))
+                .ForMember(dst => dst.Sizes, opt => opt.MapFrom(src => src.Sizes));
 
             CreateMap<Product, ProductDetailsResponse>()
                 .ForMember(dst => dst.Brand, opt => opt.MapFrom(src => src.Brand))
-                .ForMember(dst => dst.Categories, opt => opt.MapFrom(src => src.ProductCategories))
-                .ForMember(dst => dst.Sizes, opt => opt.MapFrom(src => src.ProductSizes))
+                .ForMember(dst => dst.Categories, opt => opt.MapFrom(src => src.Categories))
+                .ForMember(dst => dst.Sizes, opt => opt.MapFrom(src => src.Sizes))
                 .ForMember(dst => dst.RelatedProducts, opt => opt.MapFrom(src => src.GetRelatedProducts()));
 
             CreateMap<Product, RelatedProductResponse>()
-                .ForMember(dst => dst.Sizes, opt => opt.MapFrom(src => src.ProductSizes));
+                .ForMember(dst => dst.Sizes, opt => opt.MapFrom(src => src.Sizes));
 
             CreateMap<Category, CategoryReponse>();
             CreateMap<Category, ProductCategoryResponse>();

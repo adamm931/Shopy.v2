@@ -12,13 +12,20 @@ namespace Shopy.Infrastructure.Persistance.Configurations
 
             builder
                 .HasOne(model => model.Product)
-                .WithMany(model => model.ProductSizes)
+                .WithMany(product => product.Sizes)
                 .HasForeignKey("ProductId");
 
-            builder
-                .HasOne(model => model.Size)
-                .WithMany(model => model.ProductSizes)
-                .HasForeignKey("SizeId");
+            builder.OwnsOne(
+                model => model.Size,
+                options =>
+                {
+                    options
+                        .Property(brand => brand.Code)
+                        .HasColumnName("Size")
+                        .IsRequired();
+
+                    options.ToTable("ProductSize");
+                });
         }
     }
 }

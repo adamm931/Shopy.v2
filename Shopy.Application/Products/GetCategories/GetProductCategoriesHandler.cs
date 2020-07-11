@@ -20,11 +20,11 @@ namespace Shopy.Application.Products.GetCategories
         public override async Task<IEnumerable<ProductCategoryResponse>> Handle(GetProductCategoriesQuery request, CancellationToken cancellationToken)
         {
             var productByExternalId = await Context.Products
-                .Include(product => product.ProductCategories)
+                .Include(product => product.Categories)
                     .ThenInclude(productCategory => productCategory.Category)
                 .ByExternalIdAsync(request.ExternalId);
 
-            var categories = productByExternalId.ProductCategories
+            var categories = productByExternalId.Categories
                 .Select(productCategory => productCategory.Category)
                 .ToList();
 

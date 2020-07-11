@@ -8,6 +8,10 @@ namespace Shopy.Domain.Entitties
 {
     public class Product : AuditEntity
     {
+        private readonly List<ProductSize> sizes = new List<ProductSize>();
+
+        private readonly List<ProductCategory> categories = new List<ProductCategory>();
+
         public string Name { get; private set; }
 
         public string Description { get; private set; }
@@ -16,80 +20,83 @@ namespace Shopy.Domain.Entitties
 
         public Brand Brand { get; private set; }
 
-        public ICollection<ProductSize> ProductSizes { get; private set; }
+        public IReadOnlyCollection<ProductSize> Sizes => sizes.AsReadOnly();
 
-        public ICollection<ProductCategory> ProductCategories { get; private set; }
+        public IReadOnlyCollection<ProductCategory> Categories => categories.AsReadOnly();
 
-        public Product(string name, string description, decimal price)
+        public Product(string name, string description, decimal price, Brand brand, IEnumerable<Size> sizes)
         {
             ExternalId = Guid.NewGuid();
 
-            Name = name;
-            Description = description;
-            Price = price;
-
-            ProductSizes = new List<ProductSize>();
-            ProductCategories = new List<ProductCategory>();
+            UpdateName(name);
+            UpdateDescription(description);
+            UpdatePrice(price);
+            UpdateBrand(brand);
+            AddSizes(sizes);
         }
 
         private Product()
         {
         }
 
-        public void Update(
-            string name,
-            string description,
-            decimal price,
-            Brand brandType,
-            IEnumerable<Size> sizeTypes)
+        public void UpdateName(string name)
         {
             Name = name;
-            Description = description;
-            Price = price;
-
-            SetBrand(brandType);
-
-            foreach (var sizeType in sizeTypes)
-            {
-                AddSize(sizeType);
-            }
         }
 
-        public void SetBrand(Brand brandType)
+        public void UpdateDescription(string description)
         {
-            Brand = brandType;
+            Description = description;
+        }
+
+        public void UpdatePrice(decimal price)
+        {
+            Price = price;
+        }
+
+        public void UpdateBrand(Brand brand)
+        {
+            Brand = Brand.From(brand);
         }
 
         public void AddCategory(Category categoryToAdd)
         {
-            if (ProductCategories.Any(productCategory => productCategory.HasCategory(categoryToAdd.ExternalId)))
+            if (categories.Any(productCategory => productCategory.HasCategory(categoryToAdd.ExternalId)))
             {
                 return;
             }
 
-            ProductCategories.Add(new ProductCategory(this, categoryToAdd));
+            categories.Add(new ProductCategory(this, categoryToAdd));
         }
 
         public void RemoveCategory(Guid externalId)
         {
-            ProductCategories.RemoveAll(productCategory => !productCategory.HasCategory(externalId));
+            categories.RemoveAll(productCategory => !productCategory.HasCategory(externalId));
+        }
+
+        public void AddSizes(IEnumerable<Size> size)
+        {
+            foreach (var sizeCode in size)
+            {
+                AddSize(sizeCode);
+            }
         }
 
         public void AddSize(Size size)
         {
-            if (ProductSizes.Any(productSize => productSize.Size.ExternalId == size.ExternalId))
+            if (sizes.Any(productSize => productSize.Size.Code == size.Code))
             {
                 return;
             }
 
-            ProductSizes.Add(new ProductSize(this, size));
+            sizes.Add(new ProductSize(this, size));
         }
 
         public IEnumerable<Product> GetRelatedProducts()
         {
             const int RelatedProductsLimit = 4;
 
-            return ProductCategories
+            return Categories
                 .SelectMany(productCategory => productCategory.Category.ProductCategories)
                 .Select(category => category.Product)
                 .Where(product => product.ExternalId != ExternalId)

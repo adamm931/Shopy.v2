@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shopy.Domain.Entitties;
 
 namespace Shopy.Infrastructure.Persistance.Configurations
@@ -7,10 +8,24 @@ namespace Shopy.Infrastructure.Persistance.Configurations
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Product> builder)
         {
-            builder
-                .HasOne(model => model.Brand)
-                .WithMany(brand => brand.Products)
-                .HasForeignKey("BrandId");
+            builder.OwnsOne(model => model.Brand, options =>
+            {
+                options
+                    .Property(brand => brand.Code)
+                    .HasColumnName("Brand")
+                    .IsRequired();
+
+                options.ToTable("Products");
+
+            });
+
+            builder.Metadata
+                .FindNavigation("Categories")
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+            builder.Metadata
+                .FindNavigation("Sizes")
+                .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

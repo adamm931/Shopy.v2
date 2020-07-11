@@ -17,14 +17,14 @@ namespace Shopy.Application.Products.GetDetails
         public override async Task<ProductDetailsResponse> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
         {
             var product = await Context.Products
-                    .Include(p => p.ProductCategories)
+                    .Include(p => p.Categories)
                         .ThenInclude(pc => pc.Category)
                         .ThenInclude(p => p.ProductCategories)
                         .ThenInclude(ps => ps.Product)
-                        .ThenInclude(ps => ps.ProductSizes)
+                        .ThenInclude(ps => ps.Sizes)
                         .ThenInclude(ps => ps.Size)
                     .Include(p => p.Brand)
-                    .Include(p => p.ProductSizes)
+                    .Include(p => p.Sizes)
                         .ThenInclude(s => s.Size)
                     .ByExternalIdAsync(request.ExternalId);
 

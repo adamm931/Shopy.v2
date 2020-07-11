@@ -15,19 +15,15 @@ namespace Shopy.Application.Products.Add
 
         public override async Task<Guid> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
+            var brand = Brand.Parse(request.BrandCode);
+            var sizes = Size.Parse(request.SizeCodes);
+
             var product = new Product(
                 request.Name,
                 request.Description,
-                request.Price.Value);
-
-            var brand = await Context.Brands.ByCodeAsync(request.Brand);
-
-            product.SetBrand(brand);
-
-            foreach (var size in await Context.Sizes.ByCodesAsync(request.Sizes))
-            {
-                product.AddSize(size);
-            }
+                request.Price,
+                brand,
+                sizes);
 
             Context.Products.Add(product);
 

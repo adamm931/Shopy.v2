@@ -16,7 +16,7 @@ namespace Shopy.Application.Products.AddToCategory
         public override async Task<Unit> Handle(AddProductToCategoryCommand request, CancellationToken cancellationToken)
         {
             var product = await Context.Products
-                .Include(product => product.ProductCategories)
+                .Include(product => product.Categories)
                     .ThenInclude(productCategory => productCategory.Category)
                 .ByExternalIdAsync(request.ProductExternalId);
 

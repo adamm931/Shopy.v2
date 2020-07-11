@@ -10,6 +10,7 @@ using Shopy.Infrastructure.Auth;
 using Shopy.Infrastructure.Common;
 using Shopy.Infrastructure.Images;
 using Shopy.Infrastructure.Persistance;
+using Shopy.Infrastructure.Persistance.Context;
 using Shopy.Infrastructure.Persistance.EntityAudit;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -41,10 +42,6 @@ namespace Shopy.Infrastructure
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
                         ValidIssuer = jwtOptions.Issuer,
                         ValidAudience = jwtOptions.Issuer,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key)),

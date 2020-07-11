@@ -17,7 +17,7 @@ namespace Shopy.Application.Products.Get
         public override async Task<ProductResponse> Handle(GetProductQuery request, CancellationToken cancellationToken)
         {
             var product = await Context.Products
-                    .Include(p => p.ProductSizes)
+                    .Include(p => p.Sizes)
                         .ThenInclude(ps => ps.Size)
                     .Include(p => p.Brand)
                     .ByExternalIdAsync(request.ExternalId);
