@@ -11,7 +11,7 @@ namespace Shopy.Domain.Entitties.Base
     {
         public string Code { get; private set; }
 
-        public string DisplayName => this.GetResourceManager().GetString(Code) ?? Code;
+        public string DisplayName => this.GetResourceManager()?.GetString(Code) ?? Code;
 
         public static IEnumerable<TEnum> All =>
             typeof(TEnum)

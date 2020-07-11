@@ -24,10 +24,6 @@ namespace Shopy.Infrastructure.Persistance.Context
 
         public DbSet<Category> Categories { get; set; }
 
-        public DbSet<Size> Sizes { get; set; }
-
-        public DbSet<Brand> Brands { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_options.Value.ConnectionString);

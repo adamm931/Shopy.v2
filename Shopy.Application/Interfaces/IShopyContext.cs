@@ -11,10 +11,6 @@ namespace Shopy.Application.Interfaces
 
         DbSet<Category> Categories { get; }
 
-        DbSet<Size> Sizes { get; }
-
-        DbSet<Brand> Brands { get; }
-
         Task Save();
 
         Task<bool> IsCreated();

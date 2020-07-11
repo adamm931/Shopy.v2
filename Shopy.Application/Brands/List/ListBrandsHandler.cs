@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shopy.Application.Base;
+﻿using Shopy.Application.Base;
 using Shopy.Application.Interfaces;
 using Shopy.Application.Mappings;
 using Shopy.Application.Models;
+using Shopy.Domain.Entitties;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,10 +16,6 @@ namespace Shopy.Application.Brands.List
         }
 
         public override async Task<IEnumerable<BrandResponse>> Handle(ListBrandsQuery request, CancellationToken cancellationToken)
-        {
-            var brands = await Context.Brands.ToListAsync();
-
-            return brands.MapTo<IEnumerable<BrandResponse>>();
-        }
+            => await Task.FromResult(Brand.All.MapTo<IEnumerable<BrandResponse>>());
     }
 }

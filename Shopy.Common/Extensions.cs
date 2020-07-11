@@ -34,7 +34,11 @@ namespace Shopy.Common
         {
             var typeInfo = type.GetType();
 
-            return new ResourceManager(typeInfo.FullName, typeInfo.Assembly);
+            var resources = typeInfo.Assembly.GetManifestResourceNames();
+
+            return resources.Any(name => name.Equals(typeInfo.Name, StringComparison.OrdinalIgnoreCase))
+                ? new ResourceManager(typeInfo.FullName, typeInfo.Assembly)
+                : null;
         }
 
         public static string FormatLocalizedValue<TEnum>(this TEnum value, params object[] @params) where TEnum : Enum

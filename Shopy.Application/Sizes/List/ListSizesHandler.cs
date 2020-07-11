@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shopy.Application.Base;
+﻿using Shopy.Application.Base;
 using Shopy.Application.Interfaces;
 using Shopy.Application.Mappings;
 using Shopy.Application.Models;
+using Shopy.Domain.Entitties;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,10 +16,6 @@ namespace Shopy.Application.Sizes.List
         }
 
         public override async Task<IEnumerable<SizeResponse>> Handle(ListSizesQuery request, CancellationToken cancellationToken)
-        {
-            var sizes = await Context.Sizes.ToListAsync();
-
-            return sizes.MapTo<IEnumerable<SizeResponse>>();
-        }
+            => await Task.FromResult(Size.All.MapTo<IEnumerable<SizeResponse>>());
     }
 }
