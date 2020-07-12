@@ -8,24 +8,14 @@ namespace Shopy.Infrastructure.Persistance.Configurations
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Product> builder)
         {
+            builder.AddDeletedQueryFilter();
+
             builder.OwnsOne(model => model.Brand, options =>
             {
                 options
                     .Property(brand => brand.Code)
-                    .HasColumnName("Brand")
-                    .IsRequired();
-
-                options.ToTable("Products");
-
+                    .HasColumnName("Brand");
             });
-
-            builder.Metadata
-                .FindNavigation("Categories")
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
-
-            builder.Metadata
-                .FindNavigation("Sizes")
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }

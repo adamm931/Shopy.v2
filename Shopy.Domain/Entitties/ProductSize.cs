@@ -9,7 +9,7 @@
         public ProductSize(Product product, Size size)
         {
             Product = product;
-            Size = Size.From(size);
+            Size = size;
         }
 
         private ProductSize()

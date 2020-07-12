@@ -7,6 +7,7 @@ namespace Shopy.Infrastructure.Persistance.Configurations
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Category> builder)
         {
+            builder.AddDeletedQueryFilter();
         }
     }
 }

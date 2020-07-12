@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace Shopy.Domain.Entitties
 {
-    public class Product : AuditEntity
+    public class Product : AuditEntity, ISoftDelete
     {
-        private readonly List<ProductSize> sizes = new List<ProductSize>();
+        private readonly List<ProductSize> _sizes = new List<ProductSize>();
 
-        private readonly List<ProductCategory> categories = new List<ProductCategory>();
+        private readonly List<ProductCategory> _categories = new List<ProductCategory>();
 
         public string Name { get; private set; }
 
@@ -20,9 +20,11 @@ namespace Shopy.Domain.Entitties
 
         public Brand Brand { get; private set; }
 
-        public IReadOnlyCollection<ProductSize> Sizes => sizes.AsReadOnly();
+        public bool Deleted { get; private set; }
 
-        public IReadOnlyCollection<ProductCategory> Categories => categories.AsReadOnly();
+        public IReadOnlyCollection<ProductSize> Sizes => _sizes.AsReadOnly();
+
+        public IReadOnlyCollection<ProductCategory> Categories => _categories.AsReadOnly();
 
         public Product(string name, string description, decimal price, Brand brand, IEnumerable<Size> sizes)
         {
@@ -56,22 +58,22 @@ namespace Shopy.Domain.Entitties
 
         public void UpdateBrand(Brand brand)
         {
-            Brand = Brand.From(brand);
+            Brand = brand;
         }
 
         public void AddCategory(Category categoryToAdd)
         {
-            if (categories.Any(productCategory => productCategory.HasCategory(categoryToAdd.ExternalId)))
+            if (_categories.Any(productCategory => productCategory.HasCategory(categoryToAdd.ExternalId)))
             {
                 return;
             }
 
-            categories.Add(new ProductCategory(this, categoryToAdd));
+            _categories.Add(new ProductCategory(this, categoryToAdd));
         }
 
         public void RemoveCategory(Guid externalId)
         {
-            categories.RemoveAll(productCategory => !productCategory.HasCategory(externalId));
+            _categories.RemoveAll(productCategory => !productCategory.HasCategory(externalId));
         }
 
         public void AddSizes(IEnumerable<Size> size)
@@ -84,12 +86,12 @@ namespace Shopy.Domain.Entitties
 
         public void AddSize(Size size)
         {
-            if (sizes.Any(productSize => productSize.Size.Code == size.Code))
+            if (_sizes.Any(productSize => productSize.Size.Code == size.Code))
             {
                 return;
             }
 
-            sizes.Add(new ProductSize(this, size));
+            _sizes.Add(new ProductSize(this, size));
         }
 
         public IEnumerable<Product> GetRelatedProducts()
@@ -97,7 +99,7 @@ namespace Shopy.Domain.Entitties
             const int RelatedProductsLimit = 4;
 
             return Categories
-                .SelectMany(productCategory => productCategory.Category.ProductCategories)
+                .SelectMany(productCategory => productCategory.Category.Products)
                 .Select(category => category.Product)
                 .Where(product => product.ExternalId != ExternalId)
                 .Randomize()

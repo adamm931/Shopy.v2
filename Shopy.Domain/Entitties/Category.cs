@@ -4,13 +4,17 @@ using System.Collections.Generic;
 
 namespace Shopy.Domain.Entitties
 {
-    public class Category : AuditEntity
+    public class Category : AuditEntity, ISoftDelete
     {
+        private readonly List<ProductCategory> _products = new List<ProductCategory>();
+
         public string Name { get; private set; }
 
         public string Description { get; private set; }
 
-        public ICollection<ProductCategory> ProductCategories { get; private set; }
+        public bool Deleted { get; private set; }
+
+        public IReadOnlyCollection<ProductCategory> Products => _products.AsReadOnly();
 
         public Category(string name, string description)
         {
@@ -18,13 +22,10 @@ namespace Shopy.Domain.Entitties
 
             Name = name;
             Description = description;
-
-            ProductCategories = new List<ProductCategory>();
         }
 
         private Category()
         {
-            ProductCategories = new List<ProductCategory>();
         }
 
         public void Update(string name, string description)

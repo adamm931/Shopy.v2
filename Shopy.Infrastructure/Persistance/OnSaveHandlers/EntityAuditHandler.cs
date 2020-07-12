@@ -1,33 +1,33 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shopy.Application.Interfaces;
 using Shopy.Common;
 using Shopy.Common.Interfaces;
 using Shopy.Domain.Entitties.Base;
-using System.Linq;
+using Shopy.Infrastructure.Interfaces;
 
-namespace Shopy.Infrastructure.Persistance.EntityAudit
+namespace Shopy.Infrastructure.Persistance.OnSaveHandlers
 {
-    internal class EfCoreEntityAudit : IEfCoreEntityAudit
+    internal class EntityAuditHandler : IOnSave
     {
         private readonly IAuthProvider _authProvider;
         private readonly IDateTime _dateTime;
 
-        public EfCoreEntityAudit(IAuthProvider authProvider, IDateTime dateTime)
+        public EntityAuditHandler(IAuthProvider authProvider, IDateTime dateTime)
         {
             _authProvider = authProvider;
             _dateTime = dateTime;
         }
 
-        public void Audit(ChangeTracker changeTracker)
+        public void OnSave(DbContext context)
         {
             var user = _authProvider.User;
             var now = _dateTime.Now;
+            var changeTracker = context.ChangeTracker;
 
             changeTracker
-                .Entries()
-                .Where(entry => typeof(AuditEntity).IsAssignableFrom(entry.Entity.GetType()) && entry.State == EntityState.Added)
-                .ForEach(entry =>
+                .EntriesByState(EntityState.Added)
+                .OfType<AuditEntity>()
+                .Each(entry =>
                 {
                     var auditEntity = (AuditEntity)entry.Entity;
 
@@ -36,9 +36,9 @@ namespace Shopy.Infrastructure.Persistance.EntityAudit
                 });
 
             changeTracker
-                .Entries()
-                .Where(entry => typeof(AuditEntity).IsAssignableFrom(entry.Entity.GetType()) && entry.State == EntityState.Modified)
-                .ForEach(entry =>
+                .EntriesByState(EntityState.Modified)
+                .OfType<AuditEntity>()
+                .Each(entry =>
                 {
                     var auditEntity = (AuditEntity)entry.Entity;
 

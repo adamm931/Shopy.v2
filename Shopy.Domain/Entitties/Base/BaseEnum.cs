@@ -15,7 +15,7 @@ namespace Shopy.Domain.Entitties.Base
 
         public static IEnumerable<TEnum> All =>
             typeof(TEnum)
-                .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                .GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
                 .Select(f => f.GetValue(null))
                 .Cast<TEnum>();
 

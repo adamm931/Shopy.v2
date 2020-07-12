@@ -15,17 +15,12 @@ namespace Shopy.Infrastructure.Persistance.Configurations
                 .WithMany(product => product.Sizes)
                 .HasForeignKey("ProductId");
 
-            builder.OwnsOne(
-                model => model.Size,
-                options =>
-                {
-                    options
-                        .Property(brand => brand.Code)
-                        .HasColumnName("Size")
-                        .IsRequired();
-
-                    options.ToTable("ProductSize");
-                });
+            builder.OwnsOne(model => model.Size, options =>
+            {
+                options
+                    .Property(brand => brand.Code)
+                    .HasColumnName("Size");
+            });
         }
     }
 }

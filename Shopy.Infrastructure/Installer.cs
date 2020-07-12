@@ -9,9 +9,10 @@ using Shopy.Common.Interfaces;
 using Shopy.Infrastructure.Auth;
 using Shopy.Infrastructure.Common;
 using Shopy.Infrastructure.Images;
+using Shopy.Infrastructure.Interfaces;
 using Shopy.Infrastructure.Persistance;
 using Shopy.Infrastructure.Persistance.Context;
-using Shopy.Infrastructure.Persistance.EntityAudit;
+using Shopy.Infrastructure.Persistance.OnSaveHandlers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
@@ -30,7 +31,7 @@ namespace Shopy.Infrastructure
             services.AddTransient<IImageUploader, ImageUploader>();
             services.AddTransient<IDateTime, MachineDateTime>();
             services.AddHttpContextAccessor();
-            services.AddTransient<IEfCoreEntityAudit, EfCoreEntityAudit>();
+            services.AddTransient<IOnSave, EntityAuditHandler>();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 

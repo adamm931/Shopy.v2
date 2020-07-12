@@ -9,7 +9,7 @@ namespace Shopy.Common
 {
     public static class Extensions
     {
-        public static void ForEach<TItem>(this IEnumerable<TItem> items, Action<TItem> action)
+        public static void Each<TItem>(this IEnumerable<TItem> items, Action<TItem> action)
         {
             foreach (var item in items)
             {

@@ -19,7 +19,7 @@ namespace Shopy.Application.Products.GetDetails
             var product = await Context.Products
                     .Include(p => p.Categories)
                         .ThenInclude(pc => pc.Category)
-                        .ThenInclude(p => p.ProductCategories)
+                        .ThenInclude(p => p.Products)
                         .ThenInclude(ps => ps.Product)
                         .ThenInclude(ps => ps.Sizes)
                         .ThenInclude(ps => ps.Size)

@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Shopy.Application.Interfaces;
+using Shopy.Common;
 using Shopy.Domain.Entitties;
-using Shopy.Infrastructure.Persistance.EntityAudit;
+using Shopy.Infrastructure.Interfaces;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Shopy.Infrastructure.Persistance.Context
@@ -10,14 +12,14 @@ namespace Shopy.Infrastructure.Persistance.Context
     partial class ShopyContext : DbContext, IShopyContext
     {
         private readonly IOptions<ShopyDatabaseOptions> _options;
-        private readonly IEfCoreEntityAudit _entityAudit;
+        private readonly IEnumerable<IOnSave> _saveEventHandlers;
 
         public ShopyContext(
             IOptions<ShopyDatabaseOptions> options,
-            IEfCoreEntityAudit entityAudit)
+            IEnumerable<IOnSave> saveEventHandlers)
         {
             _options = options;
-            _entityAudit = entityAudit;
+            _saveEventHandlers = saveEventHandlers;
         }
 
         public DbSet<Product> Products { get; set; }
@@ -38,7 +40,7 @@ namespace Shopy.Infrastructure.Persistance.Context
 
         public async Task Save()
         {
-            _entityAudit.Audit(ChangeTracker);
+            _saveEventHandlers.Each(handler => handler.OnSave(this));
 
             await SaveChangesAsync();
         }
