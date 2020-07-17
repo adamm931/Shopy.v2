@@ -5,3 +5,6 @@ obj
 .vs
 /logs.txt
 /Log
+node_modules
+build
+.vscode

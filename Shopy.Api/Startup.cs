@@ -30,6 +30,10 @@ namespace Shopy.Api
             services.AddValidatorsFromAssembly(typeof(IImageUploader).Assembly);
 
             services.AddLogging(builder => builder.AddFile("/Logs/Shopy-{Date}.txt"));
+
+            services
+                .AddMvc()
+                .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -38,6 +42,11 @@ namespace Shopy.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(options => options
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
