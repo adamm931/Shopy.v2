@@ -1,7 +1,7 @@
 import React from 'react'
 import CategoryForm from './Form'
 import { FormType } from '../../Enums/FormType'
-import { IShopyState, EmptyEditingCategory } from '../../State/ShopyState'
+import { IShopyState } from '../../State/ShopyState'
 import { CategoryEditDispatch } from './Types/CategoryEditDispatch'
 import { CategoryEditProps } from './Types/CategoryEditProps'
 import { RouteUtils } from '../../Utils/RouterUtils'

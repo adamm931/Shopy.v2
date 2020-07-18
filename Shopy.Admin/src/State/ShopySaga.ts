@@ -13,13 +13,13 @@ import { IEditProductRequest } from './Requests/Products/IEditProductRequest';
 import { IProductListItem } from '../Service/Products/Models/IProductListItem';
 import { ProductsService } from '../Service/Products/ProductsService';
 import { IAddProductRequest } from './Requests/Products/IAddProductRequest';
-import { AuthenticateRequest } from '../Service/Auth/LoginRequest';
+import { IAuthenticateRequest } from '../Service/Auth/Models/IAuthenticateRequest';
 import { RequestTypes } from './Requests/Base/RequestTypes';
 import { ILoginUserRequest } from './Requests/Login/ILoginUserRequest';
 import { all, put, takeLatest, call } from 'redux-saga/effects'
 import { AuthService } from '../Service/Auth/AuthService';
 import * as ActionFactory from './Actions/Factory/ActionFactory';
-import { IAuthenticateResponse } from '../Service/Auth/ILoginResponse';
+import { IAuthenticateResponse } from '../Service/Auth/Models/IAuthenticateResponse';
 import { IProductsListRequest } from './Requests/Products/IProductsListRequest';
 import { Routes } from '../Enums/Routes';
 import { IAddProductToCategoryRequest } from './Requests/Products/IAddProductToCategoryRequest';
@@ -99,7 +99,10 @@ function* LoginUser(request: ILoginUserRequest) {
 
     var authService = new AuthService();
     var payload = request.Payload;
-    var loginRequest = new AuthenticateRequest(payload.Username, payload.Password);
+    var loginRequest = {
+        Username: payload.Username,
+        Password: payload.Password
+    } as IAuthenticateRequest
 
     var authenticateResponse: IAuthenticateResponse = yield call(() => authService.AuthenticateAsync(loginRequest));
 
@@ -137,9 +140,6 @@ function* DeleteProduct(request: IDeleteProductRequest) {
 
 function* ListProducts(request: IProductsListRequest) {
     var products: IPagedListApiModel<IProductListItem> = yield call(() => ProductsService.ListProducts());
-
-    console.log('Saga - products', products)
-
     yield put(ActionFactory.ProductList(products));
 }
 
@@ -168,7 +168,7 @@ function* LookupCategories(request: IProductsListRequest) {
 function* UploadProductImages(request: IUploadProductImageRequest) {
     let payload = request.Payload
     yield call(() => payload.Images.forEach((image, index) => {
-        ProductsService.UploadImage(image, payload.ProductUid, index)
+        ProductsService.UploadImage(image, payload.ProductUid, index.toString())
     }))
 }
 

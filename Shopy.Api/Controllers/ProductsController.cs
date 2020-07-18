@@ -19,7 +19,7 @@ namespace Shopy.Api.Controllers
             => Ok(await Mediator.Send(query));
 
         [HttpGet]
-        [Route("{externalId}")]
+        [Route("{externalId}/get")]
         public async Task<IActionResult> Get([FromRoute]GetProductQuery query)
             => Ok(await Mediator.Send(query));
 

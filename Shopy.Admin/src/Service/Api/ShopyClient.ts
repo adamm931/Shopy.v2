@@ -12,21 +12,8 @@ export async function Post<TResult, TRequest>(path: string, body: TRequest): Pro
     return await ShopyClient.Create().Post(path, body);
 }
 
-export async function PostForm<TResult>(path: string, body: FormData, headers: IKeyValue[]): Promise<TResult> {
-
-    let client = ShopyClient.Create()
-
-    client.AddHeader(headers)
-
-    return await client.PostForm(path, body);
-}
-
 export async function Put<TResult, TRequest>(path: string, body: TRequest): Promise<TResult> {
     return await ShopyClient.Create().Put(path, body);
-}
-
-export async function PutForm<TResult>(path: string, body: FormData): Promise<TResult> {
-    return await ShopyClient.Create().PutForm(path, body);
 }
 
 export async function Delete<TResult>(path: string): Promise<TResult> {
@@ -63,16 +50,8 @@ class ShopyClient implements IShopyClient {
         return await this.request<TResult>(HttpMethod.Post, path, body);
     }
 
-    async PostForm<TResult>(path: string, body: FormData): Promise<TResult> {
-        return await this.request<TResult>(HttpMethod.Post, path, body, true);
-    }
-
     async Put<TResult, TRequest>(path: string, body: TRequest): Promise<TResult> {
         return await this.request<TResult>(HttpMethod.Put, path, body);
-    }
-
-    async PutForm<TResult>(path: string, body: FormData): Promise<TResult> {
-        return await this.request<TResult>(HttpMethod.Put, path, body, true);
     }
 
     async Delete<TResult>(path: string): Promise<TResult> {
@@ -82,14 +61,10 @@ class ShopyClient implements IShopyClient {
     async request<TResult, TRequest = {}>(
         method: HttpMethod,
         path: string,
-        data: TRequest = {} as any,
-        multipart?: boolean): Promise<TResult> {
+        data: TRequest = {} as any): Promise<TResult> {
         try {
 
-            let contentType = multipart ? "multipart/form-data" : "application/json"
-            this.header.AddEntry("Content-Type", contentType)
-
-            console.log("header - raw", this.header.Raw())
+            this.header.AddEntry("Content-Type", "application/json")
 
             let request: AxiosRequestConfig = {
                 data: data,

@@ -1,2 +1,2 @@
-export const LoginUrl = "/identity/login"
+export const LoginUrl = "/auth/login"
 export const AddProductUrl = "/products"

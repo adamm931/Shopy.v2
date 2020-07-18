@@ -5,7 +5,6 @@ import CategoryListItem from './ListItem'
 import { CategoryListDispatch } from './Types/CategoryListDispatch'
 import { IShopyState } from '../../State/ShopyState'
 import * as RequestFactory from '../../State/Requests/Factory/RequestFactory'
-import { Link } from 'react-router-dom'
 import { Table } from '../Shared/Table/Table'
 
 

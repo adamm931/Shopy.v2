@@ -28,14 +28,14 @@ class CategoryForm extends React.Component<Props, CategoryFormState> {
     onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (this.props.Type == FormType.ADD) {
+        if (this.props.Type === FormType.ADD) {
             this.props.Add(this.state.Name)
         }
 
-        else if (this.props.Type == FormType.EDIT) {
+        else if (this.props.Type === FormType.EDIT) {
 
-            if (this.props.ExternalId == undefined) {
-                throw 'Category externalId is not passed'
+            if (this.props.ExternalId === undefined) {
+                throw new Error('Category externalId is not passed')
             }
 
             this.props.Edit(this.props.ExternalId, this.state.Name)
@@ -58,7 +58,7 @@ class CategoryForm extends React.Component<Props, CategoryFormState> {
 
     render() {
 
-        if (this.state == null) {
+        if (this.state === null) {
             return null
         }
 

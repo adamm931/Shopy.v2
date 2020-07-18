@@ -1,4 +1,4 @@
-import { DeleteCategoryRequest, DeleteCategoryRequestPayload } from './../../State/Requests/Categories/DeleteCategoryRequest';
+import { DeleteCategoryRequestPayload } from './../../State/Requests/Categories/DeleteCategoryRequest';
 import { GetCategoryRequestPayload } from './../../State/Requests/Categories/GetCategoryRequest';
 import { Category } from './Models/Category';
 import { EditCategoryRequestPayload } from './../../State/Requests/Categories/EditCategoryRequest';

@@ -42,7 +42,7 @@ class Login extends React.Component<ILoginFormDispatch & ILoginFormProps, ILogin
         event.preventDefault();
 
         if (!this.isValidForm()) {
-            throw 'Form is invalid'
+            throw new Error('Form is invalid')
         }
 
         this.props.LoginUser(this.state);

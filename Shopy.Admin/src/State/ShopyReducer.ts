@@ -72,7 +72,7 @@ export const ShopyReducer = (state: IShopyState = InitialState, action: IActions
         }
         case ActionTypes.PRODUCT_ADDED_TO_CATEGORY: {
 
-            var { addingList, removingList } = getCategoryModifiedLists(action.Payload.CategoryUid, true, state)
+            let { addingList, removingList } = getCategoryModifiedLists(action.Payload.CategoryUid, true, state)
 
             return {
                 ...state,
@@ -82,7 +82,7 @@ export const ShopyReducer = (state: IShopyState = InitialState, action: IActions
         }
         case ActionTypes.PRODUCT_REMOVED_FROM_CATEGORY: {
 
-            var { addingList, removingList } = getCategoryModifiedLists(action.Payload.CategoryUid, false, state)
+            let { addingList, removingList } = getCategoryModifiedLists(action.Payload.CategoryUid, false, state)
 
             return {
                 ...state,
@@ -130,10 +130,10 @@ const getCategoryModifiedLists = (categoryUid: string, added: boolean, state: IS
 
     removingList = removingList.filter(category => category.ExternalId !== categoryUid)
 
-    var category = state.LookupCategories.find(lookup => lookup.ExternalId == categoryUid)
+    var category = state.LookupCategories.find(lookup => lookup.ExternalId === categoryUid)
 
-    if (category == undefined) {
-        throw `Category is not found with externalId '${categoryUid}'`
+    if (category === undefined) {
+        throw new Error(`Category is not found with externalId '${categoryUid}'`)
     }
 
     addingList = [...addingList, category]

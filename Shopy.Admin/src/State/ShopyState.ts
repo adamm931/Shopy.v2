@@ -1,4 +1,4 @@
-import { IPagedListApiModel, EmptyPageList } from './../Service/Api/IPagedListApiModel';
+import { IPagedListApiModel } from './../Service/Api/IPagedListApiModel';
 import { Category } from './../Service/Categories/Models/Category';
 import { INameExternalIdApiModel } from '../Service/Api/INameExternalIdApiModel';
 import { AuthService } from './../Service/Auth/AuthService';

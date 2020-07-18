@@ -47,16 +47,16 @@ class ChangeCategories extends React.Component<Props, IChangeCategoriesState> {
     addToSelectedCategory = () => {
         let categoryUid = this.state.SelectedCategoryUid;
 
-        if (categoryUid == undefined) {
+        if (categoryUid === undefined) {
             return
         }
 
-        if (this.state.ProductCategories.some(productCategory => productCategory.Key == categoryUid)) {
+        if (this.state.ProductCategories.some(productCategory => productCategory.Key === categoryUid)) {
             return
         }
 
         // last element
-        if (this.state.AvailableCategories.length == 1) {
+        if (this.state.AvailableCategories.length === 1) {
             categoryUid = this.state.AvailableCategories[0].Key
         }
 
@@ -93,7 +93,7 @@ class ChangeCategories extends React.Component<Props, IChangeCategoriesState> {
                     </table>
                     {
                         // component for this?
-                        this.state.AvailableCategories.length == 0
+                        this.state.AvailableCategories.length === 0
                             ? null
                             : (
                                 <div className="row col-md-9">

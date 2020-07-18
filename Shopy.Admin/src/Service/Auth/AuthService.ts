@@ -1,8 +1,8 @@
 import { LocalStorageKeys } from '../../Enums/LocalStorageKeys';
-import { StorageUtils } from '../../Utils/LocalStorageService';
+import { StorageUtils } from '../../Utils/StorageUtils';
 import { LoginUrl } from '../Api/Urls'
-import { IAuthenticateResponse } from './ILoginResponse';
-import { AuthenticateRequest } from './LoginRequest';
+import { IAuthenticateResponse } from './Models/IAuthenticateResponse';
+import { IAuthenticateRequest } from './Models/IAuthenticateRequest';
 import { IAuthService } from './IAuthService';
 import { Post } from '../Api/ShopyClient'
 
@@ -25,7 +25,7 @@ export class AuthService implements IAuthService {
         return StorageUtils.GetItem<boolean>(LocalStorageKeys.UserLoggedIn);;
     }
 
-    async AuthenticateAsync(loginRequest: AuthenticateRequest): Promise<IAuthenticateResponse> {
-        return await Post<IAuthenticateResponse, AuthenticateRequest>(LoginUrl, loginRequest);
+    async AuthenticateAsync(loginRequest: IAuthenticateRequest): Promise<IAuthenticateResponse> {
+        return await Post<IAuthenticateResponse, IAuthenticateRequest>(LoginUrl, loginRequest);
     }
 }

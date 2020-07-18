@@ -1,9 +1,9 @@
-import { IAuthenticateResponse } from './ILoginResponse';
-import { AuthenticateRequest } from "./LoginRequest";
+import { IAuthenticateResponse } from './Models/IAuthenticateResponse';
+import { IAuthenticateRequest } from "./Models/IAuthenticateRequest";
 
 export interface IAuthService {
 
-    AuthenticateAsync(loginRequest: AuthenticateRequest): Promise<IAuthenticateResponse>;
+    AuthenticateAsync(loginRequest: IAuthenticateRequest): Promise<IAuthenticateResponse>;
 
     IsUserLogged(): boolean;
 

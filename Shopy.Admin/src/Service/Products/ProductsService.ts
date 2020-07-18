@@ -1,3 +1,4 @@
+import { FileUtils } from './../../Utils/FileUtils';
 import { IPagedListApiModel } from './../Api/IPagedListApiModel';
 import { IProductApiModel } from './Models/IProductApiModel';
 import { IRemoveProductFromCategoryRequestPayload } from './../../State/Requests/Products/IRemoveProductFromCategoryRequest';
@@ -10,7 +11,6 @@ import { IAddProductRequestPayload } from './../../State/Requests/Products/IAddP
 import { Post, Get, Put, Delete } from '../Api/ShopyClient';
 import { IProductListItem } from './Models/IProductListItem';
 import { IGetProductRequestPayload } from '../../State/Requests/Products/IGetPropductRequest';
-import { FileService } from '../Files/FileService';
 
 export class ProductsService {
 
@@ -47,21 +47,11 @@ export class ProductsService {
         }
     }
 
-    public static UploadImage = async (image: File, productUid: string, index: number) => {
-        let imageName = ""
-
-        if (index == 0) {
-            imageName = "main"
-        }
-
-        else if (index == 1) {
-            imageName = "second"
-        }
-
-        else {
-            imageName = "third"
-        }
-
-        await FileService.Upload(image, `Images/${productUid}/${imageName}.png`)
+    public static UploadImage = async (imageFile: File, externalId: string, imageName: string) => {
+        await Post<{}, any>("prorducts/uploadImage", {
+            Base64String: FileUtils.ReadAsBase64String(imageFile),
+            ExternalId: externalId,
+            ImageName: imageName
+        })
     }
 }

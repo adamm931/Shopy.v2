@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { ProductFormItem } from './FormItem'
 import { ProductFormButtons } from './FormButtons'
 import { IProductFormProps, IProductFormDispatch } from './Types/IProductFormProps'
-import { IProductFormState, GetStateFromProps as GetStateFromProps } from './Types/IProductFormState'
+import { IProductFormState, GetStateFromProps } from './Types/IProductFormState'
 import { ProductFormDropDown } from './FormDropDown'
 import { ProductUtils } from '../../Utils/ProductUtils'
 import * as RequestFactory from '../../State/Requests/Factory/RequestFactory'
@@ -75,9 +75,7 @@ class ProductForm extends React.Component<ProductFormPropsType, IProductFormStat
 
         let data = this.state;
 
-        console.log('state', data);
-
-        if (this.props.Type == "Add") {
+        if (this.props.Type === "Add") {
             this.props.Add(
                 data.Name,
                 data.Description,
@@ -88,8 +86,8 @@ class ProductForm extends React.Component<ProductFormPropsType, IProductFormStat
 
         else {
 
-            if (this.props.Uuid == undefined) {
-                throw 'Product uuid is not present';
+            if (this.props.Uuid === undefined) {
+                throw new Error('Product uuid is not present');
             }
 
             this.props.Edit(

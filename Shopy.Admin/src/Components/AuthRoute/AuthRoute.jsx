@@ -8,7 +8,7 @@ import * as ActionFactory from '../../State/Actions/Factory/ActionFactory'
 
 const AuthRoute = ({ component: Component, isUserLogged, redirectTo, dispatch, ...rest }) => {
 
-    if (redirectTo != undefined) {
+    if (redirectTo !== undefined) {
         HistoryUtils.Redirect(redirectTo)
         dispatch(ActionFactory.ClearRedirect())
     }

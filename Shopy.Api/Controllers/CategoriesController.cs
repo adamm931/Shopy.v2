@@ -14,7 +14,7 @@ namespace Shopy.Api.Controllers
             => Ok(await Mediator.Send(new LookupCategoriesQuery()));
 
         [HttpGet]
-        [Route("{externalId}")]
+        [Route("{externalId}/get")]
         public async Task<IActionResult> Get([FromRoute]GetCategoryQuery query)
             => Ok(await Mediator.Send(query));
 

@@ -6,7 +6,7 @@ export const ChangeCategoryItem: React.FC<IChangeCategoryItemProps> = (props) =>
         <td>{props.Index}</td>
         <td>{props.Name}</td>
         <td>
-            <a href="#" onClick={
+            <a href="#this" onClick={
                 () => props.RemoveFrom(props.ProductUid, props.ExternalId)}
                 className="btn btn-danger"
                 role="button">Remove

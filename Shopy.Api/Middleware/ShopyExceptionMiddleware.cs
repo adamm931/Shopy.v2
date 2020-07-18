@@ -30,16 +30,32 @@ namespace Shopy.Api.Middleware
 
         private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            // TODO: Authorize api
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = MapExceptionToStatusCode(ex);
+
+            var result = JsonConvert.SerializeObject(new
+            {
+                Error = ex.Message
+            });
+
+            return context.Response.WriteAsync(result);
+        }
+
+        private static int MapExceptionToStatusCode(Exception exception)
+        {
             var code = HttpStatusCode.InternalServerError;
 
-            if (ex is ValidationException) code = HttpStatusCode.BadRequest;
-            if (ex is EntityNotFoundException) code = HttpStatusCode.NotFound;
+            if (exception is ValidationException)
+            {
+                code = HttpStatusCode.BadRequest;
+            }
 
-            var result = JsonConvert.SerializeObject(new { error = ex.Message });
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)code;
-            return context.Response.WriteAsync(result);
+            if (exception is EntityNotFoundException)
+            {
+                code = HttpStatusCode.NotFound;
+            }
+
+            return (int)code;
         }
     }
 }

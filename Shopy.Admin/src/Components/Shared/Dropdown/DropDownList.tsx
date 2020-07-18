@@ -20,5 +20,5 @@ export const DropDownList: React.FC<IDropDownProps> = (props) =>
 
 
 const isSelected = (item: IKeyValue, props: IDropDownProps) => props.Multiple
-    ? props.SelectedItems?.some(selectedItem => selectedItem == item.Key)
-    : item.Key == props.SelectedItem;
+    ? props.SelectedItems?.some(selectedItem => selectedItem === item.Key)
+    : item.Key === props.SelectedItem;

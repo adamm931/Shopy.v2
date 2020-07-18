@@ -1,4 +1,3 @@
-import { ProdutImageUtils } from './ProductImageUtils';
 import { IKeyValue } from './../Components/Shared/Types/IKeyValue';
 
 export class ProductUtils {
@@ -51,11 +50,9 @@ export class ProductUtils {
             }
         ]
 
-    public static DefaultImageUrl = process.env.REACT_APP_DEFAULT_IMAGE_URL || ""
-
-    public static GetImageUrl = (index: number, productUid: string) =>
-        productUid == undefined ?
-            ProductUtils.DefaultImageUrl :
-            process.env.REACT_APP_IMAGE_ROOT + `/${productUid}/${ProdutImageUtils.GetImageNameByIndex(index)}.png`
+    public static GetImageUrl = (index: number, externalId: string): string =>
+        externalId === undefined
+            ? (process.env.REACT_APP_DEFAULT_IMAGE_URL || '')
+            : `${process.env.REACT_APP_IMAGE_ROOT}/${externalId}/${index}.png`
 
 }

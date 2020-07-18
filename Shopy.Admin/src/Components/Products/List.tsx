@@ -32,17 +32,9 @@ class ProductList extends React.Component<IProductListProps & IProductListDispat
     }
 }
 
-const mapStateToProps = (state: IShopyState): IProductListProps => {
-
-    console.log('Products - List.tsx - state', state)
-
-    var items = state.ProductList.Items === undefined ? [] : state.ProductList.Items
-
-    return {
-        Products: items
-    }
-
-}
+const mapStateToProps = (state: IShopyState): IProductListProps => ({
+    Products: state.ProductList.Items || []
+})
 
 const mapDispatchToProps = (dispatch: any): IProductListDispatch => ({
     List: () => dispatch(RequestFactory.ListProductsRequest())
