@@ -2,7 +2,7 @@
 
 namespace Shopy.Infrastructure.Interfaces
 {
-    public interface IOnSave
+    public interface IOnSaveHandler
     {
         void OnSave(DbContext context);
     }

@@ -4,6 +4,6 @@ export interface IAddProductToCategoryRequest extends IBaseRequest<IAddProductTo
 }
 
 export interface IAddProductToCategoryRequestPayload {
-    ProductUid: string
-    CategoryUid: string
+    ProductExternalId: string
+    CategoryExternalId: string
 }

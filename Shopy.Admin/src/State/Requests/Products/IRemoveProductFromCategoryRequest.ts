@@ -4,6 +4,6 @@ export interface IRemoveProductFromCategoryRequest extends IBaseRequest<IRemoveP
 }
 
 export interface IRemoveProductFromCategoryRequestPayload {
-    ProductUid: string
-    CategoryUid: string
+    ProductExternalId: string
+    CategoryExternalId: string
 }

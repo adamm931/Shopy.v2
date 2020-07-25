@@ -1,7 +1,7 @@
 export interface IChangeCategoryItemProps {
     Index: number;
     ExternalId: string;
-    ProductUid: string;
+    ProductExternalId: string;
     Name: string;
-    RemoveFrom: (productUid: string, categoryUid: string) => void;
+    RemoveFrom: (productExternalId: string, categoryExternalId: string) => void;
 }

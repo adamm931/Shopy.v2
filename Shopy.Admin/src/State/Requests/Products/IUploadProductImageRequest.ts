@@ -4,6 +4,6 @@ export interface IUploadProductImageRequest extends IBaseRequest<IUploadProductI
 }
 
 export interface IUploadProductImageRequestPayload {
-    ProductUid: string
+    ProductExternalId: string
     Images: File[]
 }

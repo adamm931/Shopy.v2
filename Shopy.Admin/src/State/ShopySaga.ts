@@ -151,13 +151,13 @@ function* GetProductCategories(request: IGetProductRequest) {
 function* AddProductToCategory(request: IAddProductToCategoryRequest) {
     let payload = request.Payload
     yield call(() => ProductsService.AddProductToCategory(request.Payload));
-    yield put(ActionFactory.ProductAddedToCategory(payload.ProductUid, payload.CategoryUid));
+    yield put(ActionFactory.ProductAddedToCategory(payload.ProductExternalId, payload.CategoryExternalId));
 }
 
 function* RemoveProductFromCategory(request: IRemoveProductFromCategoryRequest) {
     let payload = request.Payload
     yield call(() => ProductsService.RemoveProductFromCategory(payload));
-    yield put(ActionFactory.ProductRemovedFromCategory(payload.ProductUid, payload.CategoryUid));
+    yield put(ActionFactory.ProductRemovedFromCategory(payload.ProductExternalId, payload.CategoryExternalId));
 }
 
 function* LookupCategories(request: IProductsListRequest) {
@@ -168,7 +168,7 @@ function* LookupCategories(request: IProductsListRequest) {
 function* UploadProductImages(request: IUploadProductImageRequest) {
     let payload = request.Payload
     yield call(() => payload.Images.forEach((image, index) => {
-        ProductsService.UploadImage(image, payload.ProductUid, index.toString())
+        ProductsService.UploadImage(image, payload.ProductExternalId, index.toString())
     }))
 }
 

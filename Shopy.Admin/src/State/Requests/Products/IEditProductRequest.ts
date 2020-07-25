@@ -5,7 +5,7 @@ export interface IEditProductRequest extends IBaseRequest<IEditProductRequestPay
 }
 
 export interface IEditProductRequestPayload {
-    Uuid: string;
+    ExternalId: string;
     Caption: string;
     Description: string;
     Price: number;

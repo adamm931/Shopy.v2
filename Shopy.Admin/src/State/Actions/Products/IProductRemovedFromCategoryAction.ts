@@ -6,6 +6,6 @@ export interface IProductRemovedFromCategoryAction extends IBaseAction<IProductR
 }
 
 export interface IProductRemovedFromCategoryActionPayload {
-    ProductUid: string;
-    CategoryUid: string;
+    ProductExternalId: string;
+    CategoryExternalId: string;
 }

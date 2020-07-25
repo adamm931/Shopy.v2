@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Shopy.Application.Interfaces;
 using Shopy.Common;
 using Shopy.Common.Interfaces;
+using Shopy.Domain.Data;
 using Shopy.Infrastructure.Auth;
 using Shopy.Infrastructure.Common;
 using Shopy.Infrastructure.Images;
@@ -13,6 +14,7 @@ using Shopy.Infrastructure.Interfaces;
 using Shopy.Infrastructure.Persistance;
 using Shopy.Infrastructure.Persistance.Context;
 using Shopy.Infrastructure.Persistance.OnSaveHandlers;
+using Shopy.Infrastructure.Persistance.Repository;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
@@ -22,17 +24,25 @@ namespace Shopy.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            // app settings
             services.AddOptions<ShopyDatabaseOptions>(configuration);
             services.AddOptions<JwtOptions>(configuration);
 
-            services.AddTransient<IShopySeeder, ShopySeeder>();
-            services.AddTransient<IShopyContext, ShopyContext>();
+            // database
+            services.AddSingleton<ShopyDbContext>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IDbInitializer, ShopyDbInitializer>();
+            services.AddTransient<IDbSeeder, ShopyDbSeeder>();
+            services.AddTransient(typeof(IRepository<>), typeof(ShopyEfRepository<>));
+            services.AddTransient<IOnSaveHandler, EntityAuditHandler>();
+
+            // services
             services.AddTransient<IAuthProvider, JwtTokenAuthProvider>();
-            services.AddTransient<IImageUploader, ImageUploader>();
+            services.AddTransient<IImageService, ImageService>();
             services.AddTransient<IDateTime, MachineDateTime>();
             services.AddHttpContextAccessor();
-            services.AddTransient<IOnSave, EntityAuditHandler>();
 
+            // jwt authentication
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             services

@@ -1,6 +1,6 @@
 export interface IChangeCategoriesDispatch {
-    RemoveFrom: (productUid: string, categoryUid: string) => void
-    AddTo: (productUid: string, categoryUid: string) => void
+    RemoveFrom: (productExternalId: string, categoryExternalId: string) => void
+    AddTo: (productExternalId: string, categoryExternalId: string) => void
     CategoriesLookup: () => void
     GetProductCategories: () => void
 }

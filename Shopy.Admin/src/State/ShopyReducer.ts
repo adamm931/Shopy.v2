@@ -72,7 +72,7 @@ export const ShopyReducer = (state: IShopyState = InitialState, action: IActions
         }
         case ActionTypes.PRODUCT_ADDED_TO_CATEGORY: {
 
-            let { addingList, removingList } = getCategoryModifiedLists(action.Payload.CategoryUid, true, state)
+            let { addingList, removingList } = getCategoryModifiedLists(action.Payload.CategoryExternalId, true, state)
 
             return {
                 ...state,
@@ -82,7 +82,7 @@ export const ShopyReducer = (state: IShopyState = InitialState, action: IActions
         }
         case ActionTypes.PRODUCT_REMOVED_FROM_CATEGORY: {
 
-            let { addingList, removingList } = getCategoryModifiedLists(action.Payload.CategoryUid, false, state)
+            let { addingList, removingList } = getCategoryModifiedLists(action.Payload.CategoryExternalId, false, state)
 
             return {
                 ...state,
@@ -118,7 +118,7 @@ export const ShopyReducer = (state: IShopyState = InitialState, action: IActions
     }
 }
 
-const getCategoryModifiedLists = (categoryUid: string, added: boolean, state: IShopyState): any => {
+const getCategoryModifiedLists = (categoryExternalId: string, added: boolean, state: IShopyState): any => {
 
     let addingList = state.AvailableProductCategories
     let removingList = state.ProductCategories
@@ -128,12 +128,12 @@ const getCategoryModifiedLists = (categoryUid: string, added: boolean, state: IS
         removingList = state.AvailableProductCategories
     }
 
-    removingList = removingList.filter(category => category.ExternalId !== categoryUid)
+    removingList = removingList.filter(category => category.ExternalId !== categoryExternalId)
 
-    var category = state.LookupCategories.find(lookup => lookup.ExternalId === categoryUid)
+    var category = state.LookupCategories.find(lookup => lookup.ExternalId === categoryExternalId)
 
     if (category === undefined) {
-        throw new Error(`Category is not found with externalId '${categoryUid}'`)
+        throw new Error(`Category is not found with externalId '${categoryExternalId}'`)
     }
 
     addingList = [...addingList, category]

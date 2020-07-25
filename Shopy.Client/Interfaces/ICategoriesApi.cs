@@ -1,4 +1,4 @@
-﻿using Shopy.Application.Categories.Add;
+﻿using Shopy.Application.Categories.Commands.Add;
 using Shopy.Application.Categories.Edit;
 using Shopy.Application.Models;
 using System;

@@ -34,7 +34,7 @@ class ProductEdit extends React.Component<Props, IProductEditProps> {
 
         return (
             <ProductForm
-                Uuid={RouteUtils.GetIdParam(this.props)}
+                ExternalId={RouteUtils.GetIdParam(this.props)}
                 Name={this.state.Name}
                 Description={this.state.Description}
                 Price={this.state.Price}

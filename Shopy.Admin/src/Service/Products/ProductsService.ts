@@ -18,7 +18,7 @@ export class ProductsService {
         await Post<any, IAddProductRequestPayload>("/products/add", product)
 
     public static EditProduct = async (product: IEditProductRequestPayload): Promise<any> =>
-        await Put<any, IEditProductRequestPayload>(`/products/${product.Uuid}/edit`, product);
+        await Put<any, IEditProductRequestPayload>(`/products/${product.ExternalId}/edit`, product);
 
     public static DeleteProduct = async (product: IDeleteProductRequestPayload): Promise<any> =>
         await Delete<any>(`/products/${product.ExternalId}/delete`)
@@ -30,10 +30,10 @@ export class ProductsService {
         await Get<INameExternalIdApiModel[]>(`/products/${externalId}/categories`)
 
     public static AddProductToCategory = async (request: IAddProductToCategoryRequestPayload): Promise<any> =>
-        await Post<any, {}>(`/products/${request.ProductUid}/add-to-category/${request.CategoryUid}`, {});
+        await Post<any, {}>(`/products/${request.ProductExternalId}/add-to-category/${request.CategoryExternalId}`, {});
 
     public static RemoveProductFromCategory = async (request: IRemoveProductFromCategoryRequestPayload): Promise<any> =>
-        await Post<any, {}>(`/products/${request.ProductUid}/remove-from-category/${request.CategoryUid}`, {});
+        await Post<any, {}>(`/products/${request.ProductExternalId}/remove-from-category/${request.CategoryExternalId}`, {});
 
     public static GetProduct = async (request: IGetProductRequestPayload): Promise<IProduct> => {
         var apiProduct = await Get<IProductApiModel>(`/products/${request.ExternalId}/get`)

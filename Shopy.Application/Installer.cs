@@ -13,6 +13,7 @@ namespace Shopy.Application
         {
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipeline<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipeline<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkPipeline<,>));
 
             services.AddMediatR(typeof(AddProductCommand).Assembly);
             services.AddAutoMapper(typeof(AddProductCommand).Assembly);

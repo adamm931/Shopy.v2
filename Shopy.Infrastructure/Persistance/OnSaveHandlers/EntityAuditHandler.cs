@@ -7,7 +7,7 @@ using Shopy.Infrastructure.Interfaces;
 
 namespace Shopy.Infrastructure.Persistance.OnSaveHandlers
 {
-    internal class EntityAuditHandler : IOnSave
+    internal class EntityAuditHandler : IOnSaveHandler
     {
         private readonly IAuthProvider _authProvider;
         private readonly IDateTime _dateTime;

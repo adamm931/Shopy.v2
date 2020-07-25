@@ -86,12 +86,12 @@ class ProductForm extends React.Component<ProductFormPropsType, IProductFormStat
 
         else {
 
-            if (this.props.Uuid === undefined) {
-                throw new Error('Product uuid is not present');
+            if (this.props.ExternalId === undefined) {
+                throw new Error('Product externalId is not present');
             }
 
             this.props.Edit(
-                this.props.Uuid,
+                this.props.ExternalId,
                 data.Name,
                 data.Description,
                 data.Price,
@@ -102,7 +102,7 @@ class ProductForm extends React.Component<ProductFormPropsType, IProductFormStat
                 .filter(img => img.File !== undefined)
                 .map(file => file.File as File)
 
-            this.props.UploadImages(this.props.Uuid, files)
+            this.props.UploadImages(this.props.ExternalId, files)
         }
     }
 
@@ -166,19 +166,19 @@ class ProductForm extends React.Component<ProductFormPropsType, IProductFormStat
                         <ProductFormImage
                             Index={0}
                             OnImageChange={(url, file) => this.onImageChanged(url, file, 0)}
-                            ProductUid={this.props.Uuid}
+                            ExternalId={this.props.ExternalId}
                             {...this.props.Images[0]}
                         />
                         <ProductFormImage
                             Index={1}
                             OnImageChange={(url, file) => this.onImageChanged(url, file, 1)}
-                            ProductUid={this.props.Uuid}
+                            ExternalId={this.props.ExternalId}
                             {...this.props.Images[1]}
                         />
                         <ProductFormImage
                             Index={2}
                             OnImageChange={(url, file) => this.onImageChanged(url, file, 2)}
-                            ProductUid={this.props.Uuid}
+                            ExternalId={this.props.ExternalId}
                             {...this.props.Images[2]}
                         />
                     </div>

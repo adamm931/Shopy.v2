@@ -39,7 +39,7 @@ export const AddProductRequest = (name: string, description: string, price: numb
 
 export const EditProductRequest = (externalId: string, name: string, description: string, price: number, brand: string, sizes: string[]): IEditProductRequest => ({
     Payload: {
-        Uuid: externalId,
+        ExternalId: externalId,
         Caption: name,
         Description: description,
         Price: price,
@@ -68,25 +68,25 @@ export const GetProductRequest = (externalId: string): IGetProductRequest => ({
     type: RequestTypes.GET_PRODUCT
 })
 
-export const AddProductToCategory = (productUid: string, categoryUid: string): IAddProductToCategoryRequest => ({
+export const AddProductToCategory = (productExternalId: string, categoryExternalId: string): IAddProductToCategoryRequest => ({
     Payload: {
-        ProductUid: productUid,
-        CategoryUid: categoryUid
+        ProductExternalId: productExternalId,
+        CategoryExternalId: categoryExternalId
     },
     type: RequestTypes.ADD_PRODUCT_TO_CATEGORY
 })
 
-export const RemoveProductFromCategory = (productUid: string, categoryUid: string): IRemoveProductFromCategoryRequest => ({
+export const RemoveProductFromCategory = (productExternalId: string, categoryExternalId: string): IRemoveProductFromCategoryRequest => ({
     Payload: {
-        ProductUid: productUid,
-        CategoryUid: categoryUid
+        ProductExternalId: productExternalId,
+        CategoryExternalId: categoryExternalId
     },
     type: RequestTypes.REMOVE_PRODUCT_FROM_CATEGORY
 })
 
-export const GetProductCategories = (productUid: string): IGetProductCategoriesRequest => ({
+export const GetProductCategories = (productExternalId: string): IGetProductCategoriesRequest => ({
     Payload: {
-        ExternalId: productUid
+        ExternalId: productExternalId
     },
     type: RequestTypes.GET_PRODUCT_CATEGORIES
 })
@@ -96,9 +96,9 @@ export const LookupCategories = (): ILookupCategoriesRequest => ({
     type: RequestTypes.LOOKUP_CATEGORIES
 })
 
-export const UploadProductImages = (productUid: string, images: File[]): IUploadProductImageRequest => ({
+export const UploadProductImages = (productExternalId: string, images: File[]): IUploadProductImageRequest => ({
     Payload: {
-        ProductUid: productUid,
+        ProductExternalId: productExternalId,
         Images: images
     },
     type: RequestTypes.UPLOAD_PRODUCT_IMAGES

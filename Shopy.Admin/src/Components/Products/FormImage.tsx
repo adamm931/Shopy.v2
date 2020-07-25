@@ -9,7 +9,7 @@ export class ProductFormImage extends React.Component<IProductFormImageProps, IP
         super(props)
 
         this.state = {
-            Url: ProductUtils.GetImageUrl(this.props.Index, this.props.ProductUid),
+            Url: ProductUtils.GetImageUrl(this.props.Index, this.props.ExternalId),
         }
     }
 

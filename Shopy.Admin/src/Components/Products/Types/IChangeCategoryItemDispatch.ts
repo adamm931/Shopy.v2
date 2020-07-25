@@ -1,3 +1,3 @@
 export interface IChangeCategoryItemDispatch {
-    RemoveFrom: (productUid: string, categoryUid: string) => void;
+    RemoveFrom: (productExternalId: string, categoryExternalId: string) => void;
 }

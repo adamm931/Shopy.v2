@@ -1,25 +1,20 @@
-﻿using Shopy.Application.Base;
-using Shopy.Application.Interfaces;
+﻿using MediatR;
 using Shopy.Application.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shopy.Application.Auth.Login
 {
-    public class LoginCommandHandler : ShopyRequestHandler<LoginCommand, LoginResponse>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
     {
-        public LoginCommandHandler(IShopyContext context) : base(context)
-        {
-        }
-
-        public override Task<LoginResponse> Handle(LoginCommand command, CancellationToken cancellationToken)
+        public async Task<LoginResponse> Handle(LoginCommand command, CancellationToken cancellationToken)
         {
             var response = new LoginResponse
             {
-                IsAuthenticated = command.Username == "Admin" && command.Password == "1234"
+                IsAuthenticated = command.Username == "Admin" && command.Password == "Admin"
             };
 
-            return Task.FromResult(response);
+            return await Task.FromResult(response);
         }
     }
 }

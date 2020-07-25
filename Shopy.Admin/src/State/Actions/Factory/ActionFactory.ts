@@ -66,19 +66,19 @@ export const LookupCategories = (data: INameExternalIdApiModel[]): ILookupCatego
     }
 })
 
-export const ProductAddedToCategory = (productUid: string, categoryUid: string): IProductAddedToCategoryAction => ({
+export const ProductAddedToCategory = (productExternalId: string, categoryExternalId: string): IProductAddedToCategoryAction => ({
     type: ActionTypes.PRODUCT_ADDED_TO_CATEGORY,
     Payload: {
-        ProductUid: productUid,
-        CategoryUid: categoryUid
+        ProductExternalId: productExternalId,
+        CategoryExternalId: categoryExternalId
     }
 })
 
-export const ProductRemovedFromCategory = (productUid: string, categoryUid: string): IProductRemovedFromCategoryAction => ({
+export const ProductRemovedFromCategory = (productExternalId: string, categoryExternalId: string): IProductRemovedFromCategoryAction => ({
     type: ActionTypes.PRODUCT_REMOVED_FROM_CATEGORY,
     Payload: {
-        ProductUid: productUid,
-        CategoryUid: categoryUid
+        ProductExternalId: productExternalId,
+        CategoryExternalId: categoryExternalId
     }
 })
 

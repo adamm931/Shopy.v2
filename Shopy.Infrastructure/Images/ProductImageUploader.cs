@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Shopy.Infrastructure.Images
 {
-    public class ImageUploader : IImageUploader
+    public class ImageService : IImageService
     {
         private readonly IHostEnvironment _hostEnvironment;
 
-        private readonly ILogger<ImageUploader> _logger;
+        private readonly ILogger<ImageService> _logger;
 
-        public ImageUploader(IHostEnvironment hostEnvironment, ILogger<ImageUploader> logger)
+        public ImageService(IHostEnvironment hostEnvironment, ILogger<ImageService> logger)
         {
             _hostEnvironment = hostEnvironment;
             _logger = logger;

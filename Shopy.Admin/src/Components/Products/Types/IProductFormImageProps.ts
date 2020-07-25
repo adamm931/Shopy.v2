@@ -2,6 +2,6 @@ export interface IProductFormImageProps {
     Index: number;
     Url: string;
     File?: File;
-    ProductUid: string;
+    ExternalId: string;
     OnImageChange: (url: string, file: File) => void;
 }

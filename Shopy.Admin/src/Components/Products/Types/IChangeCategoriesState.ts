@@ -2,7 +2,7 @@ import { ProductCategories } from './../../../State/Actions/Factory/ActionFactor
 import { IKeyValue } from './../../Shared/Types/IKeyValue';
 
 export interface IChangeCategoriesState {
-    ProductUid: string
+    ProductExternalId: string
     SelectedCategoryUid?: string
     AvailableCategories: IKeyValue[]
     ProductCategories: IKeyValue[]

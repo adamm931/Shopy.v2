@@ -21,7 +21,7 @@ class ChangeCategories extends React.Component<Props, IChangeCategoriesState> {
             SelectedCategoryUid: '',
             AvailableCategories: [],
             ProductCategories: [],
-            ProductUid: RouteUtils.GetIdParam(props)
+            ProductExternalId: RouteUtils.GetIdParam(props)
         }
 
         this.props.CategoriesLookup();
@@ -45,26 +45,26 @@ class ChangeCategories extends React.Component<Props, IChangeCategoriesState> {
     }
 
     addToSelectedCategory = () => {
-        let categoryUid = this.state.SelectedCategoryUid;
+        let categoryExternalId = this.state.SelectedCategoryUid;
 
-        if (categoryUid === undefined) {
+        if (categoryExternalId === undefined) {
             return
         }
 
-        if (this.state.ProductCategories.some(productCategory => productCategory.Key === categoryUid)) {
+        if (this.state.ProductCategories.some(productCategory => productCategory.Key === categoryExternalId)) {
             return
         }
 
         // last element
         if (this.state.AvailableCategories.length === 1) {
-            categoryUid = this.state.AvailableCategories[0].Key
+            categoryExternalId = this.state.AvailableCategories[0].Key
         }
 
-        this.props.AddTo(this.state.ProductUid, categoryUid)
+        this.props.AddTo(this.state.ProductExternalId, categoryExternalId)
     }
 
-    removeFromCategory = (productUid: string, categoryUid: string) => {
-        this.props.RemoveFrom(productUid, categoryUid)
+    removeFromCategory = (productExternalId: string, categoryExternalId: string) => {
+        this.props.RemoveFrom(productExternalId, categoryExternalId)
     }
 
     render() {
@@ -86,7 +86,7 @@ class ChangeCategories extends React.Component<Props, IChangeCategoriesState> {
                                         Index={index}
                                         Name={category.Value}
                                         ExternalId={category.Key}
-                                        ProductUid={this.state.ProductUid}
+                                        ProductExternalId={this.state.ProductExternalId}
                                         RemoveFrom={this.removeFromCategory} />)
                             }
                         </tbody>
@@ -142,8 +142,8 @@ const mapStateToProps = (state: IShopyState): IChangeCategoriesProps => {
 }
 
 const mapDispatachToProps = (dispatch: any, routeProps: RouteComponentProps): IChangeCategoriesDispatch => ({
-    RemoveFrom: (productUid: string, categoryUid: string) => dispatch(RequestFactory.RemoveProductFromCategory(productUid, categoryUid)),
-    AddTo: (productUid: string, categoryUid: string) => dispatch(RequestFactory.AddProductToCategory(productUid, categoryUid)),
+    RemoveFrom: (productExternalId: string, categoryExternalId: string) => dispatch(RequestFactory.RemoveProductFromCategory(productExternalId, categoryExternalId)),
+    AddTo: (productExternalId: string, categoryExternalId: string) => dispatch(RequestFactory.AddProductToCategory(productExternalId, categoryExternalId)),
     CategoriesLookup: () => dispatch(RequestFactory.LookupCategories()),
     GetProductCategories: () => dispatch(RequestFactory.GetProductCategories(RouteUtils.GetIdParam(routeProps)))
 })

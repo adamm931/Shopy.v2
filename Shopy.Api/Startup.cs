@@ -29,7 +29,7 @@ namespace Shopy.Api
 
             services.AddInfrastructure(Configuration);
             services.AddApplication();
-            services.AddValidatorsFromAssembly(typeof(IImageUploader).Assembly);
+            services.AddValidatorsFromAssembly(typeof(IImageService).Assembly);
 
             services.AddLogging(builder => builder.AddFile("/Logs/Shopy-{Date}.txt"));
 

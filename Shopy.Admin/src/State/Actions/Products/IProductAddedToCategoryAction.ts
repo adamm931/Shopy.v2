@@ -6,6 +6,6 @@ export interface IProductAddedToCategoryAction extends IBaseAction<IProductAdded
 }
 
 export interface IProductAddedToCategoryActionPayload {
-    ProductUid: string;
-    CategoryUid: string;
+    ProductExternalId: string;
+    CategoryExternalId: string;
 }

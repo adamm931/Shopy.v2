@@ -1,7 +1,7 @@
 import { IProductFormImageProps } from './IProductFormImageProps';
 
 export interface IProductFormProps {
-    Uuid?: string;
+    ExternalId?: string;
     Name: string
     Description: string
     Price: number

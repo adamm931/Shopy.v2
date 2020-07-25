@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shopy.Application.Categories.Add;
+using Shopy.Application.Categories.Commands.Add;
 using Shopy.Application.Categories.Delete;
 using Shopy.Application.Categories.Edit;
+using Shopy.Application.Categories.Queries.Get;
 using System.Threading.Tasks;
 
 namespace Shopy.Api.Controllers
