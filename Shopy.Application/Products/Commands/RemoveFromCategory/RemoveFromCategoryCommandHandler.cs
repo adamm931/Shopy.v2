@@ -17,9 +17,9 @@ namespace Shopy.Application.Products.RemoveFromCategory
 
         public async Task<Unit> Handle(RemoveProductFromCategoryCommand request, CancellationToken cancellationToken)
         {
-            var productSpec = new Specification<Product>()
-                .AddInclude($"{nameof(Product.Categories)}.{nameof(ProductCategory.Category)}")
-                .ByExternalId(request.ProductExternalId);
+            var productSpec = Specification<Product>
+                .ByExternalId(request.ProductExternalId)
+                .AddInclude($"{nameof(Product.Categories)}.{nameof(ProductCategory.Category)}");
 
             var product = await products.Get(productSpec);
 

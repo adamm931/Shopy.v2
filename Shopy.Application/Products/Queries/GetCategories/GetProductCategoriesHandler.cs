@@ -22,9 +22,9 @@ namespace Shopy.Application.Products.GetCategories
 
         public async Task<IEnumerable<ProductCategoryResponse>> Handle(GetProductCategoriesQuery request, CancellationToken cancellationToken)
         {
-            var spec = new Specification<Product>()
-                .AddInclude($"{nameof(Product.Categories)}.{nameof(ProductCategory.Category)}")
-                .ByExternalId(request.ExternalId);
+            var spec = Specification<Product>
+                .ByExternalId(request.ExternalId)
+                .AddInclude($"{nameof(Product.Categories)}.{nameof(ProductCategory.Category)}");
 
             var product = await products.Get(spec);
 

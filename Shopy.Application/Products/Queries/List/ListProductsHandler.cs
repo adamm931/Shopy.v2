@@ -20,7 +20,8 @@ namespace Shopy.Application.Products.List
 
         public async Task<PagedList<ProductResponse>> Handle(ListProductsQuery request, CancellationToken cancellationToken)
         {
-            var spec = new Specification<Product>()
+            var spec = Specification<Product>
+                .Create()
                 .AddInclude($"{nameof(Product.Brand)}")
                 .AddInclude($"{nameof(Product.Sizes)}")
                 .AddInclude($"{nameof(Product.Categories)}.{nameof(ProductCategory.Category)}");

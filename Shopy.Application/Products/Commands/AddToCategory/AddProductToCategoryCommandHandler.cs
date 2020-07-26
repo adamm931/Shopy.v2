@@ -21,11 +21,11 @@ namespace Shopy.Application.Products.AddToCategory
 
         public async Task<Unit> Handle(AddProductToCategoryCommand request, CancellationToken cancellationToken)
         {
-            var productSpec = new Specification<Product>()
-                .AddInclude($"{nameof(Product.Categories)}.{nameof(ProductCategory.Category)}")
-                .ByExternalId(request.ProductExternalId);
+            var productSpec = Specification<Product>
+                .ByExternalId(request.ProductExternalId)
+                .AddInclude($"{nameof(Product.Categories)}.{nameof(ProductCategory.Category)}");
 
-            var categorySpec = new Specification<Category>()
+            var categorySpec = Specification<Category>
                 .ByExternalId(request.CategoryExternalId);
 
             var product = await products.Get(productSpec);

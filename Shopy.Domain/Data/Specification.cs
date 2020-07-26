@@ -14,6 +14,8 @@ namespace Shopy.Domain.Data
 
         public IReadOnlyCollection<string> Includes => includes.AsReadOnly();
 
+        private Specification() { }
+
         public Specification<TEntity> AddInclude(string include)
         {
             if (!includes.Contains(include))
@@ -22,10 +24,7 @@ namespace Shopy.Domain.Data
             }
 
             return this;
-
         }
-
-        public Specification<TEntity> ByExternalId(Guid externalId) => And(entity => entity.ExternalId == externalId);
 
         public Specification<TEntity> And(Expression<Func<TEntity, bool>> newCriteria)
         {
@@ -37,5 +36,10 @@ namespace Shopy.Domain.Data
 
             return this;
         }
+
+        public static Specification<TEntity> ByExternalId(Guid externalId)
+            => new Specification<TEntity>().And(entity => entity.ExternalId == externalId);
+
+        public static Specification<TEntity> Create() => new Specification<TEntity>();
     }
 }

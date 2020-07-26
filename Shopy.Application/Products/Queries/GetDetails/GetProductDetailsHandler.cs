@@ -19,15 +19,15 @@ namespace Shopy.Application.Products.GetDetails
 
         public async Task<ProductDetailsResponse> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
         {
-            var spec = new Specification<Product>()
+            var spec = Specification<Product>
+                .ByExternalId(request.ExternalId)
                 .AddInclude($"{nameof(Product.Categories)}" +
                     $".{nameof(ProductCategory.Category)}" +
                     $".{nameof(Category.Products)}" +
                     $".{nameof(ProductCategory.Product)}" +
                     $".{nameof(Product.Sizes)}")
                 .AddInclude($"{nameof(Product.Brand)}")
-                .AddInclude($"{nameof(Product.Sizes)}")
-                .ByExternalId(request.ExternalId);
+                .AddInclude($"{nameof(Product.Sizes)}");
 
             var product = await products.Get(spec);
 
