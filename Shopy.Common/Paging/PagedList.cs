@@ -20,21 +20,26 @@ namespace Shopy.Common.Paging
         public bool HasNextPage => PageIndex + 1 < PageCount;
 
         public PagedList(IEnumerable<T> items, int pageIndex, int pageSize, long totalCount)
-            : this(items.AsQueryable(), pageIndex, pageSize, totalCount)
+            : this(pageIndex, pageSize, totalCount)
         {
+            Items = items;
+
         }
 
         public PagedList(IQueryable<T> items, int pageIndex, int pageSize, long totalCount)
+            : this(pageIndex, pageSize, totalCount)
         {
-            PageIndex = pageIndex;
-            PageSize = pageSize;
-            PageCount = totalCount == 0 ? 0 : (int)Math.Ceiling(totalCount / (double)pageSize);
-
-            TotalCount = totalCount;
-
             Items = items
                 .Skip(pageIndex * pageSize)
                 .Take((pageIndex + 1) * pageSize);
+        }
+
+        private PagedList(int pageIndex, int pageSize, long totalCount)
+        {
+            PageIndex = pageIndex;
+            PageSize = pageIndex;
+            TotalCount = totalCount;
+            PageCount = totalCount == 0 ? 0 : (int)Math.Ceiling(totalCount / (double)pageSize);
         }
 
         internal PagedList()
