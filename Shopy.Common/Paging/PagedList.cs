@@ -1,11 +1,11 @@
-﻿using Shopy.Application.Mappings;
+﻿using Shopy.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Shopy.Application.Models
+namespace Shopy.Common.Paging
 {
-    public class PagedList<T>
+    public class PagedList<T> : IPagedList<T>
     {
         public IEnumerable<T> Items { get; set; }
 
@@ -17,7 +17,12 @@ namespace Shopy.Application.Models
 
         public long TotalCount { get; set; }
 
-        public bool HasNextPage => (PageIndex + 1) < PageCount;
+        public bool HasNextPage => PageIndex + 1 < PageCount;
+
+        public PagedList(IEnumerable<T> items, int pageIndex, int pageSize, long totalCount)
+            : this(items.AsQueryable(), pageIndex, pageSize, totalCount)
+        {
+        }
 
         public PagedList(IQueryable<T> items, int pageIndex, int pageSize, long totalCount)
         {
@@ -34,18 +39,6 @@ namespace Shopy.Application.Models
 
         internal PagedList()
         {
-        }
-
-        public PagedList<TDst> ToPageList<TDst>()
-        {
-            return new PagedList<TDst>
-            {
-                PageIndex = PageIndex,
-                PageCount = PageCount,
-                PageSize = PageSize,
-                TotalCount = TotalCount,
-                Items = Items.MapTo<IEnumerable<TDst>>()
-            };
         }
     }
 }

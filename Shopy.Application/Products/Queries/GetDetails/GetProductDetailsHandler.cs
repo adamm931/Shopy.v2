@@ -3,6 +3,7 @@ using Shopy.Application.Mappings;
 using Shopy.Application.Models;
 using Shopy.Domain.Data;
 using Shopy.Domain.Entitties;
+using Shopy.Domain.Specification;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace Shopy.Application.Products.GetDetails
 
         public async Task<ProductDetailsResponse> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
         {
-            var spec = Specification<Product>
+            var spec = new Specification<Product>()
                 .ByExternalId(request.ExternalId)
                 .AddInclude($"{nameof(Product.Categories)}" +
                     $".{nameof(ProductCategory.Category)}" +

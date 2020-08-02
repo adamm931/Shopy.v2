@@ -1,4 +1,6 @@
-﻿using Shopy.Domain.Entitties.Base;
+﻿using Shopy.Common.Interfaces;
+using Shopy.Domain.Entitties.Base;
+using Shopy.Domain.Specification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace Shopy.Domain.Data
     {
         Task<TEntity> Get(Guid externalId);
 
-        Task<TEntity> Get(Specification<TEntity> specification);
+        Task<TEntity> Get(ISpecification<TEntity> specification);
 
         Task<TEntity> Add(TEntity entity);
 
@@ -20,6 +22,10 @@ namespace Shopy.Domain.Data
 
         Task Remove(Guid externalId);
 
-        Task<IQueryable<TEntity>> List(Specification<TEntity> specification = null);
+        Task<IQueryable<TEntity>> List(ISpecification<TEntity> specification = null);
+
+        Task<IPagedList<TEntity>> PagedList(IPagedSpecification<TEntity> specification);
+
+        Task<long> Count(ISpecification<TEntity> specification);
     }
 }

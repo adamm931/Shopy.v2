@@ -4,6 +4,7 @@ using Shopy.Application.Models;
 using Shopy.Application.Products.Get;
 using Shopy.Domain.Data;
 using Shopy.Domain.Entitties;
+using Shopy.Domain.Specification;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -22,7 +23,7 @@ namespace Shopy.Application.Products.GetCategories
 
         public async Task<IEnumerable<ProductCategoryResponse>> Handle(GetProductCategoriesQuery request, CancellationToken cancellationToken)
         {
-            var spec = Specification<Product>
+            var spec = new Specification<Product>()
                 .ByExternalId(request.ExternalId)
                 .AddInclude($"{nameof(Product.Categories)}.{nameof(ProductCategory.Category)}");
 

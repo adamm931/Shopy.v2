@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Shopy.Domain.Data;
 using Shopy.Domain.Entitties;
+using Shopy.Domain.Specification;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace Shopy.Application.Products.RemoveFromCategory
 
         public async Task<Unit> Handle(RemoveProductFromCategoryCommand request, CancellationToken cancellationToken)
         {
-            var productSpec = Specification<Product>
+            var productSpec = new Specification<Product>()
                 .ByExternalId(request.ProductExternalId)
                 .AddInclude($"{nameof(Product.Categories)}.{nameof(ProductCategory.Category)}");
 

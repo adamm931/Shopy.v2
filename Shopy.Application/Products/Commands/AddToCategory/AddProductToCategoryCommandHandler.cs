@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Shopy.Domain.Data;
 using Shopy.Domain.Entitties;
+using Shopy.Domain.Specification;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,11 +22,11 @@ namespace Shopy.Application.Products.AddToCategory
 
         public async Task<Unit> Handle(AddProductToCategoryCommand request, CancellationToken cancellationToken)
         {
-            var productSpec = Specification<Product>
+            var productSpec = new Specification<Product>()
                 .ByExternalId(request.ProductExternalId)
                 .AddInclude($"{nameof(Product.Categories)}.{nameof(ProductCategory.Category)}");
 
-            var categorySpec = Specification<Category>
+            var categorySpec = new Specification<Category>()
                 .ByExternalId(request.CategoryExternalId);
 
             var product = await products.Get(productSpec);

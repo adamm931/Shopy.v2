@@ -7,6 +7,7 @@ using Shopy.Application.Products.RemoveFromCategory;
 using Shopy.Application.Products.UploadImage;
 using Shopy.Client.Extensions;
 using Shopy.Client.Interfaces;
+using Shopy.Common.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -21,8 +22,8 @@ namespace Shopy.Client.Clients
             _client = client;
         }
 
-        public async Task<PagedList<ProductResponse>> ListAsync(ListProductsQuery request = null)
-            => await _client.GetAsync<PagedList<ProductResponse>>($"products/{request.ToQueryString()}");
+        public async Task<IPagedList<ProductResponse>> ListAsync(ListProductsQuery request = null)
+            => await _client.GetAsync<IPagedList<ProductResponse>>($"products/{request.ToQueryString()}");
 
         public async Task<ProductResponse> GetAsync(Guid ExternalId)
             => await _client.GetAsync<ProductResponse>($"products/{ExternalId}/get");

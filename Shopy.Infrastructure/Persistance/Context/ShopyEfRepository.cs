@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shopy.Common.Interfaces;
+using Shopy.Common.Paging;
 using Shopy.Domain.Data;
 using Shopy.Domain.Entitties.Base;
+using Shopy.Domain.Specification;
 using Shopy.Infrastructure.Persistance.Context;
 using System;
 using System.Collections.Generic;
@@ -25,22 +28,27 @@ namespace Shopy.Infrastructure.Persistance.Repository
         public async Task AddRange(IEnumerable<TEntity> entities)
             => await context.AddRangeAsync(entities);
 
+        public async Task<long> Count(ISpecification<TEntity> specification)
+            => await ApplySpec(specification).CountAsync();
+
         public async Task<TEntity> Get(Guid id)
             => await context.Set<TEntity>().SingleOrDefaultAsync(entity => entity.ExternalId == id);
 
-        public Task<TEntity> Get(Specification<TEntity> specification)
-            => ApplySpec(specification).SingleOrDefaultAsync(specification.Criteria);
+        public async Task<TEntity> Get(ISpecification<TEntity> specification)
+            => await ApplySpec(specification).SingleOrDefaultAsync(specification.Criteria);
 
-        public async Task<IQueryable<TEntity>> List(Specification<TEntity> specification = null)
+        public async Task<IQueryable<TEntity>> List(ISpecification<TEntity> specification = null)
+            => await Task.Run(() => ApplySpec(specification).AsNoTracking());
+
+        public async Task<IPagedList<TEntity>> PagedList(IPagedSpecification<TEntity> specification)
         {
-            var result = ApplySpec(specification).AsNoTracking();
+            var items = ApplySpec(specification);
+            var count = await ApplySpec(specification).CountAsync();
 
-            if (specification != null)
-            {
-                result = result.Where(specification.Criteria);
-            }
+            var pageIndex = specification.PageIndex ?? 0;
+            var pageSize = specification.PageSize ?? count;
 
-            return result;
+            return new PagedList<TEntity>(items, pageIndex, pageSize, count);
         }
 
         public async Task Remove(TEntity entity)
@@ -49,11 +57,10 @@ namespace Shopy.Infrastructure.Persistance.Repository
         public async Task Remove(Guid externalId)
             => context.Set<TEntity>().Remove(await Get(externalId));
 
-        private IQueryable<TEntity> ApplySpec(Specification<TEntity> specification)
-        {
-            return specification.Includes.Aggregate(
-                            context.Set<TEntity>().AsQueryable(),
-                            (set, include) => set.Include(include));
-        }
+        private IQueryable<TEntity> ApplySpec<TSpec>(ISpecification<TEntity, TSpec> specification)
+            where TSpec : ISpecification<TEntity, TSpec>
+            => specification.Includes
+                .Aggregate(context.Set<TEntity>().AsQueryable(), (set, include) => set.Include(include))
+                .Where(specification.Criteria);
     }
 }

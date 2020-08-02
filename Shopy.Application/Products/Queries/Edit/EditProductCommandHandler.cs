@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Shopy.Domain.Data;
 using Shopy.Domain.Entitties;
+using Shopy.Domain.Specification;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace Shopy.Application.Products.Edit
 
         public async Task<Unit> Handle(EditProductCommand request, CancellationToken cancellationToken)
         {
-            var spec = Specification<Product>
+            var spec = new Specification<Product>()
                 .ByExternalId(request.ExternalId)
                 .AddInclude($"{nameof(Product.Sizes)}")
                 .AddInclude($"{nameof(Product.Brand)}");

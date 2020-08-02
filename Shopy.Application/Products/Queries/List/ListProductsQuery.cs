@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Shopy.Application.Models;
+using Shopy.Common.Interfaces;
 using System;
 
 namespace Shopy.Application.Products.List
 {
-    public class ListProductsQuery : IRequest<PagedList<ProductResponse>>
+    public class ListProductsQuery : IRequest<IPagedList<ProductResponse>>
     {
         public string[] Sizes { get; set; }
 
@@ -19,7 +20,5 @@ namespace Shopy.Application.Products.List
         public decimal? MaxPrice { get; set; }
 
         public decimal? MinPrice { get; set; }
-
-        public bool IsPagingEnabled => PageIndex.HasValue && PageSize.HasValue;
     }
 }
