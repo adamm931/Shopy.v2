@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shopy.Application.Pipelines;
 using Shopy.Application.Products.Add;
-using Shopy.Common;
+using Shopy.Common.Interfaces;
 
-namespace Shopy.Application
+namespace Shopy.Application.Installers
 {
-    public static class Installer
+    public sealed class ApplicationServicesInstaller : IServiceInstaller
     {
-        public static void AddApplication(this IServiceCollection services)
+        public void Install(IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipeline<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipeline<,>));
@@ -17,8 +18,6 @@ namespace Shopy.Application
 
             services.AddMediatR(typeof(AddProductCommand).Assembly);
             services.AddAutoMapper(typeof(AddProductCommand).Assembly);
-
-            ServiceLocator.SetProvider(services.BuildServiceProvider);
         }
     }
 }

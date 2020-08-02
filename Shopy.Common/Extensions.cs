@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shopy.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,20 @@ namespace Shopy.Common
             var optionsName = typeof(TOptions).Name;
 
             services.Configure<TOptions>(configuration.GetSection(optionsName));
+        }
+
+        public static void AddInstallers(
+            this IServiceCollection services,
+            IConfiguration configuration,
+            params Type[] sourceAssemlyTypes)
+        {
+            var installers = sourceAssemlyTypes
+                .SelectMany(type => type.Assembly.GetTypes())
+                .Where(type => typeof(IServiceInstaller).IsAssignableFrom(type))
+                .Select(installerType => Activator.CreateInstance(installerType))
+                .Cast<IServiceInstaller>();
+
+            installers.Each(installer => installer.Install(services, configuration));
         }
     }
 

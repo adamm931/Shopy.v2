@@ -1,14 +1,12 @@
-using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Shopy.Api.Middleware;
 using Shopy.Application;
-using Shopy.Application.Interfaces;
+using Shopy.Common;
 using Shopy.Infrastructure;
 using System.IO;
 
@@ -27,15 +25,13 @@ namespace Shopy.Api
         {
             services.AddControllers();
 
-            services.AddInfrastructure(Configuration);
-            services.AddApplication();
-            services.AddValidatorsFromAssembly(typeof(IImageService).Assembly);
+            services.AddInstallers(
+                Configuration,
+                typeof(IApplicationAssemblyReference),
+                typeof(IInfrastructureAssemblyReference),
+                GetType());
 
-            services.AddLogging(builder => builder.AddFile("/Logs/Shopy-{Date}.txt"));
-
-            services
-                .AddMvc()
-                .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+            ServiceLocator.SetProvider(services.BuildServiceProvider);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -68,6 +64,13 @@ namespace Shopy.Api
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")),
                 RequestPath = "/Images"
+            });
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "Shopy");
             });
         }
     }

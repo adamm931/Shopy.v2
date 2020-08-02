@@ -23,7 +23,6 @@ namespace Shopy.Common.Paging
             : this(pageIndex, pageSize, totalCount)
         {
             Items = items;
-
         }
 
         public PagedList(IQueryable<T> items, int pageIndex, int pageSize, long totalCount)
@@ -37,7 +36,7 @@ namespace Shopy.Common.Paging
         private PagedList(int pageIndex, int pageSize, long totalCount)
         {
             PageIndex = pageIndex;
-            PageSize = pageIndex;
+            PageSize = pageSize;
             TotalCount = totalCount;
             PageCount = totalCount == 0 ? 0 : (int)Math.Ceiling(totalCount / (double)pageSize);
         }
