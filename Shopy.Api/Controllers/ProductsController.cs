@@ -20,61 +20,61 @@ namespace Shopy.Api.Controllers
     public class ProductsController : BaseApiController
     {
         [HttpGet]
-        [Ok(typeof(IPagedList<ProductResponse>))]
+        [SwaggerResponse(typeof(IPagedList<ProductResponse>))]
         public async Task<IActionResult> List([FromQuery]ListProductsQuery query)
             => Ok(await Mediator.Send(query));
 
         [HttpGet]
         [Route("{externalId}/get")]
-        [Ok(typeof(ProductResponse))]
+        [SwaggerResponse(typeof(ProductResponse))]
         public async Task<IActionResult> Get([FromRoute]GetProductQuery query)
             => Ok(await Mediator.Send(query));
 
         [HttpGet]
         [Route("{externalId}/details")]
-        [Ok(typeof(ProductDetailsResponse))]
+        [SwaggerResponse(typeof(ProductDetailsResponse))]
         public async Task<IActionResult> Details([FromRoute]GetProductDetailsQuery query)
             => Ok(await Mediator.Send(query));
 
         [HttpGet]
         [Route("{externalId}/categories")]
-        [Ok(typeof(IEnumerable<ProductCategoryResponse>))]
+        [SwaggerResponse(typeof(IEnumerable<ProductCategoryResponse>))]
         public async Task<IActionResult> Categories([FromRoute]GetProductCategoriesQuery query)
             => Ok(await Mediator.Send(query));
 
         [HttpPost]
         [Route("add")]
-        [Ok(typeof(Guid))]
+        [SwaggerResponse(typeof(Guid))]
         public async Task<IActionResult> Post(AddProductCommand command)
             => Ok(await Mediator.Send(command));
 
         [HttpPut]
         [Route("edit")]
-        [Ok]
+        [SwaggerResponse]
         public async Task<IActionResult> Put(EditProductCommand command)
             => Ok(await Mediator.Send(command));
 
         [HttpDelete]
         [Route("{externalId}/delete")]
-        [Ok]
+        [SwaggerResponse]
         public async Task<IActionResult> Delete([FromRoute]DeleteProductCommand query)
             => Ok(await Mediator.Send(query));
 
         [HttpPost]
         [Route("add-to-category")]
-        [Ok]
+        [SwaggerResponse]
         public async Task<IActionResult> AddToCategory(AddProductToCategoryCommand command)
             => Ok(await Mediator.Send(command));
 
         [HttpPost]
         [Route("remove-from-category")]
-        [Ok]
+        [SwaggerResponse]
         public async Task<IActionResult> RemoveFromCategory(RemoveProductFromCategoryCommand command)
             => Ok(await Mediator.Send(command));
 
         [HttpPost]
         [Route("uploadImage")]
-        [Ok]
+        [SwaggerResponse]
         public async Task<IActionResult> UploadImage(UploadProductImageCommand command)
             => Ok(await Mediator.Send(command));
     }

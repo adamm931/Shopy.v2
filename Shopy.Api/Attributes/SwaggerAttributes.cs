@@ -4,34 +4,15 @@ using System.Net;
 
 namespace Shopy.Api.Attributes
 {
-    public class OkAttribute : ProducesResponseTypeAttribute
+    public class SwaggerResponseAttribute : ProducesResponseTypeAttribute
     {
-        public OkAttribute(Type type) : base(type, (int)HttpStatusCode.OK)
+        public SwaggerResponseAttribute(Type type, HttpStatusCode statusCode = HttpStatusCode.OK)
+            : base(type, (int)statusCode)
         {
         }
 
-        public OkAttribute() : base((int)HttpStatusCode.OK)
-        {
-        }
-    }
-
-    public class NotFoundAttribute : ProducesResponseTypeAttribute
-    {
-        public NotFoundAttribute() : base((int)HttpStatusCode.NotFound)
-        {
-        }
-    }
-
-    public class BadRequestAttribute : ProducesResponseTypeAttribute
-    {
-        public BadRequestAttribute() : base((int)HttpStatusCode.BadRequest)
-        {
-        }
-    }
-
-    public class UnauthorizedAttribute : ProducesResponseTypeAttribute
-    {
-        public UnauthorizedAttribute() : base((int)HttpStatusCode.Unauthorized)
+        public SwaggerResponseAttribute(HttpStatusCode statusCode = HttpStatusCode.OK)
+            : base((int)statusCode)
         {
         }
     }

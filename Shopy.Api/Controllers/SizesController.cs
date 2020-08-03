@@ -10,7 +10,7 @@ namespace Shopy.Api.Controllers
     public class SizesController : BaseApiController
     {
         [HttpGet]
-        [Ok(typeof(IEnumerable<SizeResponse>))]
+        [SwaggerResponse(typeof(IEnumerable<SizeResponse>))]
         public async Task<IActionResult> Get()
             => Ok(await Mediator.Send(new ListSizesQuery()));
     }

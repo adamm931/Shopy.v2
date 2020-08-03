@@ -13,13 +13,13 @@ namespace Shopy.Api.Controllers
     {
         [HttpPost]
         [Route("login")]
-        [Ok(typeof(LoginResponse))]
+        [SwaggerResponse(typeof(LoginResponse))]
         public async Task<IActionResult> Login(LoginCommand command)
             => Ok(await Mediator.Send(command));
 
         [HttpPost]
         [Route("token")]
-        [Ok(typeof(TokenResponse))]
+        [SwaggerResponse(typeof(TokenResponse))]
         public async Task<IActionResult> Token(TokenCommand command)
             => Ok(await Mediator.Send(command));
     }

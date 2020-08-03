@@ -10,7 +10,7 @@ namespace Shopy.Api.Controllers
     public class BrandsController : BaseApiController
     {
         [HttpGet]
-        [Ok(typeof(IEnumerable<BrandResponse>))]
+        [SwaggerResponse(typeof(IEnumerable<BrandResponse>))]
         public async Task<IActionResult> Get()
             => Ok(await Mediator.Send(new ListBrandsQuery()));
     }

@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Shopy.Api.Common;
+using Shopy.Api.Filters;
 using Shopy.Common.Interfaces;
-using System.Collections.Generic;
 
 namespace Shopy.Api.Installers
 {
@@ -20,29 +21,16 @@ namespace Shopy.Api.Installers
                         Version = "v1"
                     });
 
-                    swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    swagger.AddSecurityDefinition(ApiConstants.Bearer, new OpenApiSecurityScheme
                     {
                         Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
                         Name = "Authorization",
                         In = ParameterLocation.Header,
                         Type = SecuritySchemeType.ApiKey,
-                        Scheme = "Bearer",
+                        Scheme = ApiConstants.Bearer,
                     });
 
-                    swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
-                    {
-                        {
-                            new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                }
-                            },
-                            new List<string>()
-                        }
-                    });
+                    swagger.OperationFilter<SwaggerOperationFilter>();
                 });
         }
     }
