@@ -1,5 +1,6 @@
 ﻿using Shopy.Common;
 using Shopy.Domain.Entitties.Base;
+using Shopy.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

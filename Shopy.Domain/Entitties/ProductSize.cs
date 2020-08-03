@@ -1,4 +1,6 @@
-﻿namespace Shopy.Domain.Entitties
+﻿using Shopy.Domain.Enums;
+
+namespace Shopy.Domain.Entitties
 {
     public class ProductSize
     {

@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="L" xml:space="preserve">
+  <data name="l" xml:space="preserve">
     <value>Large</value>
   </data>
-  <data name="M" xml:space="preserve">
+  <data name="m" xml:space="preserve">
     <value>Medium</value>
   </data>
-  <data name="S" xml:space="preserve">
+  <data name="s" xml:space="preserve">
     <value>Small</value>
   </data>
-  <data name="XL" xml:space="preserve">
+  <data name="xl" xml:space="preserve">
     <value>Extra large</value>
   </data>
-  <data name="XS" xml:space="preserve">
+  <data name="xs" xml:space="preserve">
     <value>Extra small</value>
   </data>
 </root>

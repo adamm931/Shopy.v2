@@ -3,6 +3,7 @@ using Shopy.Application.Models;
 using Shopy.Common.Interfaces;
 using Shopy.Domain.Data;
 using Shopy.Domain.Entitties;
+using Shopy.Domain.Enums;
 using Shopy.Domain.Specification;
 using System.Linq;
 using System.Threading;

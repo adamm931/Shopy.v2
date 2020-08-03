@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Shopy.Application.Models;
 using Shopy.Domain.Entitties;
+using Shopy.Domain.Enums;
 
 namespace Shopy.Application.Mappings
 {
@@ -11,11 +12,11 @@ namespace Shopy.Application.Mappings
             CreateMap<Size, SizeResponse>();
 
             CreateMap<Brand, BrandResponse>()
-                .ForMember(dst => dst.DisplayName, opt => opt.MapFrom(src => src.DisplayName))
+                .ForMember(dst => dst.Label, opt => opt.MapFrom(src => src.Label))
                 .ForMember(dst => dst.Code, opt => opt.MapFrom(src => src.Code));
 
             CreateMap<ProductSize, SizeResponse>()
-                .ForMember(dst => dst.DisplayName, opt => opt.MapFrom(src => src.Size.DisplayName))
+                .ForMember(dst => dst.Label, opt => opt.MapFrom(src => src.Size.Label))
                 .ForMember(dst => dst.Code, opt => opt.MapFrom(src => src.Size.Code));
 
             CreateMap<ProductCategory, ProductCategoryResponse>()

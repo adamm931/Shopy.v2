@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Shopy.Application.Mappings;
 using Shopy.Application.Models;
-using Shopy.Domain.Entitties;
+using Shopy.Domain.Enums;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

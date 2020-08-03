@@ -11,10 +11,9 @@ namespace Shopy.Domain.Entitties.Base
     {
         public string Code { get; private set; }
 
-        public string DisplayName => this.GetResourceManager()?.GetString(Code) ?? Code;
+        public string Label => this.GetResourceManager()?.GetString(Code) ?? Code;
 
-        public static IEnumerable<TEnum> All =>
-            typeof(TEnum)
+        public static IEnumerable<TEnum> All { get; } = typeof(TEnum)
                 .GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
                 .Select(f => f.GetValue(null))
                 .Cast<TEnum>();
@@ -28,14 +27,16 @@ namespace Shopy.Domain.Entitties.Base
         {
         }
 
-        public static TEnum From(TEnum @enum)
-        {
-            return @enum.MemberwiseClone() as TEnum;
-        }
-
         public static TEnum Parse(string code) =>
-            All.SingleOrDefault(item => item.Code.Equals(code, StringComparison.OrdinalIgnoreCase))
+            All.FirstOrDefault(item => item.Code.Equals(code, StringComparison.OrdinalIgnoreCase))
             ?? throw new EnumEntityNotFoundException(typeof(TEnum).Name, code);
+
+        public static bool TryParse(string code, out TEnum @enum)
+        {
+            @enum = All.FirstOrDefault(item => item.Code.Equals(code, StringComparison.OrdinalIgnoreCase));
+
+            return @enum != null;
+        }
 
         public static IEnumerable<TEnum> Parse(IEnumerable<string> codes)
         {

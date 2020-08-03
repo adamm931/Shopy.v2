@@ -15,6 +15,7 @@ namespace Shopy.Infrastructure.Persistance.Configurations
                 .WithMany(product => product.Sizes)
                 .HasForeignKey("ProductId");
 
+
             builder.OwnsOne(model => model.Size, options =>
             {
                 options

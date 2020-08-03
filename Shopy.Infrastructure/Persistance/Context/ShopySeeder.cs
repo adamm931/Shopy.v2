@@ -1,5 +1,6 @@
 ﻿using Shopy.Domain.Data;
 using Shopy.Domain.Entitties;
+using Shopy.Domain.Enums;
 using System;
 using System.Threading.Tasks;
 
@@ -89,7 +90,7 @@ namespace Shopy.Infrastructure.Persistance.Context
                     "White sneackers addidas",
                     100.5m,
                     Brand.Active,
-                    new [] { Size.XS, Size.S, Size.M }
+                    new [] { Size.Xs, Size.S, Size.M }
                 ),
                 //1
                 new Product
@@ -116,7 +117,7 @@ namespace Shopy.Infrastructure.Persistance.Context
                     "Brown and black fancy jackets",
                     120.5m,
                     Brand.Puma,
-                    new [] { Size.L, Size.XL }
+                    new [] { Size.L, Size.Xl }
                 ),
                 //4
                 new Product
@@ -134,7 +135,7 @@ namespace Shopy.Infrastructure.Persistance.Context
                     "Original white addidas sneakers",
                     90.5m,
                     Brand.Puma,
-                    new [] { Size.L, Size.XL }
+                    new [] { Size.L, Size.Xl }
                 ),
                 //6
                 new Product
@@ -143,7 +144,7 @@ namespace Shopy.Infrastructure.Persistance.Context
                     "-shirt black jacket kit",
                     80.5m,
                     Brand.Addidas,
-                    new [] { Size.S, Size.L, Size.XS }
+                    new [] { Size.S, Size.L, Size.Xs }
                 ),
                 //7
                 new Product
@@ -152,7 +153,7 @@ namespace Shopy.Infrastructure.Persistance.Context
                     "Girls sweat rose shirts",
                     20.5m,
                     Brand.Rebook,
-                    new [] { Size.S, Size.XL }
+                    new [] { Size.S, Size.Xl }
                 ),
                 //8
                 new Product
@@ -161,7 +162,7 @@ namespace Shopy.Infrastructure.Persistance.Context
                     "Thirts white and blue",
                     22.5m,
                     Brand.Active,
-                    new [] { Size.S, Size.M, Size.XL }
+                    new [] { Size.S, Size.M, Size.Xl }
                 ),
                 //9
                 new Product
@@ -170,7 +171,7 @@ namespace Shopy.Infrastructure.Persistance.Context
                     "Tshrits rozes for women",
                     23.5m,
                     Brand.Nike,
-                    new [] { Size.L, Size.XL }
+                    new [] { Size.L, Size.Xl }
                 ),
                 //10
                 new Product
@@ -179,7 +180,7 @@ namespace Shopy.Infrastructure.Persistance.Context
                     "Nice suits for a real mans",
                     130.5m,
                     Brand.Addidas,
-                    new [] { Size.S, Size.XL }
+                    new [] { Size.S, Size.Xl }
                 ),
                 //11
                 new Product
@@ -188,7 +189,7 @@ namespace Shopy.Infrastructure.Persistance.Context
                     "Elegant shoes for all part of the day",
                     152.5m,
                     Brand.Nike,
-                    new [] { Size.S, Size.XL }
+                    new [] { Size.S, Size.Xl }
                 ),
                 //12
                 new Product
@@ -197,7 +198,7 @@ namespace Shopy.Infrastructure.Persistance.Context
                     "Elegant shoes for all part of the day",
                     150.5m,
                     Brand.Active,
-                    new [] { Size.S, Size.M, Size.XL }
+                    new [] { Size.S, Size.M, Size.Xl }
                 ),
                 //13
                 new Product

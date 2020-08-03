@@ -37,7 +37,7 @@ namespace Shopy.Common
 
             var resources = typeInfo.Assembly.GetManifestResourceNames();
 
-            return resources.Any(name => name.Equals(typeInfo.Name, StringComparison.OrdinalIgnoreCase))
+            return resources.Any(name => name.Contains(typeInfo.FullName))
                 ? new ResourceManager(typeInfo.FullName, typeInfo.Assembly)
                 : null;
         }
