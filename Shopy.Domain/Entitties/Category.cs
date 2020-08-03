@@ -1,4 +1,5 @@
-﻿using Shopy.Domain.Entitties.Base;
+﻿using Shopy.Common;
+using Shopy.Domain.Entitties.Base;
 using System;
 using System.Collections.Generic;
 
@@ -20,8 +21,7 @@ namespace Shopy.Domain.Entitties
         {
             ExternalId = Guid.NewGuid();
 
-            Name = name;
-            Description = description;
+            Update(name, description);
         }
 
         private Category()
@@ -30,6 +30,9 @@ namespace Shopy.Domain.Entitties
 
         public void Update(string name, string description)
         {
+            Param.Ensure.NotNullOrEmpty(name, nameof(name));
+            Param.Ensure.NotNullOrEmpty(description, nameof(description));
+
             Name = name;
             Description = description;
         }

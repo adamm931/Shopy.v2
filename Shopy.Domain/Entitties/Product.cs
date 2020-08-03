@@ -43,42 +43,56 @@ namespace Shopy.Domain.Entitties
 
         public void UpdateName(string name)
         {
+            Param.Ensure.NotNullOrEmpty(name, nameof(name));
+
             Name = name;
         }
 
         public void UpdateDescription(string description)
         {
+            Param.Ensure.NotNullOrEmpty(description, nameof(description));
+
             Description = description;
         }
 
         public void UpdatePrice(decimal price)
         {
+            Param.Ensure.GreaterThan(price, 0, nameof(price));
+
             Price = price;
         }
 
         public void UpdateBrand(Brand brand)
         {
+            Param.Ensure.NotNull(brand, nameof(brand));
+
             Brand = brand;
         }
 
-        public void AddCategory(Category categoryToAdd)
+        public void AddCategory(Category category)
         {
-            if (_categories.Any(productCategory => productCategory.HasCategory(categoryToAdd.ExternalId)))
+            Param.Ensure.NotNull(category, nameof(category));
+
+            if (_categories.Any(productCategory => productCategory.HasCategory(category.ExternalId)))
             {
                 return;
             }
 
-            _categories.Add(new ProductCategory(this, categoryToAdd));
+            _categories.Add(new ProductCategory(this, category));
         }
 
         public void RemoveCategory(Guid externalId)
         {
+            Param.Ensure.NotEmpty(externalId, nameof(externalId));
+
             _categories.RemoveAll(productCategory => !productCategory.HasCategory(externalId));
         }
 
-        public void AddSizes(IEnumerable<Size> size)
+        public void AddSizes(IEnumerable<Size> sizes)
         {
-            foreach (var sizeCode in size)
+            Param.Ensure.NotNull(sizes, nameof(sizes));
+
+            foreach (var sizeCode in sizes)
             {
                 AddSize(sizeCode);
             }
@@ -86,6 +100,8 @@ namespace Shopy.Domain.Entitties
 
         public void AddSize(Size size)
         {
+            Param.Ensure.NotNull(size, nameof(size));
+
             if (_sizes.Any(productSize => productSize.Size.Code == size.Code))
             {
                 return;
