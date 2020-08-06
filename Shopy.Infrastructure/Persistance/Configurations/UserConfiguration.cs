@@ -20,9 +20,10 @@ namespace Shopy.Infrastructure.Persistance.Configurations
                 person.Property(model => model.MiddleName).HasColumnName("MiddleName");
             });
 
-            //builder.HasOne(model => model.Credentials)
-            //    .WithOne(model => model.User)
-            //    .HasForeignKey("CredentialId");
+            builder
+                .HasOne(model => model.Credentials)
+                .WithOne(model => model.User)
+                .HasForeignKey<User>("UserCredentialsId");
         }
     }
 }

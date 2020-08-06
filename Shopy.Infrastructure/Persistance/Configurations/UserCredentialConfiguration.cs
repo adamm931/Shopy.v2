@@ -18,11 +18,6 @@ namespace Shopy.Infrastructure.Persistance.Configurations
             {
                 username.Property(model => model.Value).HasColumnName("Username");
             });
-
-            builder
-                .HasOne(model => model.User)
-                .WithOne(model => model.Credentials)
-                .HasForeignKey<UserCredentials>("UserId");
         }
     }
 }
