@@ -1,6 +1,5 @@
 ﻿using Shopy.Common;
 using Shopy.Domain.Entitties.Base;
-using System;
 using System.Collections.Generic;
 
 namespace Shopy.Domain.Entitties
@@ -19,8 +18,6 @@ namespace Shopy.Domain.Entitties
 
         public Category(string name, string description)
         {
-            ExternalId = Guid.NewGuid();
-
             Update(name, description);
         }
 

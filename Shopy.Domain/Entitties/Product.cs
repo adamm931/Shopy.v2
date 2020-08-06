@@ -1,4 +1,5 @@
 ﻿using Shopy.Common;
+using Shopy.Common.Extensions;
 using Shopy.Domain.Entitties.Base;
 using Shopy.Domain.Enums;
 using System;
@@ -29,8 +30,6 @@ namespace Shopy.Domain.Entitties
 
         public Product(string name, string description, decimal price, Brand brand, IEnumerable<Size> sizes)
         {
-            ExternalId = Guid.NewGuid();
-
             UpdateName(name);
             UpdateDescription(description);
             UpdatePrice(price);

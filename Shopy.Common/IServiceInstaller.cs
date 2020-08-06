@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Shopy.Common.Interfaces
+namespace Shopy.Common
 {
     public interface IServiceInstaller
     {

@@ -35,6 +35,11 @@
         /// <summary>
         /// {0} can't be empty
         /// </summary>
-        NotEmpty
+        NotEmpty,
+
+        /// <summary>
+        /// {0} doesn't match pattern of {1}
+        /// </summary>
+        RegexMatch
     }
 }

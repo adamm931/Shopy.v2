@@ -4,11 +4,14 @@ namespace Shopy.Common
 {
     public class ServiceLocator
     {
-        public static IServiceProvider Provider { get; private set; }
+        private static IServiceProvider _provider;
+
+        public static TService GetService<TService>()
+            => (TService)_provider.GetService(typeof(TService));
 
         public static void SetProvider(Func<IServiceProvider> providerFactory)
         {
-            Provider = providerFactory();
+            _provider = providerFactory();
         }
     }
 }

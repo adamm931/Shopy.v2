@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shopy.Common;
-using Shopy.Common.Interfaces;
+using Shopy.Common.Extensions;
 using Shopy.Domain.Data;
 using Shopy.Infrastructure.Interfaces;
 using Shopy.Infrastructure.Persistance;

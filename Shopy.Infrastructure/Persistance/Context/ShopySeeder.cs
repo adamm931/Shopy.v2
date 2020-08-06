@@ -1,5 +1,6 @@
 ﻿using Shopy.Domain.Data;
 using Shopy.Domain.Entitties;
+using Shopy.Domain.Entitties.ValueObjects;
 using Shopy.Domain.Enums;
 using System;
 using System.Threading.Tasks;
@@ -9,11 +10,16 @@ namespace Shopy.Infrastructure.Persistance.Context
     public class ShopyDbSeeder : IDbSeeder
     {
         private readonly IRepository<Product> productRepo;
+        private readonly IRepository<User> userRepo;
         private readonly IUnitOfWork unitOfWork;
 
-        public ShopyDbSeeder(IRepository<Product> productRepo, IUnitOfWork unitOfWork)
+        public ShopyDbSeeder(
+            IRepository<Product> productRepo,
+            IRepository<User> userRepo,
+            IUnitOfWork unitOfWork)
         {
             this.productRepo = productRepo;
+            this.userRepo = userRepo;
             this.unitOfWork = unitOfWork;
         }
 
@@ -74,6 +80,13 @@ namespace Shopy.Infrastructure.Persistance.Context
 
             //add products
             await productRepo.AddRange(products);
+
+            //add user
+            var credentials = new UserCredentials("adamm931.Nis", "Makikralj1993!#");
+            var person = new UserPerson("Adam", "Milenkovic", "Dejan");
+            var user = new User(person, "adam.milenkovic.993@gmail.com", credentials);
+
+            await userRepo.Add(user);
 
             //save
             await unitOfWork.Save();

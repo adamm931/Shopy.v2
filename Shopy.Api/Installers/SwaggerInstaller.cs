@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Shopy.Api.Common;
 using Shopy.Api.Filters;
-using Shopy.Common.Interfaces;
+using Shopy.Common;
 
 namespace Shopy.Api.Installers
 {

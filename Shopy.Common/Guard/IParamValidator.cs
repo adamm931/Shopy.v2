@@ -7,5 +7,7 @@
         void NotNull<T>(T input, string name);
 
         void NotEmpty<T>(T input, string name);
+
+        void RegexMatch(string input, string name, string regex);
     }
 }

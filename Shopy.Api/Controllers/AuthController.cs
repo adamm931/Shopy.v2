@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shopy.Api.Attributes;
 using Shopy.Application.Auth.Login;
+using Shopy.Application.Auth.Register;
 using Shopy.Application.Auth.Token;
 using Shopy.Application.Models;
 using System.Threading.Tasks;
@@ -21,6 +22,12 @@ namespace Shopy.Api.Controllers
         [Route("token")]
         [SwaggerResponse(typeof(TokenResponse))]
         public async Task<IActionResult> Token(TokenCommand command)
+            => Ok(await Mediator.Send(command));
+
+        [HttpPost]
+        [Route("register")]
+        [SwaggerResponse]
+        public async Task<IActionResult> Register(RegisterCommand command)
             => Ok(await Mediator.Send(command));
     }
 }

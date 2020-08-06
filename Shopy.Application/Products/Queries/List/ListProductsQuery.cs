@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Shopy.Application.Models;
-using Shopy.Common.Interfaces;
+using Shopy.Common.Paging;
 using System;
 
 namespace Shopy.Application.Products.List

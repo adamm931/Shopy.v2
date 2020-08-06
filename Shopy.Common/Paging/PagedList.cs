@@ -1,11 +1,10 @@
-﻿using Shopy.Common.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Shopy.Common.Paging
 {
-    public class PagedList<T> : IPagedList<T>
+    internal class PagedList<T> : IPagedList<T>
     {
         public IEnumerable<T> Items { get; set; }
 

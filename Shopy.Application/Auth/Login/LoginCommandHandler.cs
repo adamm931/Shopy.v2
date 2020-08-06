@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Shopy.Application.Interfaces;
 using Shopy.Application.Models;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,14 +8,17 @@ namespace Shopy.Application.Auth.Login
 {
     public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
     {
-        public async Task<LoginResponse> Handle(LoginCommand command, CancellationToken cancellationToken)
-        {
-            var response = new LoginResponse
-            {
-                IsAuthenticated = command.Username == "Admin" && command.Password == "Admin"
-            };
+        private readonly IAuthProvider authProvider;
 
-            return await Task.FromResult(response);
+        public LoginCommandHandler(IAuthProvider authProvider)
+        {
+            this.authProvider = authProvider;
         }
+
+        public async Task<LoginResponse> Handle(LoginCommand command, CancellationToken cancellationToken)
+            => new LoginResponse
+            {
+                IsAuthenticated = await authProvider.Authenticate(command.Username, command.Password)
+            };
     }
 }

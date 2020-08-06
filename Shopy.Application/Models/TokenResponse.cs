@@ -4,6 +4,6 @@
     {
         public string AccessToken { get; set; }
 
-        public bool IsAuthorized { get; set; }
+        public bool IsAuthenticated { get; set; }
     }
 }

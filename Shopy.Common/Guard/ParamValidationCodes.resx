@@ -135,4 +135,7 @@
   <data name="NotNullOrEmpty" xml:space="preserve">
     <value>{0} can't be null or empty</value>
   </data>
+  <data name="RegexMatch" xml:space="preserve">
+    <value>{0} doesn't match pattern of {1}</value>
+  </data>
 </root>

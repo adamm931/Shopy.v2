@@ -6,6 +6,8 @@ namespace Shopy.Application.Interfaces
     {
         string User { get; }
 
-        public Task<string> GenerateToken(string user);
+        Task<string> GenerateToken(string user);
+
+        Task<bool> Authenticate(string user, string password);
     }
 }

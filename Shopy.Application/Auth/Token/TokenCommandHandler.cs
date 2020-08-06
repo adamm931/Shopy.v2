@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Shopy.Application.Interfaces;
 using Shopy.Application.Models;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,28 +8,24 @@ namespace Shopy.Application.Auth.Token
 {
     public class TokenCommandHandler : IRequestHandler<TokenCommand, TokenResponse>
     {
-        private readonly IAuthProvider _tokenProvider;
+        private readonly IAuthProvider authProvider;
 
-        public TokenCommandHandler(IAuthProvider tokenProvider)
+        public TokenCommandHandler(IAuthProvider authProvider)
         {
-            _tokenProvider = tokenProvider;
+            this.authProvider = authProvider;
         }
 
         public async Task<TokenResponse> Handle(TokenCommand command, CancellationToken cancellationToken)
         {
             var response = new TokenResponse();
 
-            if (IsAuthorized(command))
+            if (await authProvider.Authenticate(command.Username, command.Password))
             {
-                response.AccessToken = await _tokenProvider.GenerateToken(command.Username);
-                response.IsAuthorized = true;
+                response.AccessToken = await authProvider.GenerateToken(command.Username);
+                response.IsAuthenticated = true;
             }
 
             return response;
         }
-
-        private bool IsAuthorized(TokenCommand command)
-            => command.Username.Equals("admin", StringComparison.OrdinalIgnoreCase)
-            && command.Password.Equals("admin", StringComparison.OrdinalIgnoreCase);
     }
 }

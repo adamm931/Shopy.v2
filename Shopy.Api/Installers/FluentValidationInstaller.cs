@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shopy.Application.Interfaces;
-using Shopy.Common.Interfaces;
+using Shopy.Common;
 
 namespace Shopy.Api.Installers
 {

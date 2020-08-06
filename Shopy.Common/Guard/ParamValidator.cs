@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Shopy.Common.Guard
 {
@@ -25,6 +26,14 @@ namespace Shopy.Common.Guard
             if (string.IsNullOrEmpty(input))
             {
                 throw new ParamValidationException(ParamValidationCodes.NotNullOrEmpty, name);
+            }
+        }
+
+        public void RegexMatch(string input, string name, string regex)
+        {
+            if (!Regex.IsMatch(input, regex))
+            {
+                throw new ParamValidationException(ParamValidationCodes.RegexMatch, name, regex);
             }
         }
     }

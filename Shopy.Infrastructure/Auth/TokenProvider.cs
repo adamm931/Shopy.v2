@@ -3,39 +3,52 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Shopy.Application.Interfaces;
 using Shopy.Common.Interfaces;
+using Shopy.Domain.Data;
+using Shopy.Domain.Entitties;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Shopy.Infrastructure.Auth
 {
-    public class JwtTokenAuthProvider : IAuthProvider
+    public class AuthProvider : IAuthProvider
     {
-        private readonly JwtOptions _jwtOptions;
-        private readonly IDateTime _dateTime;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly JwtOptions jwtOptions;
+        private readonly IDateTime dateTime;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IRepository<UserCredentials> userCredentials;
 
-        public JwtTokenAuthProvider(
+        public AuthProvider(
             IOptions<JwtOptions> jwtOptions,
             IDateTime dateTime,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IRepository<UserCredentials> userCredentials)
         {
-            _jwtOptions = jwtOptions.Value;
-            _dateTime = dateTime;
-            _httpContextAccessor = httpContextAccessor;
+            this.jwtOptions = jwtOptions.Value;
+            this.dateTime = dateTime;
+            this.httpContextAccessor = httpContextAccessor;
+            this.userCredentials = userCredentials;
         }
 
-        public string User => _httpContextAccessor
+        public string User => httpContextAccessor
             .HttpContext?
             .User?
             .FindFirst(JwtRegisteredClaimNames.Sub)
             ?.Value;
 
+        public async Task<bool> Authenticate(string user, string password)
+        {
+            var credentials = (await userCredentials.List()).ToList();
+
+            return credentials.Any(item => item.Challenge(user, password));
+        }
+
         public async Task<string> GenerateToken(string user)
         {
-            var key = Encoding.UTF8.GetBytes(_jwtOptions.Key);
+            var key = Encoding.UTF8.GetBytes(jwtOptions.Key);
             var symentricKey = new SymmetricSecurityKey(key);
             var credentials = new SigningCredentials(symentricKey, SecurityAlgorithms.HmacSha256);
 
@@ -46,14 +59,14 @@ namespace Shopy.Infrastructure.Auth
 
             };
 
-            var now = _dateTime.Now;
+            var now = dateTime.Now;
 
             var securityToken = new JwtSecurityToken(
-                issuer: _jwtOptions.Issuer,
-                audience: _jwtOptions.Issuer,
+                issuer: jwtOptions.Issuer,
+                audience: jwtOptions.Issuer,
                 claims: claims,
                 notBefore: now,
-                expires: now.AddMinutes(_jwtOptions.TokenLifetimeInMinutes),
+                expires: now.AddMinutes(jwtOptions.TokenLifetimeInMinutes),
                 signingCredentials: credentials);
 
             var tokenHandler = new JwtSecurityTokenHandler();

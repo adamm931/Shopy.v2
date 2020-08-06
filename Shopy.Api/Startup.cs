@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Shopy.Api.Middleware;
 using Shopy.Application;
 using Shopy.Common;
+using Shopy.Common.Extensions;
 using Shopy.Infrastructure;
 using System.IO;
 

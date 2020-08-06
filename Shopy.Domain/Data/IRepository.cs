@@ -1,4 +1,4 @@
-﻿using Shopy.Common.Interfaces;
+﻿using Shopy.Common.Paging;
 using Shopy.Domain.Entitties.Base;
 using Shopy.Domain.Specification;
 using System;

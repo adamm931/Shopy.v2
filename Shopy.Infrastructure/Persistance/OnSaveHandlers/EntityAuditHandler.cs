@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shopy.Application.Interfaces;
-using Shopy.Common;
+using Shopy.Common.Extensions;
 using Shopy.Common.Interfaces;
 using Shopy.Domain.Entitties.Base;
 using Shopy.Infrastructure.Interfaces;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Shopy.Common.Interfaces
+namespace Shopy.Common.Paging
 {
     public interface IPagedList<T>
     {
@@ -14,6 +14,6 @@ namespace Shopy.Common.Interfaces
 
         long TotalCount { get; set; }
 
-        bool HasNextPage => (PageIndex + 1) < PageCount;
+        bool HasNextPage => PageIndex + 1 < PageCount;
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shopy.Application.Pipelines;
 using Shopy.Application.Products.Add;
-using Shopy.Common.Interfaces;
+using Shopy.Common;
 
 namespace Shopy.Application.Installers
 {

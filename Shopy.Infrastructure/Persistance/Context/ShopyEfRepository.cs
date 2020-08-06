@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shopy.Common.Interfaces;
+using Shopy.Common.Extensions;
 using Shopy.Common.Paging;
 using Shopy.Domain.Data;
 using Shopy.Domain.Entitties.Base;
@@ -38,7 +38,7 @@ namespace Shopy.Infrastructure.Persistance.Repository
             => await ApplySpec(specification).SingleOrDefaultAsync(specification.Criteria);
 
         public async Task<IQueryable<TEntity>> List(ISpecification<TEntity> specification = null)
-            => await Task.Run(() => ApplySpec(specification).AsNoTracking());
+            => await Task.Run(() => ApplySpec(specification ?? new Specification<TEntity>()).AsNoTracking());
 
         public async Task<IPagedList<TEntity>> PagedList(IPagedSpecification<TEntity> specification)
         {
@@ -48,7 +48,7 @@ namespace Shopy.Infrastructure.Persistance.Repository
             var pageIndex = specification.PageIndex ?? 0;
             var pageSize = specification.PageSize ?? count;
 
-            return new PagedList<TEntity>(items, pageIndex, pageSize, count);
+            return items.ToPagedList(pageIndex, pageSize, count);
         }
 
         public async Task Remove(TEntity entity)

@@ -1,4 +1,4 @@
-﻿using Shopy.Common;
+﻿using Shopy.Common.Extensions;
 using Shopy.Domain.Data;
 using Shopy.Infrastructure.Interfaces;
 using System.Collections.Generic;

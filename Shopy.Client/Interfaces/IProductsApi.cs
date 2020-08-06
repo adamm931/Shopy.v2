@@ -5,7 +5,7 @@ using Shopy.Application.Products.Edit;
 using Shopy.Application.Products.List;
 using Shopy.Application.Products.RemoveFromCategory;
 using Shopy.Application.Products.UploadImage;
-using Shopy.Common.Interfaces;
+using Shopy.Common.Paging;
 using System;
 using System.Threading.Tasks;
 

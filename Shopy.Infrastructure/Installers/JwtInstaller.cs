@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Shopy.Common;
-using Shopy.Common.Interfaces;
+using Shopy.Common.Extensions;
 using Shopy.Infrastructure.Auth;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -23,7 +23,7 @@ namespace Shopy.Infrastructure.Installers
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    var jwtOptions = ServiceLocator.Provider.GetService<IOptions<JwtOptions>>().Value;
+                    var jwtOptions = ServiceLocator.GetService<IOptions<JwtOptions>>().Value;
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
