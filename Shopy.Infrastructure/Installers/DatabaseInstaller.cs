@@ -22,6 +22,7 @@ namespace Shopy.Infrastructure.Installers
             services.AddTransient<IDbSeeder, ShopyDbSeeder>();
             services.AddTransient(typeof(IRepository<>), typeof(ShopyEfRepository<>));
             services.AddTransient<IOnSaveHandler, EntityAuditHandler>();
+            services.AddTransient<IAuditConfigurer, ShopyAuditCofigurer>();
         }
     }
 }

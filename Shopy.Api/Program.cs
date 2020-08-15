@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shopy.Common.Extensions;
 using Shopy.Domain.Data;
 using System.Threading.Tasks;
 
@@ -14,12 +15,11 @@ namespace Shopy.Api
 
             using var scope = host.Services.CreateScope();
 
-            var initilizer = scope.ServiceProvider.GetService<IDbInitializer>();
+            scope.CallService<IAuditConfigurer>(service => service.ConfigureAudit());
 
-            if (await initilizer.Init())
+            if (await scope.CallServiceAsync<IDbInitializer, bool>(service => service.Init()))
             {
-                var seeder = scope.ServiceProvider.GetService<IDbSeeder>();
-                await seeder.Seed();
+                await scope.CallServiceAsync<IDbSeeder>(service => service.Seed());
             }
 
             host.Run();

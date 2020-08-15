@@ -13,11 +13,11 @@ namespace Shopy.Application.Mappings
 
             CreateMap<Brand, BrandResponse>()
                 .ForMember(dst => dst.Label, opt => opt.MapFrom(src => src.Label))
-                .ForMember(dst => dst.Code, opt => opt.MapFrom(src => src.Code));
+                .ForMember(dst => dst.Name, opt => opt.MapFrom(src => src.Name));
 
             CreateMap<ProductSize, SizeResponse>()
                 .ForMember(dst => dst.Label, opt => opt.MapFrom(src => src.Size.Label))
-                .ForMember(dst => dst.Code, opt => opt.MapFrom(src => src.Size.Code));
+                .ForMember(dst => dst.Name, opt => opt.MapFrom(src => src.Size.Name));
 
             CreateMap<ProductCategory, ProductCategoryResponse>()
                 .ForMember(dst => dst.ExternalId, opt => opt.MapFrom(src => src.Category.ExternalId))

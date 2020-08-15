@@ -1,25 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Audit.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Shopy.Domain.Entitties;
 
 namespace Shopy.Infrastructure.Persistance.Context
 {
-    internal class ShopyDbContext : DbContext
+    internal class ShopyDbContext : AuditDbContext
     {
-        private readonly IOptions<ShopyDatabaseOptions> _options;
+        private readonly IOptions<ShopyDatabaseOptions> dbOptions;
 
-        public ShopyDbContext(IOptions<ShopyDatabaseOptions> options)
+        public ShopyDbContext(IOptions<ShopyDatabaseOptions> dbOptions)
         {
-            _options = options;
+            this.dbOptions = dbOptions;
         }
 
-        public DbSet<Product> Products { get; set; }
-
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<AuditLogEntry> AuditLogEntries { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_options.Value.ConnectionString);
+            optionsBuilder.UseSqlServer(dbOptions.Value.ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

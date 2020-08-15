@@ -4,21 +4,18 @@ namespace Shopy.Domain.Enums
 {
     public class Size : BaseEnum<Size>
     {
-        public static Size Xs => new Size("xs");
+        public static Size Xs => new Size("Xs");
 
-        public static Size S => new Size("s");
+        public static Size S => new Size("S");
 
-        public static Size M => new Size("m");
+        public static Size M => new Size("M");
 
-        public static Size L => new Size("l");
+        public static Size L => new Size("L");
 
-        public static Size Xl => new Size("xl");
+        public static Size Xl => new Size("Xl");
 
-        private Size(string code) : base(code)
-        {
-        }
+        private Size(string code) : base(code) { }
 
-        private Size()
-        { }
+        private Size() { }
     }
 }

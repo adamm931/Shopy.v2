@@ -17,12 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Enums\Brand.resx">
+    <EmbeddedResource Update="Enums\AuditLogEntryTable.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Enums\Size.resx">
-      <LastGenOutput>Size.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AuditLogEntryTable.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

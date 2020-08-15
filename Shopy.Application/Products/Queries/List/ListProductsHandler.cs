@@ -39,12 +39,12 @@ namespace Shopy.Application.Products.List
 
             if (request.Sizes != null && request.Sizes.Any())
             {
-                specification.And(p => Size.Parse(request.Sizes).Any(fs => p.Sizes.Any(ps => ps.Size.Code == fs.Code)));
+                specification.And(p => Size.Parse(request.Sizes).Any(fs => p.Sizes.Any(ps => ps.Size.Name == fs.Name)));
             }
 
             if (request.Brands != null && request.Brands.Any())
             {
-                specification.And(p => Brand.Parse(request.Brands).Any(b => p.Brand.Code == b.Code));
+                specification.And(p => Brand.Parse(request.Brands).Any(b => p.Brand.Name == b.Name));
             }
 
             if (request.CategoryExternalId.HasValue)

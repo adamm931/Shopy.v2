@@ -13,7 +13,7 @@ namespace Shopy.Infrastructure.Persistance.Configurations
             builder.OwnsOne(model => model.Brand, options =>
             {
                 options
-                    .Property(brand => brand.Code)
+                    .Property(brand => brand.Name)
                     .HasColumnName("Brand");
             });
         }

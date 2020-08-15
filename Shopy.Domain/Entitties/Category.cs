@@ -21,7 +21,7 @@ namespace Shopy.Domain.Entitties
             Update(name, description);
         }
 
-        private Category()
+        public Category()
         {
         }
 

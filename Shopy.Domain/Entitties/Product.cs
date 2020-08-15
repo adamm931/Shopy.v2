@@ -102,7 +102,7 @@ namespace Shopy.Domain.Entitties
         {
             Param.Ensure.NotNull(size, nameof(size));
 
-            if (_sizes.Any(productSize => productSize.Size.Code == size.Code))
+            if (_sizes.Any(productSize => productSize.Size.Name == size.Name))
             {
                 return;
             }

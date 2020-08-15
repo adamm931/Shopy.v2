@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="active" xml:space="preserve">
+  <data name="Active" xml:space="preserve">
     <value>Active</value>
   </data>
-  <data name="addiddas" xml:space="preserve">
+  <data name="Addiddas" xml:space="preserve">
     <value>Addiddas</value>
   </data>
-  <data name="nike" xml:space="preserve">
+  <data name="Nike" xml:space="preserve">
     <value>Nike</value>
   </data>
-  <data name="puma" xml:space="preserve">
+  <data name="Puma" xml:space="preserve">
     <value>Puma</value>
   </data>
-  <data name="rebook" xml:space="preserve">
+  <data name="Rebook" xml:space="preserve">
     <value>Rebook</value>
   </data>
 </root>
