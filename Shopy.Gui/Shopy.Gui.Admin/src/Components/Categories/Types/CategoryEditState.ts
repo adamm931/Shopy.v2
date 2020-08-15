@@ -1,4 +1,5 @@
 export interface CategoryEditState {
     ExternalId: string,
-    Name: string
+    Name: string,
+    Description: string
 }

@@ -1,4 +1,5 @@
 export interface CategoryEditProps {
     ExternalId: string,
-    Name: string
+    Name: string,
+    Description: string
 }

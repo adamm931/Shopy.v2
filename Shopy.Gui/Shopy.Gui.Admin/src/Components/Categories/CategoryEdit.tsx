@@ -19,7 +19,8 @@ class CategoryEdit extends React.Component<Props, CategoryEditState> {
 
         this.state = {
             Name: '',
-            ExternalId: ''
+            ExternalId: '',
+            Description: ''
         }
     }
 
@@ -41,13 +42,15 @@ class CategoryEdit extends React.Component<Props, CategoryEditState> {
         return <CategoryForm
             Name={this.state.Name}
             ExternalId={this.state.ExternalId}
+            Description={this.state.Description}
             Type={FormType.EDIT} />
     }
 }
 
 const mapStateToProps = (state: IShopyState): CategoryEditProps => ({
     ExternalId: state.EditingCategory.ExternalId,
-    Name: state.EditingCategory.Name
+    Name: state.EditingCategory.Name,
+    Description: state.EditingCategory.Description
 })
 
 const mapDispatchToProps = (dispatch: any): CategoryEditDispatch => ({
