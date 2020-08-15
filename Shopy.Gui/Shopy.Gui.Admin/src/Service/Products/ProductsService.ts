@@ -1,4 +1,3 @@
-import { FileUtils } from './../../Utils/FileUtils';
 import { IPagedListApiModel } from './../Api/IPagedListApiModel';
 import { IProductApiModel } from './Models/IProductApiModel';
 import { IRemoveProductFromCategoryRequestPayload } from './../../State/Requests/Products/IRemoveProductFromCategoryRequest';
@@ -48,10 +47,23 @@ export class ProductsService {
     }
 
     public static UploadImage = async (imageFile: File, externalId: string, imageName: string) => {
-        await Post<{}, any>("prorducts/uploadImage", {
-            Base64String: FileUtils.ReadAsBase64String(imageFile),
-            ExternalId: externalId,
-            ImageName: imageName
-        })
+
+        let reader = new FileReader()
+
+        reader.readAsDataURL(imageFile)
+
+        reader.onload = async function () {
+
+            var base64String = reader.result?.toString().split('base64,')[1];
+
+            await Post<{}, any>("products/uploadImage", {
+                Base64String: base64String,
+                ExternalId: externalId,
+                ImageName: imageName
+            })
+        }
+
+
+
     }
 }
