@@ -25,25 +25,19 @@ namespace Shopy.Infrastructure.Persistance.OnSaveHandlers
             var changeTracker = context.ChangeTracker;
 
             changeTracker
-                .EntriesByState(EntityState.Added)
-                .OfType<AuditEntity>()
+                .EntityEntriesByState<AuditEntity>(EntityState.Added)
                 .Each(entry =>
                 {
-                    var auditEntity = (AuditEntity)entry.Entity;
-
-                    auditEntity.SetCreatedOn(now);
-                    auditEntity.SetCreatedBy(user);
+                    entry.Entity.SetCreatedOn(now);
+                    entry.Entity.SetCreatedBy(user);
                 });
 
             changeTracker
-                .EntriesByState(EntityState.Modified)
-                .OfType<AuditEntity>()
+                .EntityEntriesByState<AuditEntity>(EntityState.Modified)
                 .Each(entry =>
                 {
-                    var auditEntity = (AuditEntity)entry.Entity;
-
-                    auditEntity.SetModifiedOn(now);
-                    auditEntity.SetModifiedBy(user);
+                    entry.Entity.SetModifiedOn(now);
+                    entry.Entity.SetModifiedBy(user);
                 });
         }
     }

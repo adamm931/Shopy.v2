@@ -14,8 +14,8 @@ namespace Shopy.Application.Products.Edit
 
         public string Description { get; set; }
 
-        public string BrandCode { get; set; }
+        public string Brand { get; set; }
 
-        public IEnumerable<string> SizeCodes { get; set; }
+        public IEnumerable<string> Sizes { get; set; }
     }
 }

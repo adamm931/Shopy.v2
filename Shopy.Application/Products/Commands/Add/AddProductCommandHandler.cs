@@ -23,8 +23,8 @@ namespace Shopy.Application.Products.Add
                 request.Name,
                 request.Description,
                 request.Price,
-                Brand.Parse(request.BrandCode),
-                Size.Parse(request.SizeCodes));
+                Brand.Parse(request.Brand),
+                Size.Parse(request.Sizes));
 
             await products.Add(product);
 

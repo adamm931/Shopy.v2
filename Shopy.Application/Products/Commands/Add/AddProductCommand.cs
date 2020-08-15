@@ -12,8 +12,8 @@ namespace Shopy.Application.Products.Add
 
         public decimal Price { get; set; }
 
-        public string BrandCode { get; set; }
+        public string Brand { get; set; }
 
-        public IEnumerable<string> SizeCodes { get; set; }
+        public IEnumerable<string> Sizes { get; set; }
     }
 }

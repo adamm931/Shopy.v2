@@ -7,11 +7,11 @@ namespace Shopy.Application.Products.Add
     {
         public AddProductCommandValidator()
         {
-            RuleFor(model => model.BrandCode)
+            RuleFor(model => model.Brand)
                 .NotEmpty()
                 .WithValidationMessageCode(ValidationCode.Empty);
 
-            RuleFor(model => model.SizeCodes)
+            RuleFor(model => model.Sizes)
                 .NotEmpty()
                 .WithValidationMessageCode(ValidationCode.Empty);
 

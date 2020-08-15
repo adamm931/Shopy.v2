@@ -20,13 +20,10 @@ namespace Shopy.Infrastructure
             where TEntity : class, ISoftDelete
             => builder.HasQueryFilter(model => !model.Deleted);
 
-        public static IEnumerable<EntityEntry> EntriesByState(this ChangeTracker changeTracker, EntityState state)
+        public static IEnumerable<EntityEntry<TEntityType>> EntityEntriesByState<TEntityType>(this ChangeTracker changeTracker, EntityState state)
+            where TEntityType : class
             => changeTracker
-                .Entries()
-                .Where(entry => state.HasFlag(entry.State));
-
-        public static IEnumerable<EntityEntry> OfType<TEntityType>(this IEnumerable<EntityEntry> entries)
-            => entries
-                .Where(entry => typeof(TEntityType).IsAssignableFrom(entry.Entity.GetType()));
+                .Entries<TEntityType>()
+                .Where(entry => state == entry.State);
     }
 }

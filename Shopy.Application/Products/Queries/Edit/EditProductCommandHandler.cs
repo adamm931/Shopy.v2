@@ -29,8 +29,8 @@ namespace Shopy.Application.Products.Edit
             product.UpdateName(request.Name);
             product.UpdateDescription(request.Description);
             product.UpdatePrice(request.Price);
-            product.UpdateBrand(Brand.Parse(request.BrandCode));
-            product.AddSizes(Size.Parse(request.SizeCodes));
+            product.UpdateBrand(Brand.Parse(request.Brand));
+            product.AddSizes(Size.Parse(request.Sizes));
 
             return Unit.Value;
         }
