@@ -1,0 +1,34 @@
+.btn-shopy-secondary {
+    background-color:#606567 !important;
+    border-color:#606567 !important;
+}
+
+.btn-shopy-primary {
+    background-color:#e77326 !important;
+    border-color:#e77326 !important;
+}
+
+.title-shopy {
+    color: #e77326;
+    font-weight: 700;
+}
+
+.icheck-primary>input:first-child:checked+input[type=hidden]+label::before, 
+.icheck-primary>input:first-child:checked+label::before {
+    background-color: #e77326 !important;
+    border-color: #e77326 !important;
+}
+
+.icheck-primary>input:first-child:not(:checked):not(:disabled):hover+input[type=hidden]+label::before, 
+.icheck-primary>input:first-child:not(:checked):not(:disabled):hover+label::before {
+    border-color: #e77326 !important;
+}
+
+.register {
+    color: #e77326;
+    font-weight: 600;
+}
+
+.register:hover {
+    color: #e77326;
+}
