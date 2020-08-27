@@ -1,66 +1,61 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { RegisterState } from './RegisterState'
 import { Link } from 'react-router-dom'
+import { Icon, IconType } from '../Common/Icon'
+import { Input, InputType } from '../Common/Input'
 
-const Register: React.FC = () => {
-    return (
-        <div className="login-box">
-            <div className="login-logo">
-                <span className="title-shopy">Register</span>
-            </div>
-            <div className="card">
-                <div className="card-body login-card-body">
-                    <p className="login-box-msg"><b>Please sign up to proceed</b></p>
-                    <form method="post">
+class Register extends Component<{}, RegisterState> {
 
-                        <div className="input-group mb-3">
-                            <input type="email" className="form-control" placeholder="Email" />
-                            <div className="input-group-append">
-                                <div className="input-group-text">
-                                    <span className="fas fa-envelope"></span>
+    render() {
+
+        return (
+            <div className="login-box">
+                <div className="login-logo">
+                    <span className="title-shopy">Register</span>
+                </div>
+                <div className="card">
+                    <div className="card-body login-card-body">
+                        <p className="login-box-msg"><b>Please sign up to proceed</b></p>
+                        <form onSubmit={(event) => console.log(event)}>
+                            <Input
+                                Type={InputType.Text}
+                                IconType={IconType.Email}
+                                Placeholder="Email"
+                                OnChange={(event) => console.log(event)}
+                            />
+                            <Input
+                                Type={InputType.Text}
+                                IconType={IconType.Username}
+                                Placeholder="Username"
+                                OnChange={(event) => console.log(event)}
+                            />
+                            <Input
+                                Type={InputType.Password}
+                                IconType={IconType.Password}
+                                Placeholder="Password"
+                                OnChange={(event) => console.log(event)}
+                            />
+                            <Input
+                                Type={InputType.Password}
+                                IconType={IconType.Password}
+                                Placeholder="Confirm password"
+                                OnChange={(event) => console.log(event)}
+                            />
+                            <div className="row">
+                                <div className="col-6">
+                                    <button type="submit" className="btn btn-primary btn-block btn-shopy-primary">Register</button>
+                                </div>
+                                <div className="col-6">
+                                    <Link to="/" className="btn btn-primary btn-block btn-shopy-secondary">Cancel</Link>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="input-group mb-3">
-                            <input type="text" className="form-control" placeholder="Username" />
-                            <div className="input-group-append">
-                                <div className="input-group-text">
-                                    <span className="fas fa-user"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="input-group mb-3">
-                            <input type="password" className="form-control" placeholder="Password" />
-                            <div className="input-group-append">
-                                <div className="input-group-text">
-                                    <span className="fas fa-lock"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="input-group mb-3">
-                            <input type="confirm_password" className="form-control" placeholder="Confirm password" />
-                            <div className="input-group-append">
-                                <div className="input-group-text">
-                                    <span className="fas fa-lock"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col-6">
-                                <button type="submit" className="btn btn-primary btn-block btn-shopy-primary">Register</button>
-                            </div>
-                            <div className="col-6">
-                                <Link to="/" className="btn btn-primary btn-block btn-shopy-secondary">Cancel</Link>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+
+    }
 }
 
 export default Register

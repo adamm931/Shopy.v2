@@ -1,58 +1,77 @@
-import React from 'react'
+import React, { FormEvent, Component, ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { LoginState } from './LoginState'
+import { IconType } from '../Common/Icon'
+import { Input, InputType } from '../Common/Input'
 
-const Login: React.FC = () => {
+class Login extends Component<{}, LoginState> {
 
-    return (
-        <div className="login-box">
-            <div className="login-logo">
-                <span className="title-shopy">Login</span>
-            </div>
-            <div className="card">
-                <div className="card-body login-card-body">
-                    <p className="login-box-msg"><b>Please sign to proceed</b></p>
-                    <form method="post">
+    constructor(props: any) {
+        super(props)
 
-                        <div className="input-group mb-3">
-                            <input type="text" className="form-control" placeholder="Username" />
-                            <div className="input-group-append">
-                                <div className="input-group-text">
-                                    <span className="fas fa-user"></span>
+        this.state = {
+            Username: '',
+            Password: ''
+        }
+    }
+
+    onUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault()
+        this.setState({
+            ...this.state,
+            Password: event.target.value
+        })
+    }
+
+    onPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault()
+        this.setState({
+            ...this.state,
+            Username: event.target.value
+        })
+    }
+
+    onSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        console.log('state', this.state)
+    }
+
+    render() {
+        return (
+            <div className="login-box" >
+                <div className="login-logo">
+                    <span className="title-shopy">Login</span>
+                </div>
+                <div className="card">
+                    <div className="card-body login-card-body">
+                        <p className="login-box-msg"><b>Please sign to proceed</b></p>
+                        <form onSubmit={this.onSubmit}>
+                            <Input
+                                Type={InputType.Text}
+                                IconType={IconType.Username}
+                                Placeholder="Username"
+                                OnChange={this.onUsernameChange}
+                            />
+                            <Input
+                                Type={InputType.Password}
+                                IconType={IconType.Password}
+                                Placeholder="Password"
+                                OnChange={this.onPasswordChange}
+                            />
+                            <div className="row">
+                                <div className="col-8">
+                                    <Link to="/register" className="text-center register">Register</Link>
+                                </div>
+                                <div className="col-4">
+                                    <button type="submit" className="btn btn-primary btn-block btn-shopy-secondary">Sign In</button>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="input-group mb-3">
-                            <input type="password" className="form-control" placeholder="Password" />
-                            <div className="input-group-append">
-                                <div className="input-group-text">
-                                    <span className="fas fa-lock"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col-8">
-                                <div className="icheck-primary">
-                                    <input type="checkbox" id="remember" />
-                                    <label htmlFor="remember">
-                                        Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <button type="submit" className="btn btn-primary btn-block btn-shopy-secondary">Sign In</button>
-                            </div>
-                        </div>
-
-                    </form>
-                    <p className="mb-0">
-                        <Link to="/register" className="text-center register">Register</Link>
-                    </p>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default Login
