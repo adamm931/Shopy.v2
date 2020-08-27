@@ -1,15 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Register: React.FC = () => {
     return (
         <div className="login-box">
             <div className="login-logo">
-                <a href="#"><span className="title-shopy">Shopy</span> - Register</a>
+                <span className="title-shopy">Register</span>
             </div>
             <div className="card">
                 <div className="card-body login-card-body">
-                    <p className="login-box-msg"><b>Register to our services</b></p>
-                    <form action="../../index3.html" method="post">
+                    <p className="login-box-msg"><b>Please sign up to proceed</b></p>
+                    <form method="post">
 
                         <div className="input-group mb-3">
                             <input type="email" className="form-control" placeholder="Email" />
@@ -52,7 +53,7 @@ const Register: React.FC = () => {
                                 <button type="submit" className="btn btn-primary btn-block btn-shopy-primary">Register</button>
                             </div>
                             <div className="col-6">
-                                <button type="submit" className="btn btn-primary btn-block btn-shopy-secondary">Cancel</button>
+                                <Link to="/" className="btn btn-primary btn-block btn-shopy-secondary">Cancel</Link>
                             </div>
                         </div>
                     </form>
