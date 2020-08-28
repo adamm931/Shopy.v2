@@ -1,60 +1,37 @@
-import React, { Component } from 'react'
-import { RegisterState } from './RegisterState'
-import { Link } from 'react-router-dom'
-import { Icon, IconType } from '../Common/Icon'
-import { Input, InputType } from '../Common/Input'
+import React, { FormEvent, ChangeEvent } from 'react'
+import { RegisterForm } from './RegisterForm'
+import { NameOf } from '../../Utils/NameOf'
+import { RegisterState } from '../../Types/Register/Register'
+import { BaseComponent } from '../Base/BaseComponent'
 
-class Register extends Component<{}, RegisterState> {
+class Register extends BaseComponent<{}, RegisterState> {
+
+    constructor(props: any) {
+        super(props)
+
+        this.state = {
+            Email: '',
+            Username: '',
+            Password: '',
+            ConfirmPassword: ''
+        }
+    }
+
+    onSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        console.log('state', this.state)
+    }
 
     render() {
-
         return (
-            <div className="login-box">
-                <div className="login-logo">
-                    <span className="title-shopy">Register</span>
-                </div>
-                <div className="card">
-                    <div className="card-body login-card-body">
-                        <p className="login-box-msg"><b>Please sign up to proceed</b></p>
-                        <form onSubmit={(event) => console.log(event)}>
-                            <Input
-                                Type={InputType.Text}
-                                IconType={IconType.Email}
-                                Placeholder="Email"
-                                OnChange={(event) => console.log(event)}
-                            />
-                            <Input
-                                Type={InputType.Text}
-                                IconType={IconType.Username}
-                                Placeholder="Username"
-                                OnChange={(event) => console.log(event)}
-                            />
-                            <Input
-                                Type={InputType.Password}
-                                IconType={IconType.Password}
-                                Placeholder="Password"
-                                OnChange={(event) => console.log(event)}
-                            />
-                            <Input
-                                Type={InputType.Password}
-                                IconType={IconType.Password}
-                                Placeholder="Confirm password"
-                                OnChange={(event) => console.log(event)}
-                            />
-                            <div className="row">
-                                <div className="col-6">
-                                    <button type="submit" className="btn btn-primary btn-block btn-shopy-primary">Register</button>
-                                </div>
-                                <div className="col-6">
-                                    <Link to="/" className="btn btn-primary btn-block btn-shopy-secondary">Cancel</Link>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <RegisterForm
+                OnSubmit={this.onSubmit}
+                OnEmailChange={(event) => this.onChange(event, NameOf<RegisterState>("Email"))}
+                OnUsernameChange={(event) => this.onChange(event, NameOf<RegisterState>("Username"))}
+                OnPasswordChange={(event) => this.onChange(event, NameOf<RegisterState>("Password"))}
+                OnConfirmPasswordChange={(event) => this.onChange(event, NameOf<RegisterState>("ConfirmPassword"))}
+            />
         )
-
     }
 }
 

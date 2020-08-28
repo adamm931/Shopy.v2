@@ -1,17 +1,6 @@
-import React, { ChangeEvent } from 'react'
-import { Icon, IconType } from './Icon'
-
-export interface InputProps {
-    Type: InputType
-    Placeholder: string
-    IconType: IconType
-    OnChange: (event: ChangeEvent<HTMLInputElement>) => void
-}
-
-export enum InputType {
-    Text = "text",
-    Password = "password"
-}
+import React from 'react'
+import { InputProps } from '../../Types/Common/Input'
+import { InputIcon } from './InputIcon'
 
 export const Input: React.FC<InputProps> = (props: InputProps) =>
     <div className="input-group mb-3">
@@ -21,5 +10,5 @@ export const Input: React.FC<InputProps> = (props: InputProps) =>
             placeholder={props.Placeholder}
             onChange={props.OnChange}
         />
-        <Icon Type={props.IconType} />
+        <InputIcon Type={props.IconType} />
     </div>
