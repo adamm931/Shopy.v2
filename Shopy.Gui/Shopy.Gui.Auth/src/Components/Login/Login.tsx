@@ -1,34 +1,34 @@
 import React, { FormEvent, ChangeEvent } from 'react'
-import { LoginState } from '../../Types/Login/Login'
+import { LoginState, LoginDispatch, InitLoginState } from '../../Types/Login/Login'
 import { LoginForm } from './LoginForm'
 import { BaseComponent } from '../Base/BaseComponent'
-import { NameOf } from '../../Utils/NameOf'
+import { connect } from 'react-redux'
+import { ActionCreator } from '../../StateManagement/Actions/ActionCreator'
 
-class Login extends BaseComponent<{}, LoginState> {
+class Login extends BaseComponent<LoginDispatch, LoginState> {
 
     constructor(props: any) {
         super(props)
-
-        this.state = {
-            Username: '',
-            Password: ''
-        }
+        this.state = InitLoginState()
     }
 
-    onSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        console.log('state', this.state)
-    }
+    login = () => this.props.Login(
+        this.state.Username,
+        this.state.Password)
 
     render() {
         return (
             <LoginForm
-                OnUsernameChange={event => this.onChange(event, NameOf<LoginState>("Username"))}
-                OnPasswordChange={event => this.onChange(event, NameOf<LoginState>("Password"))}
-                OnSubmit={this.onSubmit}
+                OnUsernameChange={event => this.onInputChange(event, "Username")}
+                OnPasswordChange={event => this.onInputChange(event, "Password")}
+                OnSubmit={event => this.onSubmit(event, this.login)}
             />
         )
     }
 }
 
-export default Login
+const mapDispatchToProps = (dispatch: any): LoginDispatch => ({
+    Login: (username: string, password: string) => dispatch(ActionCreator.UserLoggedIn(username))
+})
+
+export default connect(null, mapDispatchToProps)(Login)

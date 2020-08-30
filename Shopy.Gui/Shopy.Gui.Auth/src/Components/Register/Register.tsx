@@ -1,38 +1,37 @@
-import React, { FormEvent, ChangeEvent } from 'react'
+import React, { FormEvent, ChangeEvent, Dispatch } from 'react'
 import { RegisterForm } from './RegisterForm'
-import { NameOf } from '../../Utils/NameOf'
-import { RegisterState } from '../../Types/Register/Register'
+import { RegisterState, RegisterDispatch, InitRegisterState } from '../../Types/Register/Register'
 import { BaseComponent } from '../Base/BaseComponent'
+import { connect } from 'react-redux'
+import { ActionCreator } from '../../StateManagement/Actions/ActionCreator'
 
-class Register extends BaseComponent<{}, RegisterState> {
+class Register extends BaseComponent<RegisterDispatch, RegisterState> {
 
     constructor(props: any) {
         super(props)
-
-        this.state = {
-            Email: '',
-            Username: '',
-            Password: '',
-            ConfirmPassword: ''
-        }
+        this.state = InitRegisterState()
     }
 
-    onSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log('state', this.state)
-    }
+    register = () => this.props.Register(
+        this.state.Username,
+        this.state.Email,
+        this.state.Password)
 
     render() {
         return (
             <RegisterForm
-                OnSubmit={this.onSubmit}
-                OnEmailChange={(event) => this.onChange(event, NameOf<RegisterState>("Email"))}
-                OnUsernameChange={(event) => this.onChange(event, NameOf<RegisterState>("Username"))}
-                OnPasswordChange={(event) => this.onChange(event, NameOf<RegisterState>("Password"))}
-                OnConfirmPasswordChange={(event) => this.onChange(event, NameOf<RegisterState>("ConfirmPassword"))}
+                OnSubmit={event => this.onSubmit(event, this.register)}
+                OnEmailChange={(event) => this.onInputChange(event, "Email")}
+                OnUsernameChange={(event) => this.onInputChange(event, "Username")}
+                OnPasswordChange={(event) => this.onInputChange(event, "Password")}
+                OnConfirmPasswordChange={(event) => this.onInputChange(event, "ConfirmPassword")}
             />
         )
     }
 }
 
-export default Register
+const mapDispatchToProps = (dispatch: any): RegisterDispatch => ({
+    Register: (username: string, email: string, password: string) => dispatch(ActionCreator.UserRegistered(username))
+})
+
+export default connect(null, mapDispatchToProps)(Register)

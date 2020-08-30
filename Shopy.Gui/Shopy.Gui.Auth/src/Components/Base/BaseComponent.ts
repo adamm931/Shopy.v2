@@ -1,13 +1,18 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, FormEvent } from 'react'
 
-export class BaseComponent<S = {}, P = {}> extends React.Component<S, P> {
+export class BaseComponent<Props, State> extends React.Component<Props, State> {
 
-    onChange = (event: ChangeEvent<HTMLInputElement>, propName: any) => {
+    protected onInputChange(event: ChangeEvent<HTMLInputElement>, propertyOfState: keyof State): void {
         event.preventDefault()
 
         this.setState({
             ...this.state,
-            [propName]: event.target.value
+            [propertyOfState]: event.target.value
         })
+    }
+
+    protected onSubmit(event: FormEvent<HTMLFormElement>, onSubmitAction: () => void) {
+        event.preventDefault()
+        onSubmitAction()
     }
 }

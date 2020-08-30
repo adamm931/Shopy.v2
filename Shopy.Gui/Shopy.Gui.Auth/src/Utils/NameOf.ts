@@ -1,1 +1,0 @@
-export const NameOf = <T>(name: keyof T): any => name

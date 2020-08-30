@@ -8,3 +8,10 @@ export interface RegisterState {
     Password: string;
     ConfirmPassword: string;
 }
+
+export const InitRegisterState = (): RegisterState => <RegisterState>{
+    Username: '',
+    Email: '',
+    Password: '',
+    ConfirmPassword: ''
+}
