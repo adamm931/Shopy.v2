@@ -2,15 +2,10 @@ import React, { FormEvent, ChangeEvent } from 'react'
 import { LoginState, LoginDispatch, InitLoginState } from '../../Types/Login/Login'
 import { LoginForm } from './LoginForm'
 import { BaseComponent } from '../Base/BaseComponent'
-import { connect } from 'react-redux'
-import { ActionCreator } from '../../StateManagement/Actions/ActionCreator'
 
-class Login extends BaseComponent<LoginDispatch, LoginState> {
+export default class Login extends BaseComponent<LoginDispatch, LoginState> {
 
-    constructor(props: any) {
-        super(props)
-        this.state = InitLoginState()
-    }
+    state = InitLoginState()
 
     login = () => this.props.Login(
         this.state.Username,
@@ -27,8 +22,3 @@ class Login extends BaseComponent<LoginDispatch, LoginState> {
     }
 }
 
-const mapDispatchToProps = (dispatch: any): LoginDispatch => ({
-    Login: (username: string, password: string) => dispatch(ActionCreator.UserLoggedIn(username))
-})
-
-export default connect(null, mapDispatchToProps)(Login)

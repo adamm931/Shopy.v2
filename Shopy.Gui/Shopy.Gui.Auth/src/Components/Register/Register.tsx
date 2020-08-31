@@ -1,16 +1,11 @@
-import React, { FormEvent, ChangeEvent, Dispatch } from 'react'
+import React from 'react'
 import { RegisterForm } from './RegisterForm'
 import { RegisterState, RegisterDispatch, InitRegisterState } from '../../Types/Register/Register'
 import { BaseComponent } from '../Base/BaseComponent'
-import { connect } from 'react-redux'
-import { ActionCreator } from '../../StateManagement/Actions/ActionCreator'
 
-class Register extends BaseComponent<RegisterDispatch, RegisterState> {
+export default class Register extends BaseComponent<RegisterDispatch, RegisterState> {
 
-    constructor(props: any) {
-        super(props)
-        this.state = InitRegisterState()
-    }
+    state = InitRegisterState()
 
     register = () => this.props.Register(
         this.state.Username,
@@ -29,9 +24,3 @@ class Register extends BaseComponent<RegisterDispatch, RegisterState> {
         )
     }
 }
-
-const mapDispatchToProps = (dispatch: any): RegisterDispatch => ({
-    Register: (username: string, email: string, password: string) => dispatch(ActionCreator.UserRegistered(username))
-})
-
-export default connect(null, mapDispatchToProps)(Register)

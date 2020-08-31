@@ -11,8 +11,8 @@ export class BaseComponent<Props, State> extends React.Component<Props, State> {
         })
     }
 
-    protected onSubmit(event: FormEvent<HTMLFormElement>, onSubmitAction: () => void) {
+    protected onSubmit(event: FormEvent<HTMLFormElement>, onSubmitHandler: () => void) {
         event.preventDefault()
-        onSubmitAction()
+        onSubmitHandler()
     }
 }
