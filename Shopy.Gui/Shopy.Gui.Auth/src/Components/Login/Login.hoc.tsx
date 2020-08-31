@@ -1,10 +1,10 @@
 import { connect } from "react-redux"
 import { LoginDispatch } from '../../Types/Login/Login'
-import { ActionCreator } from "../../StateManagement/Actions/ActionCreator"
+import { RequestCreator } from "../../StateManagement/Requests/RequestCreator"
 import Login from './Login'
 
 const mapDispatchToProps = (dispatch: any): LoginDispatch => ({
-    Login: (username: string, password: string) => dispatch(ActionCreator.UserLoggedIn(username))
+    Login: (username: string, password: string) => dispatch(RequestCreator.UserLogin(username, password))
 })
 
 export default connect(null, mapDispatchToProps)(Login)
