@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { LoginDispatch } from '../../Types/Login/Login'
-import { RequestCreator } from "../../StateManagement/Requests/RequestCreator"
+import { RequestCreator } from "../../State/Requests/RequestCreator"
 import Login from './Login'
 
 const mapDispatchToProps = (dispatch: any): LoginDispatch => ({

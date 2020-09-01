@@ -7,7 +7,7 @@ import Login from '../Login/Login.hoc'
 import { Router, Switch, Route } from 'react-router-dom'
 import Register from '../Register/Register.hoc';
 import { Provider } from 'react-redux';
-import { store, history } from '../../StateManagement/Store'
+import { store, history } from '../../State/Store'
 
 const App = () =>
   <Provider store={store}>
