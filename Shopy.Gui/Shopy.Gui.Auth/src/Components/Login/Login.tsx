@@ -1,24 +1,38 @@
-import React, { FormEvent, ChangeEvent } from 'react'
-import { LoginState, LoginDispatch, InitLoginState } from '../../Types/Login/Login'
-import { LoginForm } from './LoginForm'
-import { BaseComponent } from '../Base/BaseComponent'
+import React, { FormEvent } from 'react'
+import { LoginDispatch, LoginState } from './Login.types'
+import { AuthForm } from '../Shared/AuthForm/AuthForm'
+import { LoginInitialValues, LoginValidationSchema } from './Login.validation'
+import { AuthField } from '../Shared/AuthField/AuthField'
+import { AuthFieldType, AuthFieldIconType } from '../Shared/AuthField/AuthField.types'
+import { Link } from 'react-router-dom'
 
-export default class Login extends BaseComponent<LoginDispatch, LoginState> {
-
-    state = InitLoginState()
-
-    login = () => this.props.Login(
-        this.state.Username,
-        this.state.Password)
-
-    render() {
-        return (
-            <LoginForm
-                OnUsernameChange={event => this.onInputChange(event, "Username")}
-                OnPasswordChange={event => this.onInputChange(event, "Password")}
-                OnSubmit={event => this.onSubmit(event, this.login)}
-            />
-        )
-    }
-}
+export const Login: React.FC<LoginDispatch> = (props: LoginDispatch) =>
+    <AuthForm<LoginState>
+        Title="Login"
+        Message="Enter your credentials"
+        InitialValues={LoginInitialValues}
+        ValidationSchema={LoginValidationSchema}
+        OnSubmit={props.Login}
+    >
+        <AuthField
+            Name="Username"
+            Placeholder="Enter username"
+            Type={AuthFieldType.Text}
+            IconType={AuthFieldIconType.Username}
+        />
+        <AuthField
+            Name="Password"
+            Placeholder="Enter password"
+            Type={AuthFieldType.Password}
+            IconType={AuthFieldIconType.Password}
+        />
+        <div className="row">
+            <div className="col-8">
+                <Link to="/register" className="text-center register">Register</Link>
+            </div>
+            <div className="col-4">
+                <button type="submit" className="btn btn-primary btn-block btn-shopy-secondary">Sign In</button>
+            </div>
+        </div>
+    </AuthForm>
 
