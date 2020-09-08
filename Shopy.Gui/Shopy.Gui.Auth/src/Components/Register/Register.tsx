@@ -5,11 +5,12 @@ import { AuthFieldType, AuthFieldIconType } from '../Shared/AuthField/AuthField.
 import { Link } from 'react-router-dom'
 import { AuthField } from '../Shared/AuthField/AuthField'
 import { RegisterInitialValues, RegisterValidationSchema } from './Register.validation'
+import { AuthFormActions } from '../Shared/AuthFormActions/AuthFormActions'
 
 export const Register: React.FC<RegisterDispatch> = (props: RegisterDispatch) =>
     <AuthForm<RegisterState>
         Title="Register"
-        Message="Please sign up to proceed"
+        Message="Create your account"
         InitialValues={RegisterInitialValues}
         ValidationSchema={RegisterValidationSchema}
         OnSubmit={props.Register}>
@@ -37,12 +38,9 @@ export const Register: React.FC<RegisterDispatch> = (props: RegisterDispatch) =>
             Type={AuthFieldType.Password}
             IconType={AuthFieldIconType.Password}
         />
-        <div className="row">
-            <div className="col-6">
-                <button type="submit" className="btn btn-primary btn-block btn-shopy-primary">Register</button>
-            </div>
-            <div className="col-6">
-                <Link to="/" className="btn btn-primary btn-block btn-shopy-secondary">Cancel</Link>
-            </div>
-        </div>
+        <AuthFormActions
+            LeftActionName="Go to login"
+            LeftActionTo="login"
+            RightActionName="Register"
+        />
     </ AuthForm>

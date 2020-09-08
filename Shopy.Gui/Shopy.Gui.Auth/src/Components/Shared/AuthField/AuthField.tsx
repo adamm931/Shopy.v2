@@ -18,11 +18,6 @@ export function AuthField(props: AuthFieldProps) {
                     </div>
                 </div>
             </div>
-            {/* {
-                props.FormProps.errors[props.Name]
-                && props.FormProps.touched[props.Name]
-                && <div className="mb-3 text-danger">{props.FormProps.errors[props.Name]}</div>
-            } */}
             <span className="mb-3 text-danger"><ErrorMessage name={props.Name} /></span>
         </React.Fragment>)
 }
