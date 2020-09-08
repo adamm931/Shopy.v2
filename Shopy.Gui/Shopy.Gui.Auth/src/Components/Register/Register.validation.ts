@@ -1,4 +1,4 @@
-import { UsernameSchema, EmailSchema, PasswordSchema } from './../../Common/ValidationSchemas';
+import { UsernameSchema, EmailSchema, PasswordSchema, UniqueUsernameSchema } from './../../Common/ValidationSchemas';
 import * as Yup from 'yup'
 import { RegisterState } from './Register.types';
 
@@ -10,7 +10,7 @@ export const RegisterInitialValues = {
 } as RegisterState
 
 export const RegisterValidationSchema = Yup.object().shape({
-    Username: UsernameSchema("Username"),
+    Username: UniqueUsernameSchema("Username"),
     Email: EmailSchema("Email"),
     Password: PasswordSchema("Password", "ConfirmPassword"),
     ConfirmPassword: PasswordSchema("ConfirmPassword")

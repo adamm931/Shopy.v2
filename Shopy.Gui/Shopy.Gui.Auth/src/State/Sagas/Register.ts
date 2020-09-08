@@ -1,21 +1,17 @@
 import { UserRegisterRequest } from '../Requests/Register';
 import { takeLatest, call } from 'redux-saga/effects';
 import { RequestTypes } from '../Requests/RequestTypes';
-import { RegisterUrl } from '../../Api/Urls';
-import Client from '../../Api/Client';
+import AuthHelper from '../../Helpers/AuthHelper'
 
 export function* WatchUserRegister() {
     yield takeLatest(RequestTypes.USER_REGISTER, UserRegister)
 }
 
 function* UserRegister(request: UserRegisterRequest) {
-    const payload = request.Payload
 
-    let response = yield call(() => Client.Post(RegisterUrl, {
-        Username: payload.Username,
-        Email: payload.Email,
-        Password: payload.Password,
-    }))
+    const { Username, Email, Password } = request.Payload
+
+    let response = yield call(() => AuthHelper.Register(Username, Email, Password))
 
     console.log('Saga/register', response)
 }

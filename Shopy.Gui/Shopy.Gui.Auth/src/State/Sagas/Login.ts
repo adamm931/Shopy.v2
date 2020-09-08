@@ -1,8 +1,7 @@
 import { UserLoginReqeust } from '../Requests/Login';
 import { RequestTypes } from '../Requests/RequestTypes';
 import { takeLatest, call } from 'redux-saga/effects'
-import Client from '../../Api/Client';
-import { LoginUrl } from '../../Api/Urls';
+import AuthHelper from '../../Helpers/AuthHelper';
 
 export function* WatchUserLogin() {
     yield takeLatest(RequestTypes.USER_LOG_IN, UserLogin)
@@ -10,12 +9,9 @@ export function* WatchUserLogin() {
 
 function* UserLogin(request: UserLoginReqeust) {
 
-    const payload = request.Payload
+    const { Username, Password } = request.Payload
 
-    let response = yield call(() => Client.Post(LoginUrl, {
-        Username: payload.Username,
-        Password: payload.Password,
-    }))
+    let response = yield call(() => AuthHelper.Login(Username, Password))
 
     console.log('Saga/login', response)
 }

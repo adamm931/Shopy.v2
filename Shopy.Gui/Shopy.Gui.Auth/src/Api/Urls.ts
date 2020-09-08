@@ -4,4 +4,6 @@ export const LoginUrl = "login"
 
 export const RegisterUrl = "register"
 
+export const CheckUsernameUrl = "checkUsername"
+
 export const Compose = (base: string, relative: string) => `${base}/${relative}`

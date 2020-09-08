@@ -1,5 +1,6 @@
 import { UsernameRegex, PasswordRegex } from './RegexConstants';
 import * as Yup from 'yup'
+import AuthHelper from '../Helpers/AuthHelper';
 
 export const UsernameSchema = (usernameField: string) => Yup.string()
     .matches(UsernameRegex, `${usernameField} is doesn't meet requirements`)
@@ -16,6 +17,12 @@ export const PasswordSchema = (passwordField: string, confirmPasswordFieldName?:
 
     return schema
 }
+
+export const UniqueUsernameSchema = (usernameField: string) =>
+    UsernameSchema(usernameField).test(
+        'unique_username',
+        'Username is not available',
+        async (value) => value ? await AuthHelper.CheckUsername(value) : false)
 
 export const EmailSchema = (emailField: string) => Yup.string()
     .email('Email is invalid')

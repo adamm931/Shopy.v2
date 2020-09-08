@@ -7,7 +7,9 @@ namespace Shopy.Application.Auth.CheckUsername
     {
         public CheckUsernameValidator()
         {
-            RuleFor(model => model.Username).SetValidator(RegexValidator.Username);
+            RuleFor(model => model.Username)
+                .NotEmpty()
+                .WithValidationCode(ValidationCode.Empty);
         }
     }
 }
