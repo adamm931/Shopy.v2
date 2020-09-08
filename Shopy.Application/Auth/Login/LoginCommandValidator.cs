@@ -7,13 +7,8 @@ namespace Shopy.Application.Auth.Login
     {
         public LoginCommandValidator()
         {
-            RuleFor(command => command.Username)
-                .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
-
-            RuleFor(command => command.Password)
-                .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+            RuleFor(command => command.Username).SetValidator(RegexValidator.Username);
+            RuleFor(command => command.Password).SetValidator(RegexValidator.Password);
         }
     }
 }

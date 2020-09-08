@@ -9,7 +9,7 @@ namespace Shopy.Application.Products.Edit
         {
             RuleFor(model => model.ExternalId)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
         }
     }
 }

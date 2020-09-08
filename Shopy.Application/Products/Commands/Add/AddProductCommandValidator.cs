@@ -9,24 +9,24 @@ namespace Shopy.Application.Products.Add
         {
             RuleFor(model => model.Brand)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
 
             RuleFor(model => model.Sizes)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
 
             RuleFor(model => model.Name)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
 
             RuleFor(model => model.Description)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
 
             RuleFor(model => model.Price)
                 .NotEmpty()
                 .GreaterThanOrEqualTo(0m)
-                .WithValidationMessageCode(ValidationCode.Invalid);
+                .WithValidationCode(ValidationCode.Invalid);
         }
     }
 }

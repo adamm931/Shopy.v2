@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shopy.Api.Attributes;
+using Shopy.Application.Auth.CheckUsername;
 using Shopy.Application.Auth.Login;
 using Shopy.Application.Auth.Register;
 using Shopy.Application.Auth.Token;
@@ -28,6 +29,12 @@ namespace Shopy.Api.Controllers
         [Route("register")]
         [SwaggerResponse]
         public async Task<IActionResult> Register(RegisterCommand command)
+            => Ok(await Mediator.Send(command));
+
+        [HttpPost]
+        [Route("checkUsername")]
+        [SwaggerResponse]
+        public async Task<IActionResult> Register(CheckUsernameCommand command)
             => Ok(await Mediator.Send(command));
     }
 }

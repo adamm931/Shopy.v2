@@ -9,11 +9,11 @@ namespace Shopy.Application.Categories.Edit
         {
             RuleFor(command => command.ExternalId)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
 
             RuleFor(command => command.Name)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
         }
     }
 }

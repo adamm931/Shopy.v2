@@ -9,7 +9,7 @@ namespace Shopy.Application.Categories.Queries.Get
         {
             RuleFor(query => query.ExternalId)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
         }
     }
 }

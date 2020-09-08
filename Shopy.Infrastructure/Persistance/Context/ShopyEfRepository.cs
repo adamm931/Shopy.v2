@@ -57,6 +57,9 @@ namespace Shopy.Infrastructure.Persistance.Repository
         public async Task Remove(Guid externalId)
             => context.Set<TEntity>().Remove(await Get(externalId));
 
+        public async Task<bool> Any(ISpecification<TEntity> specification)
+            => await ApplySpec(specification).AnyAsync();
+
         private IQueryable<TEntity> ApplySpec<TSpec>(ISpecification<TEntity, TSpec> specification)
             where TSpec : ISpecification<TEntity, TSpec>
             => specification.Includes

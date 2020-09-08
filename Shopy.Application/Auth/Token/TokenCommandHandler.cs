@@ -8,9 +8,9 @@ namespace Shopy.Application.Auth.Token
 {
     public class TokenCommandHandler : IRequestHandler<TokenCommand, TokenResponse>
     {
-        private readonly IAuthProvider authProvider;
+        private readonly IAuthService authProvider;
 
-        public TokenCommandHandler(IAuthProvider authProvider)
+        public TokenCommandHandler(IAuthService authProvider)
         {
             this.authProvider = authProvider;
         }

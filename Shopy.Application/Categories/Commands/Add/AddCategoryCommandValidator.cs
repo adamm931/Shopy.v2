@@ -9,7 +9,7 @@ namespace Shopy.Application.Categories.Commands.Add
         {
             RuleFor(command => command.Name)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
         }
     }
 }

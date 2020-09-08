@@ -6,11 +6,11 @@ namespace Shopy.Domain.Entitties.ValueObjects
 {
     public class Password : ValueObject<Password>
     {
-        // TODO: Remove hardcoded services in value object
+        private static readonly IEncryption encryption = ServiceLocator.GetService<IEncryption>();
 
-        private readonly IEncryption encryption = ServiceLocator.GetService<IEncryption>();
+        private static readonly IEncoder encoder = ServiceLocator.GetService<IEncoder>();
 
-        private readonly IEncoder encoder = ServiceLocator.GetService<IEncoder>();
+        public const string Regex = @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$";
 
         public string Salt { get; private set; }
 
@@ -19,10 +19,7 @@ namespace Shopy.Domain.Entitties.ValueObjects
         public Password(string password)
         {
             Param.Ensure.NotNullOrEmpty(password, nameof(password));
-
-            const string passwordRegex = @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$";
-
-            Param.Ensure.RegexMatch(password, nameof(password), passwordRegex);
+            Param.Ensure.RegexMatch(password, nameof(password), Regex);
 
             var salt = encryption.GenerateSalt();
             var hash = encryption.Encrypt(password + salt);

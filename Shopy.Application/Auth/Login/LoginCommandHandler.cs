@@ -8,9 +8,9 @@ namespace Shopy.Application.Auth.Login
 {
     public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
     {
-        private readonly IAuthProvider authProvider;
+        private readonly IAuthService authProvider;
 
-        public LoginCommandHandler(IAuthProvider authProvider)
+        public LoginCommandHandler(IAuthService authProvider)
         {
             this.authProvider = authProvider;
         }

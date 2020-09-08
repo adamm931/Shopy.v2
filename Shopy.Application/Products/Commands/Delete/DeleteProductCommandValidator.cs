@@ -10,7 +10,7 @@ namespace Shopy.Application.Products.Delete
         {
             RuleFor(model => model.ExternalId)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
         }
     }
 }

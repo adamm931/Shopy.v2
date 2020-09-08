@@ -27,5 +27,7 @@ namespace Shopy.Domain.Data
         Task<IPagedList<TEntity>> PagedList(IPagedSpecification<TEntity> specification);
 
         Task<long> Count(ISpecification<TEntity> specification);
+
+        Task<bool> Any(ISpecification<TEntity> specification);
     }
 }

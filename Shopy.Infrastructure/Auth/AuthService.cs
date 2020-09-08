@@ -5,6 +5,7 @@ using Shopy.Application.Interfaces;
 using Shopy.Common.Interfaces;
 using Shopy.Domain.Data;
 using Shopy.Domain.Entitties;
+using Shopy.Domain.Specification;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -14,14 +15,14 @@ using System.Threading.Tasks;
 
 namespace Shopy.Infrastructure.Auth
 {
-    public class AuthProvider : IAuthProvider
+    public class AuthService : IAuthService
     {
         private readonly JwtOptions jwtOptions;
         private readonly IDateTime dateTime;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IRepository<UserCredentials> userCredentials;
 
-        public AuthProvider(
+        public AuthService(
             IOptions<JwtOptions> jwtOptions,
             IDateTime dateTime,
             IHttpContextAccessor httpContextAccessor,
@@ -39,11 +40,19 @@ namespace Shopy.Infrastructure.Auth
             .FindFirst(JwtRegisteredClaimNames.Sub)
             ?.Value;
 
-        public async Task<bool> Authenticate(string user, string password)
+        public async Task<bool> Authenticate(string username, string password)
         {
             var credentials = (await userCredentials.List()).ToList();
 
-            return credentials.Any(item => item.Challenge(user, password));
+            return credentials.Any(item => item.Challenge(username, password));
+        }
+
+        public async Task<bool> CheckUsername(string username)
+        {
+            var spec = new Specification<UserCredentials>()
+                .And(credentials => credentials.Username.Value == username);
+
+            return !await userCredentials.Any(spec);
         }
 
         public async Task<string> GenerateToken(string user)
@@ -56,7 +65,6 @@ namespace Shopy.Infrastructure.Auth
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-
             };
 
             var now = dateTime.Now;

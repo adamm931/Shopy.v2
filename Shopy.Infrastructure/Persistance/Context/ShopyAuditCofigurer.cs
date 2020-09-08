@@ -15,12 +15,12 @@ namespace Shopy.Infrastructure.Persistance.Context
     public class ShopyAuditCofigurer : IAuditConfigurer
     {
         private readonly IDateTime dateTime;
-        private readonly IAuthProvider authProvider;
+        private readonly IAuthService authProvider;
         private readonly IOptions<ShopyDatabaseOptions> dbOptions;
 
         public ShopyAuditCofigurer(
             IDateTime dateTime,
-            IAuthProvider authProvider,
+            IAuthService authProvider,
             IOptions<ShopyDatabaseOptions> dbOptions,
             IRepository<AuditLogEntry> auditLogEntries,
             IUnitOfWork unitOfWork)

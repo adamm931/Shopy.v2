@@ -9,7 +9,7 @@ namespace Shopy.Application.Categories.Delete
         {
             RuleFor(command => command.ExternalId)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
         }
     }
 }

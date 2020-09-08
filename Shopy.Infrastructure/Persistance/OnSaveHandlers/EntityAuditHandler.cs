@@ -9,10 +9,10 @@ namespace Shopy.Infrastructure.Persistance.OnSaveHandlers
 {
     internal class EntityAuditHandler : IOnSaveHandler
     {
-        private readonly IAuthProvider _authProvider;
+        private readonly IAuthService _authProvider;
         private readonly IDateTime _dateTime;
 
-        public EntityAuditHandler(IAuthProvider authProvider, IDateTime dateTime)
+        public EntityAuditHandler(IAuthService authProvider, IDateTime dateTime)
         {
             _authProvider = authProvider;
             _dateTime = dateTime;

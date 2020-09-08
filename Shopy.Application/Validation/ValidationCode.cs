@@ -3,13 +3,18 @@
     public enum ValidationCode
     {
         /// <summary>
-        /// The '{PropertyName}' is empty
+        /// Can't be null or empty
         /// </summary>
         Empty,
 
         /// <summary>
-        /// The '{PropertyName}' has invalid value of '{PropertyValue}'
+        /// Has invalid value
         /// </summary>
-        Invalid
+        Invalid,
+
+        /// <summary>
+        /// Doesn't meet requirments
+        /// </summary>
+        DoesntMeetRequirments
     }
 }

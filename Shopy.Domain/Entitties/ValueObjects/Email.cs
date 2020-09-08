@@ -5,13 +5,13 @@ namespace Shopy.Domain.Entitties.ValueObjects
 {
     public class Email : ValueObject<Email>
     {
+        public const string Regex = @"^\S+@\S+$";
+
         public string Value { get; private set; }
 
         public Email(string value)
         {
-            const string emailRegex = @"^\S+@\S+$";
-
-            Param.Ensure.RegexMatch(value, "username", emailRegex);
+            Param.Ensure.RegexMatch(value, "username", Regex);
 
             Value = value;
         }

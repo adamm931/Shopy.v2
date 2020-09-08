@@ -9,11 +9,11 @@ namespace Shopy.Application.Products.AddToCategory
         {
             RuleFor(model => model.CategoryExternalId)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
 
             RuleFor(model => model.ProductExternalId)
                 .NotEmpty()
-                .WithValidationMessageCode(ValidationCode.Empty);
+                .WithValidationCode(ValidationCode.Empty);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Shopy.Infrastructure.Installers
     {
         public void Install(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IAuthProvider, AuthProvider>();
+            services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IImageService, ImageService>();
             services.AddTransient<IDateTime, MachineDateTime>();
             services.AddTransient<IEncoder, Base64Encoder>();
