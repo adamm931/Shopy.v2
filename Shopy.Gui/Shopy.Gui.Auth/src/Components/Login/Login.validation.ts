@@ -1,6 +1,7 @@
 import { LoginState } from './Login.types';
 import { UsernameRegex, PasswordRegex } from "../../Common/RegexConstants"
 import * as Yup from 'yup'
+import { UsernameSchema, PasswordSchema } from '../../Common/ValidationSchemas';
 
 export const LoginInitialValues =
     {
@@ -10,10 +11,6 @@ export const LoginInitialValues =
 
 export const LoginValidationSchema =
     Yup.object().shape({
-        Username: Yup.string()
-            .matches(UsernameRegex, 'Username is invalid')
-            .required('Username is required'),
-        Password: Yup.string()
-            .matches(PasswordRegex, 'Password is invalid')
-            .required('Password is required'),
+        Username: UsernameSchema("Username"),
+        Password: PasswordSchema("Password"),
     })
