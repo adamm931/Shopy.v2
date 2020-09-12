@@ -15,11 +15,13 @@ const AuthRoute = ({ component: Component, isUserLogged, redirectTo, dispatch, .
 
     return <Route {...rest} render={props => {
 
-        if (isUserLogged) {
-            return <Component {...props} />
+        if (!isUserLogged) {
+            window.location.replace(process.env["REACT_APP_LOGIN_URL"])
         }
 
-        return <Redirect to={Routes.Root} />
+        return <Component {...props} />
+
+        // return <Redirect to={Routes.Root} />
     }} />
 }
 

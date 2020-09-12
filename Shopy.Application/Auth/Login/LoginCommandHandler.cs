@@ -16,9 +16,12 @@ namespace Shopy.Application.Auth.Login
         }
 
         public async Task<LoginResponse> Handle(LoginCommand command, CancellationToken cancellationToken)
-            => new LoginResponse
-            {
-                IsAuthenticated = await authProvider.Authenticate(command.Username, command.Password)
-            };
+        {
+            var isAuthenticated = await authProvider.Authenticate(command.Username, command.Password);
+
+            return isAuthenticated
+                ? new LoginResponse { IsAuthenticated = true, Token = await authProvider.GenerateToken(command.Username) }
+                : new LoginResponse { IsAuthenticated = false };
+        }
     }
 }

@@ -1,17 +1,8 @@
-import { BaseUrl, Compose } from './Urls'
 import axios from 'axios'
 
 class Client {
 
-    private baseUrl: string;
-
-    constructor(baseUrl: string) {
-        this.baseUrl = baseUrl;
-    }
-
-    async Post<TBody, TRespone = any>(relativeUrl: string, body: TBody): Promise<TRespone> {
-
-        const url = Compose(this.baseUrl, relativeUrl);
+    async Post<TRespone, TBody = any>(url: string, body: TBody): Promise<TRespone> {
 
         var response: TRespone = await axios
             .post(url, body)
@@ -23,4 +14,4 @@ class Client {
 
 }
 
-export default new Client(BaseUrl)
+export default new Client()

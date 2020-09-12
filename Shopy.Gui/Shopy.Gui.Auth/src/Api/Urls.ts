@@ -1,9 +1,10 @@
-export const BaseUrl = "https://localhost:44359/api/auth"
+const Compose = (base: string, relative: string) => `${base}/${relative}`
 
-export const LoginUrl = "login"
+const BaseUrl = "https://localhost:44359/api/auth"
 
-export const RegisterUrl = "register"
+export const LoginUrl = Compose(BaseUrl, "login")
 
-export const CheckUsernameUrl = "checkUsername"
+export const RegisterUrl = Compose(BaseUrl, "register")
 
-export const Compose = (base: string, relative: string) => `${base}/${relative}`
+export const CheckUsernameUrl = Compose(BaseUrl, "checkUsername")
+
