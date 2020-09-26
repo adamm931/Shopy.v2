@@ -13,27 +13,16 @@ import { IEditProductRequest } from './Requests/Products/IEditProductRequest';
 import { IProductListItem } from '../Service/Products/Models/IProductListItem';
 import { ProductsService } from '../Service/Products/ProductsService';
 import { IAddProductRequest } from './Requests/Products/IAddProductRequest';
-import { IAuthenticateRequest } from '../Service/Auth/Models/IAuthenticateRequest';
 import { RequestTypes } from './Requests/Base/RequestTypes';
 import { ILoginUserRequest } from './Requests/Login/ILoginUserRequest';
 import { all, put, takeLatest, call } from 'redux-saga/effects'
-import { AuthService } from '../Service/Auth/AuthService';
 import * as ActionFactory from './Actions/Factory/ActionFactory';
-import { IAuthenticateResponse } from '../Service/Auth/Models/IAuthenticateResponse';
 import { IProductsListRequest } from './Requests/Products/IProductsListRequest';
 import { Routes } from '../Enums/Routes';
 import { IAddProductToCategoryRequest } from './Requests/Products/IAddProductToCategoryRequest';
 import { IRemoveProductFromCategoryRequest } from './Requests/Products/IRemoveProductFromCategoryRequest';
 import { CategoriesListRequest } from './Requests/Categories/CategoriesListRequest';
 import { IPagedListApiModel } from '../Service/Api/IPagedListApiModel';
-
-function* WatchLoginUser() {
-    yield takeLatest(RequestTypes.LOGIN_USER, LoginUser)
-}
-
-function* WatchLogoutUser() {
-    yield takeLatest(RequestTypes.LOGOUT_USER, LogoutUser)
-}
 
 function* WatchProductAdd() {
     yield takeLatest(RequestTypes.ADD_PRODUCT, AddProduct)
@@ -93,29 +82,6 @@ function* WatchCategoryGet() {
 
 function* WatchCategoryDelete() {
     yield takeLatest(RequestTypes.DELETE_CATEGORY, DeleteCategory)
-}
-
-function* LoginUser(request: ILoginUserRequest) {
-
-    var authService = new AuthService();
-    var payload = request.Payload;
-    var loginRequest = {
-        Username: payload.Username,
-        Password: payload.Password
-    } as IAuthenticateRequest
-
-    var authenticateResponse: IAuthenticateResponse = yield call(() => authService.AuthenticateAsync(loginRequest));
-
-    if (authenticateResponse.IsAuthenticated) {
-        yield put(ActionFactory.UserLogedIn());
-        yield put(ActionFactory.Redirect(Routes.Products.Root))
-    }
-}
-
-function* LogoutUser() {
-    var authService = new AuthService();
-    authService.LogoutUser();
-    yield put(ActionFactory.Redirect(Routes.Root))
 }
 
 function* AddProduct(request: IAddProductRequest) {
@@ -202,8 +168,6 @@ function* DeleteCategory(request: DeleteCategoryRequest) {
 
 export function* Watch() {
     yield all([
-        WatchLoginUser(),
-        WatchLogoutUser(),
         WatchProductAdd(),
         WatchProductList(),
         WatchProductEdit(),

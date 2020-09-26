@@ -1,20 +1,9 @@
-import { AuthService } from './../Service/Auth/AuthService';
 import { ActionTypes } from './Actions/Base/ActionTypes';
 import { IActions } from './Actions/Base/Actions';
 import { IShopyState, InitialState } from './ShopyState';
 
-const authService = new AuthService();
-
 export const ShopyReducer = (state: IShopyState = InitialState, action: IActions): IShopyState => {
     switch (action.type) {
-        case ActionTypes.USER_LOGED_IN: {
-
-            authService.LoginUser();
-            return {
-                ...state,
-                IsUserLogged: true
-            }
-        }
         case ActionTypes.PRODUCT_LIST: {
             return {
                 ...state,
@@ -38,18 +27,6 @@ export const ShopyReducer = (state: IShopyState = InitialState, action: IActions
                     Items: items
                 }
             };
-        }
-        case ActionTypes.REDIRECT: {
-            return {
-                ...state,
-                RedirectTo: action.Payload.Url
-            }
-        }
-        case ActionTypes.CLEAR_REDIRECT: {
-            return {
-                ...state,
-                RedirectTo: undefined
-            }
         }
         case ActionTypes.CATEGORIES_LOOKUP: {
             return {

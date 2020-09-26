@@ -1,41 +1,10 @@
 import React from 'react'
-import { Redirect, Route } from 'react-router';
-import { connect } from 'react-redux'
-import { Routes } from '../../Enums/Routes';
-import { AuthService } from '../../Service/Auth/AuthService';
-import { HistoryUtils } from '../../Utils/HistoryUtils';
-import * as ActionFactory from '../../State/Actions/Factory/ActionFactory'
+import { Route } from 'react-router';
+import { EnviromentUtils } from '../../Utils/EnviromentUtils'
+import { AuthUtils } from '../../Utils/AuthUtils'
 
-const AuthRoute = ({ component: Component, isUserLogged, redirectTo, dispatch, ...rest }) => {
-
-    if (redirectTo !== undefined) {
-        HistoryUtils.Redirect(redirectTo)
-        dispatch(ActionFactory.ClearRedirect())
-    }
-
-    return <Route {...rest} render={props => {
-
-        if (!isUserLogged) {
-            window.location.replace(process.env["REACT_APP_LOGIN_URL"])
-        }
-
-        return <Component {...props} />
-
-        // return <Redirect to={Routes.Root} />
-    }} />
-}
-
-const mapStateToProps = (state) => {
-
-    let props = {
-        isUserLogged: new AuthService().IsUserLogged()
-    };
-
-    if (state !== undefined) {
-        props.redirectTo = state.RedirectTo
-    }
-
-    return props
-}
-
-export default connect(mapStateToProps)(AuthRoute)
+export const AuthRoute = ({ component: Component, ...rest }) => <Route {...rest} render={props => {
+    return AuthUtils.IsAuthenticated
+        ? <Component {...props} />
+        : window.location.replace(EnviromentUtils.LoginUrl);
+}} />

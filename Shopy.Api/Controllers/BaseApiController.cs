@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shopy.Api.Common;
 using Shopy.Common;
 
 namespace Shopy.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Consumes(ApiConstants.ApplicationJson)]
     [Produces(ApiConstants.ApplicationJson)]

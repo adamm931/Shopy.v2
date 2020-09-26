@@ -1,70 +1,64 @@
-import { IKeyValue } from './../../Components/Shared/Types/IKeyValue';
 import { Header } from './Header';
 import IShopyClient from './IShopyClient'
 import axios, { AxiosRequestConfig } from 'axios'
 import { HttpMethod } from './HttpMethod';
+import { EnviromentUtils } from '../../Utils/EnviromentUtils';
+import { AuthUtils } from '../../Utils/AuthUtils';
 
 export async function Get<TResult>(path: string): Promise<TResult> {
-    return await ShopyClient.Create().Get(path);
+    return await ShopyClient.Instance.Get(path);
 }
 
 export async function Post<TResult, TRequest>(path: string, body: TRequest): Promise<TResult> {
-    return await ShopyClient.Create().Post(path, body);
+    return await ShopyClient.Instance.Post(path, body);
 }
 
 export async function Put<TResult, TRequest>(path: string, body: TRequest): Promise<TResult> {
-    return await ShopyClient.Create().Put(path, body);
+    return await ShopyClient.Instance.Put(path, body);
 }
 
 export async function Delete<TResult>(path: string): Promise<TResult> {
-    return await ShopyClient.Create().Delete(path);
+    return await ShopyClient.Instance.Delete(path);
 }
 
 class ShopyClient implements IShopyClient {
 
     private header: Header
     private baseAddress: string
+    private token: string
 
-    private constructor(baseAddress: string) {
+    private constructor(baseAddress: string, token: string) {
         this.baseAddress = baseAddress;
+        this.token = token
         this.header = new Header()
     }
 
-    AddHeader(headers: IKeyValue[]): void {
-
-        headers.forEach(header => {
-            this.header.AddEntry(header.Key, header.Value)
-        });
-
-    }
-
-    public static Create(): IShopyClient {
-        return new ShopyClient(process.env.REACT_APP_API_ADDRESS as string);
-    }
+    public static Instance: IShopyClient = new ShopyClient(EnviromentUtils.ApiBaseUrl, AuthUtils.GetToken())
 
     async Get<TResult>(path: string): Promise<TResult> {
-        return await this.request<TResult>(HttpMethod.Get, path);
+        return await this.PerformRequest<TResult>(HttpMethod.Get, path);
     }
 
     async Post<TResult, TRequest>(path: string, body: TRequest): Promise<TResult> {
-        return await this.request<TResult>(HttpMethod.Post, path, body);
+        return await this.PerformRequest<TResult>(HttpMethod.Post, path, body);
     }
 
     async Put<TResult, TRequest>(path: string, body: TRequest): Promise<TResult> {
-        return await this.request<TResult>(HttpMethod.Put, path, body);
+        return await this.PerformRequest<TResult>(HttpMethod.Put, path, body);
     }
 
     async Delete<TResult>(path: string): Promise<TResult> {
-        return await this.request<TResult>(HttpMethod.Delete, path);
+        return await this.PerformRequest<TResult>(HttpMethod.Delete, path);
     }
 
-    async request<TResult, TRequest = {}>(
+    async PerformRequest<TResult, TRequest = {}>(
         method: HttpMethod,
         path: string,
         data: TRequest = {} as any): Promise<TResult> {
         try {
 
             this.header.AddEntry("Content-Type", "application/json")
+            this.header.AddEntry("Authorization", `Bearer ${this.token}`)
 
             let request: AxiosRequestConfig = {
                 data: data,
@@ -73,7 +67,9 @@ class ShopyClient implements IShopyClient {
                 headers: this.header.Raw()
             };
 
-            const response = await this.createClient().request(request);
+            const client = axios.create({ baseURL: this.baseAddress })
+            const response = await client.request(request);
+
             return response.data as TResult;
         }
         catch (error) {
@@ -81,9 +77,4 @@ class ShopyClient implements IShopyClient {
             throw error;
         }
     }
-
-    createClient = () => axios.create({
-        baseURL: this.baseAddress,
-    })
-
 }

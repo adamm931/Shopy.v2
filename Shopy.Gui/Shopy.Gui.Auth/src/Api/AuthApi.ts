@@ -1,9 +1,9 @@
-import { LoginResponse } from '../Models/LoginResponse';
-import { CheckUsernameResponse } from '../Models/CheckUsernameResponse';
-import { CheckUsernameUrl, RegisterUrl, LoginUrl } from '../Urls';
-import Client from '../Client'
+import { LoginResponse } from './Models/LoginResponse';
+import { CheckUsernameResponse } from './Models/CheckUsernameResponse';
+import { CheckUsernameUrl, RegisterUrl, LoginUrl } from './Urls';
+import Client from './Client'
 
-class AuthHelper {
+class AuthApi {
 
     public async CheckUsername(username: string): Promise<CheckUsernameResponse> {
         return await Client.Post<CheckUsernameResponse>(CheckUsernameUrl, {
@@ -27,4 +27,4 @@ class AuthHelper {
     }
 }
 
-export default new AuthHelper()
+export default new AuthApi()

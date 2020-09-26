@@ -4,7 +4,6 @@ import { AuthForm } from '../Shared/AuthForm/AuthForm'
 import { LoginInitialValues, LoginValidationSchema } from './Login.validation'
 import { AuthField } from '../Shared/AuthField/AuthField'
 import { AuthFieldType, AuthFieldIconType } from '../Shared/AuthField/AuthField.types'
-import { Link } from 'react-router-dom'
 import { AuthFormActions } from '../Shared/AuthFormActions/AuthFormActions'
 
 export const Login: React.FC<LoginDispatch> = (props: LoginDispatch) =>

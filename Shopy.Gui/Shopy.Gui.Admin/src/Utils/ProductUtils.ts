@@ -1,4 +1,6 @@
+import { EndOfLineState } from 'typescript';
 import { IKeyValue } from './../Components/Shared/Types/IKeyValue';
+import { EnviromentUtils } from './EnviromentUtils';
 
 export class ProductUtils {
 
@@ -52,7 +54,7 @@ export class ProductUtils {
 
     public static GetImageUrl = (index: number, externalId: string): string =>
         externalId === undefined
-            ? (process.env.REACT_APP_DEFAULT_IMAGE_URL || '')
-            : `${process.env.REACT_APP_IMAGE_ROOT}/${externalId}/${index}.png`
+            ? EnviromentUtils.DefaultImageUrl
+            : `${EnviromentUtils.ImageRootDirectoryUrl}/${externalId}/${index}.png`
 
 }
