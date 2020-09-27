@@ -6,7 +6,7 @@ import { IProductEditProps } from './Types/IProductEditProps'
 import { IProductEditDispatch } from './Types/IProductEditDisptach'
 import * as RequestFactory from '../../State/Requests/Factory/RequestFactory'
 import { RouteComponentProps } from 'react-router-dom';
-import { RouteUtils } from '../../Utils/RouterUtils'
+import { UriUtils } from '../../Utils/UriUtils'
 
 type Props = IProductEditDispatch & IProductEditProps & RouteComponentProps
 
@@ -19,7 +19,7 @@ class ProductEdit extends React.Component<Props, IProductEditProps> {
     }
 
     componentDidMount() {
-        this.props.RequestGetProduct(RouteUtils.GetIdParam(this.props));
+        this.props.RequestGetProduct(UriUtils.ReadId(this.props));
     }
 
     componentWillReceiveProps(nextProps: IProductEditProps) {
@@ -34,7 +34,7 @@ class ProductEdit extends React.Component<Props, IProductEditProps> {
 
         return (
             <ProductForm
-                ExternalId={RouteUtils.GetIdParam(this.props)}
+                ExternalId={UriUtils.ReadId(this.props)}
                 Name={this.state.Name}
                 Description={this.state.Description}
                 Price={this.state.Price}

@@ -1,4 +1,4 @@
-import { FormType } from '../../../Enums/FormType'
+import { FormType } from '../../../Common/FormTypes'
 
 export interface CategoryFormProps {
     ExternalId?: string

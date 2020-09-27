@@ -1,0 +1,1 @@
+export const RedirectToUrl = (url: string) => window.location.replace(url)

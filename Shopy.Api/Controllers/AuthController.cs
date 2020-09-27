@@ -27,7 +27,7 @@ namespace Shopy.Api.Controllers
 
         [HttpPost]
         [Route("register")]
-        [SwaggerResponse]
+        [SwaggerResponse(typeof(RegisterCommandResponse))]
         public async Task<IActionResult> Register(RegisterCommand command)
             => Ok(await Mediator.Send(command));
 

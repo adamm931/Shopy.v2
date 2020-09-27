@@ -8,7 +8,7 @@ import * as RequestFactory from '../../State/Requests/Factory/RequestFactory'
 import { connect } from 'react-redux';
 import { IShopyState } from '../../State/ShopyState';
 import { RouteComponentProps } from 'react-router-dom';
-import { RouteUtils } from '../../Utils/RouterUtils';
+import { UriUtils } from '../../Utils/UriUtils';
 
 type Props = IProductChangeCategoriesProps & IProductChangeCategoriesDispatch & RouteComponentProps
 
@@ -21,7 +21,7 @@ class ProductChangeCategories extends React.Component<Props, IProductChangeCateg
             SelectedCategoryUid: '',
             AvailableCategories: [],
             ProductCategories: [],
-            ProductExternalId: RouteUtils.GetIdParam(props)
+            ProductExternalId: UriUtils.ReadId(props)
         }
 
         this.props.CategoriesLookup();
@@ -145,7 +145,7 @@ const mapDispatachToProps = (dispatch: any, routeProps: RouteComponentProps): IP
     RemoveFrom: (productExternalId: string, categoryExternalId: string) => dispatch(RequestFactory.RemoveProductFromCategory(productExternalId, categoryExternalId)),
     AddTo: (productExternalId: string, categoryExternalId: string) => dispatch(RequestFactory.AddProductToCategory(productExternalId, categoryExternalId)),
     CategoriesLookup: () => dispatch(RequestFactory.LookupCategories()),
-    GetProductCategories: () => dispatch(RequestFactory.GetProductCategories(RouteUtils.GetIdParam(routeProps)))
+    GetProductCategories: () => dispatch(RequestFactory.GetProductCategories(UriUtils.ReadId(routeProps)))
 })
 
 export default connect(mapStateToProps, mapDispatachToProps)(ProductChangeCategories);

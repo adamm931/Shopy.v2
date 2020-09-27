@@ -1,10 +1,10 @@
 import React from 'react'
 import CategoryForm from './CategoryForm'
-import { FormType } from '../../Enums/FormType'
+import { FormType } from '../../Common/FormTypes'
 import { IShopyState } from '../../State/ShopyState'
 import { CategoryEditDispatch } from './Types/CategoryEditDispatch'
 import { CategoryEditProps } from './Types/CategoryEditProps'
-import { RouteUtils } from '../../Utils/RouterUtils'
+import { UriUtils } from '../../Utils/UriUtils'
 import { RouteComponentProps } from 'react-router'
 import * as RequestFactory from '../../State/Requests/Factory/RequestFactory'
 import { connect } from 'react-redux'
@@ -32,7 +32,7 @@ class CategoryEdit extends React.Component<Props, CategoryEditState> {
     }
 
     componentDidMount() {
-        this.props.GetCategory(RouteUtils.GetIdParam(this.props))
+        this.props.GetCategory(UriUtils.ReadId(this.props))
     }
 
     render() {

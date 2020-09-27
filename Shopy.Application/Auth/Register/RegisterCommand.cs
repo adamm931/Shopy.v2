@@ -2,7 +2,7 @@
 
 namespace Shopy.Application.Auth.Register
 {
-    public class RegisterCommand : ICommand
+    public class RegisterCommand : ICommand<RegisterCommandResponse>
     {
         public string Username { get; set; }
 

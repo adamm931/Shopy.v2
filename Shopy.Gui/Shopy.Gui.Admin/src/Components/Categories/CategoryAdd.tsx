@@ -1,6 +1,6 @@
 import React from 'react'
 import CategoryForm from './CategoryForm'
-import { FormType } from '../../Enums/FormType'
+import { FormType } from '../../Common/FormTypes'
 import { connect } from 'react-redux'
 
 class CategoryAdd extends React.Component<{}> {

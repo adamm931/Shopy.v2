@@ -186,4 +186,8 @@ body > .container {
     max-width: 680px;
     padding: 0 15px;
 }
+
+.logout {
+  cursor: pointer;
+}
 /* end */

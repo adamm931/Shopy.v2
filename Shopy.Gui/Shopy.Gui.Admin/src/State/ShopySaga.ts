@@ -18,7 +18,7 @@ import { ILoginUserRequest } from './Requests/Login/ILoginUserRequest';
 import { all, put, takeLatest, call } from 'redux-saga/effects'
 import * as ActionFactory from './Actions/Factory/ActionFactory';
 import { IProductsListRequest } from './Requests/Products/IProductsListRequest';
-import { Routes } from '../Enums/Routes';
+import { Routes } from '../Common/Routes';
 import { IAddProductToCategoryRequest } from './Requests/Products/IAddProductToCategoryRequest';
 import { IRemoveProductFromCategoryRequest } from './Requests/Products/IRemoveProductFromCategoryRequest';
 import { CategoriesListRequest } from './Requests/Categories/CategoriesListRequest';

@@ -1,3 +1,4 @@
+import { RegisterResponse } from './Models/RegisterResponse';
 import { LoginResponse } from './Models/LoginResponse';
 import { CheckUsernameResponse } from './Models/CheckUsernameResponse';
 import { CheckUsernameUrl, RegisterUrl, LoginUrl } from './Urls';
@@ -18,8 +19,8 @@ class AuthApi {
         })
     }
 
-    public async Register(username: string, email: string, password: string) {
-        return await Client.Post(RegisterUrl, {
+    public async Register(username: string, email: string, password: string): Promise<RegisterResponse> {
+        return await Client.Post<RegisterResponse>(RegisterUrl, {
             Username: username,
             Email: email,
             Password: password,

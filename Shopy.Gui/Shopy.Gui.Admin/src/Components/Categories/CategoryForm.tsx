@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { CategoryFormProps } from "./Types/CategoryFormProps";
 import { CategoryFormDispatch } from "./Types/CategoryFormDispatch";
-import { FormType } from "../../Enums/FormType";
+import { FormType } from "../../Common/FormTypes";
 import * as RequestFactory from '../../State/Requests/Factory/RequestFactory'
 
 type Props = CategoryFormProps & CategoryFormDispatch
